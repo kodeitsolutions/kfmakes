@@ -5,7 +5,6 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Agregar componente</h4>
         </div>
 
@@ -63,8 +62,7 @@
       <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Eliminar Componente</h4>
+              <h4 class="modal-title">Eliminar Componente</h4>
             </div>
             <div class="modal-body">
               <p>¿Está seguro que desea eliminar el componente?</p>
@@ -88,7 +86,6 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Editar componente</h4>
         </div>
           
@@ -134,7 +131,6 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Buscar componente</h4>
         </div>
           
@@ -172,7 +168,7 @@
   <div class="col-md-12 row">
     @if($errors->any())
         <div class="alert alert-danger">
-          <strong>Campos requeridos</strong>
+          <strong>El formulario tiene un error</strong>
         </div>
     @endif
   </div>

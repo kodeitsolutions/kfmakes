@@ -92,7 +92,7 @@
 
     </div>
     
-    @if (!Auth::guest())
+    @if (Auth::check())
         @include('navigation')
     @endif
     

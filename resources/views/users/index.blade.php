@@ -5,7 +5,6 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		            <h4 class="modal-title">Agregar Usuario</h4>
 		        </div>
 
@@ -61,7 +60,6 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
         			<h4 class="modal-title">Eliminar usuario</h4>
 				</div>
 				<div class="modal-body">
@@ -86,7 +84,6 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
         			<h4 class="modal-title">Editar usuario</h4>
 				</div>
 				
@@ -119,8 +116,7 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		              <h4 class="modal-title">Buscar tipo</h4>
+		            <h4 class="modal-title">Buscar tipo</h4>
 		        </div>
 	        	
 	        	<form method="GET" action="/user/search">
@@ -157,8 +153,7 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		              <h4 class="modal-title">Resetear contraseña</h4>
+		            <h4 class="modal-title">Resetear contraseña</h4>
 		        </div>
 	        	
 	        	<form method="POST" action="" id="reset">
@@ -201,7 +196,7 @@
 	<div class="col-md-12 row">
 	    @if($errors->any())
 	        <div class="alert alert-danger">
-	          	<strong>Campos requeridos</strong>
+	          	<strong>El formulario tiene un error</strong>
 	        </div>
 	    @endif
 	</div>

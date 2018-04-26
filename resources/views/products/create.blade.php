@@ -34,7 +34,7 @@
 		<div class="col-md-12 row">
 		    @if($errors->any())
 		        <div class="alert alert-danger">
-		        	<strong>Campos requeridos</strong>
+		        	<strong>El formulario tiene un error</strong>
 		        </div>
 		    @endif
 	    </div>
