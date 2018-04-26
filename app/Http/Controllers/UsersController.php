@@ -135,4 +135,27 @@ class UsersController extends Controller
             return view('users.index', compact('users'));
         }
     }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        //dd($request);
+        $this->validate($request,[
+            'password' => 'required|min:5|max:20|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $password = bcrypt($request->password);
+        $user->password = $password;
+
+        $saved = $user->save();
+
+        if ($saved) {
+            $request->session()->flash('flash_message', 'Contraseña modificada.');
+        }
+        else {
+            $request->session()->flash('flash_message_not', 'No se pudo modificar la contraseña.');
+        }
+
+        return redirect('user');
+    }
 }
