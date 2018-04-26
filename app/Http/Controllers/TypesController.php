@@ -46,9 +46,11 @@ class TypesController extends Controller
         //dd($request);
         $this->validate($request, [
             'name' => 'required|max:191|unique:types,deleted_at,NULL',
-            'kind' => 'required|max:191'
+            'kind' => 'required|max:191',
+            'name' => 'unique:types,name,NULL,id,kind,'.$request->kind
         ]);
 
+        
         $type = new Type($request->all());       
 
         $type->user_id = Auth::id();
@@ -61,7 +63,7 @@ class TypesController extends Controller
             $request->session()->flash('flash_message_not', 'No se pudo crear el tipo.');
         }
         
-        return redirect('type');
+        return redirect('type');  
     }
 
     /**
@@ -104,8 +106,8 @@ class TypesController extends Controller
     {
         //
         $this->validate($request, [
-            'name' => ['required','max:191',Rule::unique('types')->ignore($type->id)],
-            'kind' => 'required|max:191'
+            'name' => 'required|max:191|unique:types,name,'.$type->id.',id,kind,'.$request->kind,
+            'kind' => 'required|max:191',
         ]);
 
         $data = $request->all();        

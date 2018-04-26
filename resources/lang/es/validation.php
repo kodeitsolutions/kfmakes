@@ -110,6 +110,7 @@ return [
         ],
         'name' => [
             'required' => 'El campo nombre es obligatorio.',
+            'unique' => 'Este nombre ya ha sido registrado para el tipo seleccionado.'
         ],
         'cost' => [
             'required' => 'El campo costo es obligatorio.',
