@@ -153,22 +153,26 @@ class TypesController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $this->validate($request, [
-            'search' => 'required',
-            'value' => 'required'
-        ]);
-
+    {        
         $parameter = $request->search;
         $query = $request->value;
 
-        $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->get();
-        
+        if ($parameter == '' && $query == '') {
+            $types = Type::all();
+        } 
+        elseif ($parameter == '' && $query != '') {
+            $types = Type::where('kind','LIKE', $query . '%')
+                ->orWhere('name','LIKE', $query . '%')->get();
+        } 
+        else {
+            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->get();            
+        }
+
         if($types->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
         }
         else {
             return view('types.index', compact('types'));
-        }
+        }            
     }
 }

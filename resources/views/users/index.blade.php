@@ -197,6 +197,9 @@
 	    @if($errors->any())
 	        <div class="alert alert-danger">
 	          	<strong>El formulario tiene un error</strong>
+	          	@foreach ($errors->all() as $error)
+		        	<li>{{ $error }}</li>
+		        @endforeach
 	        </div>
 	    @endif
 	</div>

@@ -140,7 +140,7 @@
             <div class="modal-body form-group">  
               <div class="form-group ">
                 <label>Buscar por:</label>
-                <select  id="search" class="form-control input-sm" name="search" required>
+                <select  id="search" class="form-control input-sm" name="search">
                   <option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>                  
                   <option value="type">Tipo</option>
                   <option value="name">Nombre</option>
@@ -149,7 +149,7 @@
               </div>  
 
               <div class="form-group">
-                <input type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Buscar...">
+                <input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
               </div>           
             </div>
 

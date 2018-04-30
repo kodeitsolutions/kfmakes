@@ -46,7 +46,8 @@ class ComponentsController extends Controller
         $this->validate($request, [
             'type_id' => 'required',
             'name' => 'required|max:191|unique:components,deleted_at,NULL',
-            'cost' => 'required'
+            'cost' => 'required',
+            'name' => 'unique:components,name,NULL,id,type_id,'.$request->type_id
         ]);
 
         $component = new Component($request->all());       
@@ -105,7 +106,7 @@ class ComponentsController extends Controller
         //
         $this->validate($request, [
             'type_id' => 'required',
-            'name' => ['required','max:191',Rule::unique('components')->ignore($component->id)],
+            'name' => 'required|max:191|unique:components,name,'.$component->id.',id,type_id,'.$request->type_id,
             'cost' => 'required'
         ]);
 
@@ -153,30 +154,34 @@ class ComponentsController extends Controller
 
     public function search(Request $request)
     {
-        //dd($request);
-        $this->validate($request, [
-            'search' => 'required',
-            'value' => 'required'
-        ]);
-
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == 'type') {
-            # code...
-            $type = Type::where('name','LIKE', '%' . $query . '%')->first();            
-            $components = Component::where('type_id',$type->id)->get();
-            //dd($components);
-        } else {
-            $components = Component::where($parameter, 'LIKE', '%' . $query . '%')->get();
-        }        
-        
+        if ($parameter == '' && $query == '') {
+            $components = Component::all();
+        } 
+        elseif ($parameter == '' && $query != '') {
+            $components = Component::where('name','LIKE', $query . '%')
+                ->orWhere('cost','LIKE', $query . '%')
+                ->orwhereHas('type', function ($q) use ($query){
+                    $q->where('name','LIKE', '%' . $query . '%');
+                })->get();
+        }
+        elseif ($parameter == 'type') {
+            $components = Component::whereHas('type', function ($q) use ($query){
+                $q->where('name','LIKE', '%' . $query . '%');
+            })->get();
+        }
+        else {
+            $components = Component::where($parameter, 'LIKE', '%' . $query . '%')->get();        
+        }
+
         if($components->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
         }
         else {
             $types = Type::all();
             return view('components.index', compact('components','types'));
-        }
+        }           
     }
 }

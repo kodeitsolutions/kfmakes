@@ -117,16 +117,19 @@ class UsersController extends Controller
 
     public function search(Request $request)
     {
-        //dd($request);
-        $this->validate($request, [
-            'search' => 'required',
-            'value' => 'required'
-        ]);
-
         $parameter = $request->search;
         $query = $request->value;
 
-        $users = User::where($parameter, 'LIKE', '%' . $query . '%')->get();
+        if ($parameter == '' && $query == '') {
+            $users = User::all();
+        } 
+        elseif ($parameter == '' && $query != '') {
+            $users = User::where('name','LIKE', $query . '%')
+                ->orWhere('email','LIKE', $query . '%')->get();
+        }
+        else {
+            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->get();
+        }
         
         if($users->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');

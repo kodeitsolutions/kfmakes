@@ -125,7 +125,7 @@
 		            <div class="modal-body form-group">  
 		               	<div class="form-group ">
 			                <label>Buscar por:</label>
-            				<select  id="search" class="form-control input-sm" name="search" required>
+            				<select  id="search" class="form-control input-sm" name="search">
 			            		<option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>
 			            		<option value="kind">Tipo</option>
 			            		<option value="name">Nombre</option>
@@ -153,8 +153,16 @@
 	    @if($errors->any())
 	        <div class="alert alert-danger">
 	          	<strong>El formulario tiene un error</strong>
+		        @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	          	{{--<script type="text/javascript">
+				   //$('#myModalAdd').modal('show');
+					jQuery(function($){ $(".modal").show(); })
+				</script>--}}
 	        </div>
 	    @endif
+	    
 	</div>
 
 	<div class="col-md-12 row button-table" align="right">        	
@@ -199,7 +207,7 @@
         var button = $(event.relatedTarget); 
         var type_id = button.data('id');
 
-        modalEdit("type",type_id);
+       modalEdit("type",type_id);
     });       
   </script>
 @endsection

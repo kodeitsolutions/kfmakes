@@ -61,7 +61,7 @@ class ProductsController extends Controller
         $product->name = $request->name;
         $product->user_id = Auth::id();
 
-        $product->save();
+        $saved = $product->save();
 
         foreach ($request->except(['_method','_token','type_id','name']) as $key => $value) {
             if (!is_null($value)) {
@@ -199,19 +199,27 @@ class ProductsController extends Controller
 
     public function search(Request $request)
     {
-        //dd($request);
-        $this->validate($request, [
-            'search' => 'required',
-            'value' => 'required'
-        ]);
+        $parameter = $request->search;
+        $query = $request->value;
 
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == 'type') {
-            $type = Type::where('name','LIKE', '%' . $query . '%')->first();            
-            $products = Product::where('type_id',$type->id)->get();
-            //dd($components);
+        if ($parameter == '' && $query == '') {
+            $products = Product::all();
+        } 
+        elseif ($parameter == '' && $query != '') {
+            $products = Product::where('name','LIKE', $query . '%')
+                ->orWhere('cost_EKF','LIKE', $query . '%')
+                ->orWhere('cost_KFD','LIKE', $query . '%')
+                ->orWhereHas('type', function ($q) use ($query){
+                    $q->where('name','LIKE', '%' . $query . '%');
+                })->get();
+        }
+        elseif ($parameter == 'type') {
+            $products = Product::whereHas('type', function ($q) use ($query){
+                $q->where('name','LIKE', '%' . $query . '%');
+            })->get();
         }
         elseif ($parameter == 'cost') {
             $products = Product::where('cost_EKF','LIKE', $query . '%')

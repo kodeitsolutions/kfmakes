@@ -35,6 +35,9 @@
 		    @if($errors->any())
 		        <div class="alert alert-danger">
 		        	<strong>El formulario tiene un error</strong>
+			        @foreach ($errors->all() as $error)
+		            	<li>{{ $error }}</li>
+		         	@endforeach
 		        </div>
 		    @endif
 	    </div>
@@ -45,9 +48,12 @@
 			  <div class="card">
 			    <div class="card-header" id="heading{{ $type_component->id }}">
 			      <h5 class="mb-0">
-			        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $type_component->id }}" aria-expanded="true" aria-controls="collapse{{ $type_component->id }}">
-			          {{ $type_component->name }}
-			        </button>
+			        {{--<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $type_component->id }}" aria-expanded="true" aria-controls="collapse{{ $type_component->id }}">
+			        			        			          {{ $type_component->name }} <span class="glyphicon glyphicon-chevron-up pull-right"></span>
+			        			        			        </button>--}}
+			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}">
+			        	{{ $type_component->name }}<span class="glyphicon glyphicon-chevron-down pull-right"></span>
+			        </a>
 			      </h5>
 			    </div>
 

@@ -140,8 +140,8 @@
             <div class="modal-body form-group">  
               <div class="form-group ">
                 <label>Buscar por:</label>
-                <select  id="search" class="form-control input-sm" name="search" required>
-                  <option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>                  
+                <select  id="search" class="form-control input-sm" name="search" >
+                  <option value="" selected disabled>Seleccione el parámetro de búsqueda</option>                  
                   <option value="type">Tipo</option>
                   <option value="name">Nombre</option>
                   <option value="cost">Costo</option>
@@ -169,6 +169,9 @@
     @if($errors->any())
         <div class="alert alert-danger">
           <strong>El formulario tiene un error</strong>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
         </div>
     @endif
   </div>
