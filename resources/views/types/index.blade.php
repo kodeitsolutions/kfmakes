@@ -14,27 +14,18 @@
 
 					<div class="modal-body form-group">  
 
-			            <div class="form-group {{ $errors->has('kind') ? ' has-error' : '' }}">
+			            <div class="form-group">
 			                <label class="control-label c">Tipo:</label>
 			            	<select id="kind" class="form-control input-sm" name="kind" required>
 			          			<option value="" selected disabled>Seleccione el tipo:</option>
 			          			<option value="Componente">Componente</option>
 			          			<option value="Pieza">Pieza</option>
-			          		</select>			                
-
-			                @if ($errors->has('kind'))
-			                    <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
-			                @endif
+			          		</select>
 			            </div>
 
-			            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+			            <div class="form-group">
 			                <label class="control-label">Nombre:</label>
-			                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Ingrese el nombre." required autofocus>	
-			                
-
-			                @if ($errors->has('name'))
-			                    <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
-			                @endif
+			                <input type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
 			            </div>
 			        </div>
 
@@ -133,7 +124,7 @@
 			            </div>  
 
 			            <div class="form-group">
-		                	<input type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Buscar...">
+		                	<input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
 		              	</div>           
 					</div>
 
@@ -156,10 +147,6 @@
 		        @foreach ($errors->all() as $error)
 	                <li>{{ $error }}</li>
 	            @endforeach
-	          	{{--<script type="text/javascript">
-				   //$('#myModalAdd').modal('show');
-					jQuery(function($){ $(".modal").show(); })
-				</script>--}}
 	        </div>
 	    @endif
 	    

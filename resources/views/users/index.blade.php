@@ -12,31 +12,19 @@
                     {{ csrf_field() }}
 					
 					<div class="modal-body form-group">  
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label class="control-label">Nombre:</label>
-							<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                            @if ($errors->has('name'))
-                                <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
-                            @endif
+							<input id="name" type="text" class="form-control" name="name" value="" required autofocus>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="email" class=" control-label">E-Mail:</label>
-							<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                            @if ($errors->has('email'))
-                                <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
-                            @endif
+							<input id="email" type="email" class="form-control" name="email" value="" required>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="password" class="control-label">Contraseña:</label>
 							<input id="password" type="password" class="form-control" name="password" required>
-
-                            @if ($errors->has('password'))
-                                <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
-                            @endif
                         </div>
 
                         <div class="form-group">
@@ -93,11 +81,11 @@
 						<div class="modal-body">
 							<div class="form-group">
 					            <label class="control-label">Nombre:</label>
-					            <input id="name-edit" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+					            <input id="name-edit" type="text" class="form-control" name="name" value="" required autofocus>
 					        </div>
 					        <div class="form-group">
 					            <label class="control-label">E-Mail:</label>
-					     		<input id="email-edit" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+					     		<input id="email-edit" type="email" class="form-control" name="email" value="" required>
 					        </div>					        
 				        </div>
 				        <div class="modal-footer form-group">
@@ -125,7 +113,7 @@
 		            <div class="modal-body">  
 		               	<div class="form-group ">
 			                <label>Buscar por:</label>
-            				<select  id="search" class="form-control input-sm" name="search" required>
+            				<select  id="search" class="form-control input-sm" name="search">
 			            		<option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>
 			            		<option value="name">Nombre</option>
 			            		<option value="email">E-Mail</option>
@@ -133,7 +121,7 @@
 			            </div>  
 
 			            <div class="form-group">
-		                	<input type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Buscar...">
+		                	<input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
 		              	</div>           
 					</div>
 
@@ -160,22 +148,14 @@
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
-		               	<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+		               	<div class="form-group">
 	                        <label for="password" class="control-label">Contraseña:</label>
 							<input id="password-reset" type="password" class="form-control" name="password" required autofocus>
-
-                            @if ($errors->has('password'))
-                                <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
-                            @endif
 	                    </div>
 
-	                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+	                    <div class="form-group">
 	                        <label for="password-confirm" class="control-label">Confirmar Contraseña:</label>
 	                        <input id="password-reset-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                            @if ($errors->has('password_confirmation'))
-                                <span class="help-block"><strong>{{ $errors->first('password_confirmation') }}</strong></span>
-                            @endif
 	                    </div>          
 					</div>
 

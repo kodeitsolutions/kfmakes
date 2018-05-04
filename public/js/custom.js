@@ -1,25 +1,21 @@
 //$.noConflict();
 $(document).ready(function(){
-    setTimeout(function() {
-      $('.alert').fadeOut('fast');
-    }, 5000); 
+  setTimeout(function() {
+    $('.alert').fadeOut('fast');
+  }, 5000); 
+ 
 
-    //$('.collapse').collapse({'toggle': false})
-    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
-    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
-
-    $('.dropdown-submenu a.test').on("click", function(e){
-      $(this).next('ul').toggle();
-      e.stopPropagation();
-      e.preventDefault();
-    });
-
-    
-    $('.modal').on('hidden.bs.modal', function(){
-      $(this).find('form')[0].reset();
-    });
-    
-    //$('[data-toggle="tooltip"]').tooltip();
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+  
+  $('.modal').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+  });
+  
+  //$('[data-toggle="tooltip"]').tooltip();
 });
 
 function upperCase(name) {
@@ -27,15 +23,16 @@ function upperCase(name) {
     return name;
 };
 
+
 function modalDelete(module,id){
 	var moduleUC = upperCase(module);
 	
 	$.get('/'+module+'/get'+moduleUC+'/' + id, function(response){
-		console.log(response);
+		//console.log(response);
 		$('label[id="name"]').text(response.name);	
-    })
+  })
 		
-    $('form[id="delete"]').attr('action',module+'/' + id);
+  $('form[id="delete"]').attr('action',module+'/' + id);
 };
 
 

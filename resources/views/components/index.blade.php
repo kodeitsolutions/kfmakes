@@ -13,37 +13,24 @@
           {{ csrf_field()}}
 
           <div class="modal-body form-group">  
-            <div class="form-group {{ $errors->has('type_id') ? ' has-error' : '' }}">
+            <div class="form-group">
                 <label class="control-label c">Componente:</label>
               <select id="type_id" class="form-control input-sm" name="type_id" required>
                 <option value="" selected disabled>Seleccione el componente:</option>
                 @foreach($types as $type)
                   <option value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
-              </select>                    
-
-                @if ($errors->has('type_id'))
-                    <span class="help-block"><strong>{{ $errors->first('type_id') }}</strong></span>
-                @endif
+              </select> 
             </div>
 
-            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+            <div class="form-group">
                 <label class="control-label">Nombre:</label>
-                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Ingrese el nombre." required autofocus>                 
-
-                @if ($errors->has('name'))
-                    <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
-                @endif
+                <input type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>  
             </div>
 
-            <div class="form-group {{ $errors->has('cost') ? ' has-error' : '' }}">
+            <div class="form-group">
                 <label class="control-label">Costo:</label>
-                <input type="number" value="" min="0" step="0.001" class="form-control" name="cost" value="{{ old('cost') }}" placeholder="Ingrese el costo." required>  
-                
-
-                @if ($errors->has('cost'))
-                    <span class="help-block"><strong>{{ $errors->first('cost') }}</strong></span>
-                @endif
+                <input type="number" value="" min="0" step="0.001" class="form-control" name="cost" value="" placeholder="Ingrese el costo." required>  
             </div>
           </div>
 
@@ -149,7 +136,7 @@
               </div>  
 
               <div class="form-group">
-                <input type="text" class="form-control" name="value" value="{{ old('value') }}" placeholder="Buscar...">
+                <input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
               </div>           
             </div>
 
