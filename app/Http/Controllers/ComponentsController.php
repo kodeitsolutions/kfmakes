@@ -44,11 +44,15 @@ class ComponentsController extends Controller
     {
         //
         $this->validate($request, [
-            'type_id' => 'required',
-            'name' => 'required|max:191|unique:components,deleted_at,NULL',
-            'cost' => 'required',
-            'name' => 'unique:components,name,NULL,id,type_id,'.$request->type_id
-        ]);
+                'type_id' => 'required',
+                'name' => 'required|max:191|unique:components,deleted_at,NULL',
+                'cost' => 'required',
+                'name' => 'unique:components,name,NULL,id,type_id,'.$request->type_id
+            ],
+            [
+                'name.unique' => 'El componente '.$request->name.' ya ha sido registrado para el tipo seleccionado.'
+            ]
+        );
 
         $component = new Component($request->all());       
 
@@ -105,10 +109,14 @@ class ComponentsController extends Controller
     {
         //
         $this->validate($request, [
-            'type_id' => 'required',
-            'name' => 'required|max:191|unique:components,name,'.$component->id.',id,type_id,'.$request->type_id,
-            'cost' => 'required'
-        ]);
+                'type_id' => 'required',
+                'name' => 'required|max:191|unique:components,name,'.$component->id.',id,type_id,'.$request->type_id,
+                'cost' => 'required'
+            ],
+            [
+                'name.unique' => 'Este componente ya ha sido registrado para el tipo seleccionado.'
+            ]
+        );
 
         $data = $request->all();        
         
