@@ -71,12 +71,17 @@ class ProductsController extends Controller
 
         $this->cost($product);
 
-        if ($saved) {
+        if ($product->cost_EKF == 0 && $product->cost_KFD == 0) {
+            $product->delete();
+            $request->session()->flash('flash_message_not', 'No se pudo agregar la Pieza. Debe indicar al menos un componente');
+        } else {
+            if ($saved) {
             $request->session()->flash('flash_message', 'Pieza agregada.');
-        }
-        else {
-            $request->session()->flash('flash_message_not', 'No se pudo agregar la Pieza.');
-        }
+            }
+            else {
+                $request->session()->flash('flash_message_not', 'No se pudo agregar la Pieza.');
+            }
+        }       
 
         return redirect('product');
     }
