@@ -14,27 +14,27 @@
 					<div class="modal-body form-group">  
                         <div class="form-group">
                             <label class="control-label">Nombre:</label>
-							<input id="name" type="text" class="form-control" name="name" value="" required autofocus>
+							<input id="name" type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
                         </div>
 
                         <div class="form-group">
                             <label for="email" class=" control-label">E-Mail:</label>
-							<input id="email" type="email" class="form-control" name="email" value="" required>
+							<input id="email" type="email" class="form-control" name="email" value="" placeholder="Ingrese el e-mail." required>
                         </div>
 
                         <div class="form-group">
                             <label for="password" class="control-label">Contraseña:</label>
-							<input id="password" type="password" class="form-control" name="password" required>
+							<input id="password" type="password" class="form-control" name="password" placeholder="Ingrese la contraseña." required>
                         </div>
 
                         <div class="form-group">
                             <label for="password-confirm" class=" control-label">Confirmar contraseña:</label>
-							<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+							<input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ingrese nuevamente la contraseña." required>
                         </div>
                     </div>
 
                     <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
 		            </div>
                 </form>
@@ -58,7 +58,7 @@
 					<form method="POST" action="" id="delete">
 						{{ method_field('DELETE') }}
 						{{ csrf_field() }}
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-danger btn-delete">Eliminar</button>
 					</form>
 				</div>
@@ -89,7 +89,7 @@
 					        </div>					        
 				        </div>
 				        <div class="modal-footer form-group">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 							<button type="submit" class="btn btn-primary btn-edit">Guardar</button>
 						</div>
 			    </form> 		
@@ -126,7 +126,7 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 		              	<button type="submit" class="btn btn-primary btn-edit">Buscar</button>
 		            </div>
 		        </form>
@@ -160,7 +160,7 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 		              	<button type="submit" class="btn btn-primary btn-edit">Restablecer</button>
 		            </div>
 
@@ -191,7 +191,6 @@
 				
 		<div class="col-md-6 button-table" align="right">
 			<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="glyphicon glyphicon-plus"></span> Agregar </button>
-			{{--<a href="/register" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Agregar </a>--}}
 			<button class="btn btn-primary" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="glyphicon glyphicon-search"></span> Buscar </button>
 		</div>
 			

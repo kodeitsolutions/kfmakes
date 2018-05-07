@@ -14,7 +14,7 @@
                 <form method="POST" action="" id="delete">
                   {{ method_field('DELETE') }}
                   {{ csrf_field() }}
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                   <button type="submit" class="btn btn-danger btn-delete">Eliminar</button>
                 </form>
             </div>
@@ -57,7 +57,7 @@
           </div>
 
           <div class="modal-footer form-group">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
           </div>
         </form>
@@ -96,7 +96,7 @@
             </div>
 
             <div class="modal-footer form-group">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               <button type="submit" class="btn btn-primary btn-edit" id="saveButton">Buscar</button>
             </div>
         </form>

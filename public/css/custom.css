@@ -84,3 +84,7 @@ html, body {
     right: 100%;
     margin-top: -1px;
 }
+
+.version {
+    float:right
+}

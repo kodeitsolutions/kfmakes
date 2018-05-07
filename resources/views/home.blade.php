@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span>Bienvenido</span> 
-                        <span style="float:right"> Versión 1.0.3</span>
+                        <span class="version"> Versión 1.0.4</span>
                     </div>
 
                     <div class="panel-body">

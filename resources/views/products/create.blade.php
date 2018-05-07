@@ -100,7 +100,7 @@
 		
 
 		<div class="form-group col-xs-2 col-sm-12" align="right">
-	        <a href="javascript:history.go(-1)" class="btn btn-danger" role="button">Cancelar</a>
+	        <a href="javascript:history.go(-1)" class="btn btn-default" role="button">Cancelar</a>
 	        <button type="submit" class="btn btn-primary">Guardar</button>
 	    </div>      
     </form>
