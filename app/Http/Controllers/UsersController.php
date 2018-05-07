@@ -89,9 +89,6 @@ class UsersController extends Controller
 
         $data = $request->all();
         
-        $data['isAdmin'] = ($request->has('isAdmin')) ? 1 : 0;
-        $data['isGuard'] = ($request->has('isGuard')) ? 1 : 0;
-
         $saved = $user->update($data);
 
         if ($saved) {

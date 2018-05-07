@@ -45,9 +45,8 @@ class TypesController extends Controller
     {
         //dd($request);
         $this->validate($request, [
-            'name' => 'required|max:191|unique:types,deleted_at,NULL',
-            'kind' => 'required|max:191',
-            'name' => 'unique:types,name,NULL,id,kind,'.$request->kind
+            'name' => 'required|max:191|unique:types,name,NULL,id,kind,'.$request->kind,
+            'kind' => 'required|max:191'
         ]);
 
         

@@ -45,9 +45,8 @@ class ComponentsController extends Controller
         //
         $this->validate($request, [
                 'type_id' => 'required',
-                'name' => 'required|max:191|unique:components,deleted_at,NULL',
-                'cost' => 'required',
-                'name' => 'unique:components,name,NULL,id,type_id,'.$request->type_id
+                'name' => 'required|max:191|unique:components,name,NULL,id,type_id,'.$request->type_id,
+                'cost' => 'required'
             ],
             [
                 'name.unique' => 'El componente '.$request->name.' ya ha sido registrado para el tipo seleccionado.'
