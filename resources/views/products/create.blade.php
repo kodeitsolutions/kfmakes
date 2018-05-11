@@ -2,12 +2,12 @@
 
 @section('content')
 	@if($route == 'edit')
-    	<h3 class="text-info" align="center">EDITAR PIEZA</h3>
+    	<p class="text-primary text-center font-weight-bold">Editar pieza</p>
       
       	<form method="POST" action="/product/{{ $product->id }}">
       	{{ method_field('PATCH') }}    
     @else
-      	<h3 class="text-info" align="center">AGREGAR PIEZA</h3>
+      	<p class="text-primary text-center font-weight-bold">Agregar pieza</p>
       
       	<form method="POST" action="/product/add">
     @endif	
@@ -47,14 +47,10 @@
 			<div id="accordion">
 			  <div class="card">
 			    <div class="card-header" id="heading{{ $type_component->id }}">
-			      <h5 class="mb-0">
-			        {{--<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $type_component->id }}" aria-expanded="true" aria-controls="collapse{{ $type_component->id }}">
-			        			        			          {{ $type_component->name }} <span class="glyphicon glyphicon-chevron-up pull-right"></span>
-			        			        			        </button>--}}
 			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}">
-			        	{{ $type_component->name }}<span class="glyphicon glyphicon-chevron-down pull-right"></span>
+			        	{{ $type_component->name }}<span class="fa fa-chevron-down pull-right"></span>
 			        </a>
-			      </h5>
+			      
 			    </div>
 
 			    <div id="collapse{{ $type_component->id }}" class="collapse show" aria-labelledby="heading{{ $type_component->id }}" >
@@ -100,8 +96,8 @@
 		
 
 		<div class="form-group col-xs-2 col-sm-12" align="right">
-	        <a href="javascript:history.go(-1)" class="btn btn-default" role="button">Cancelar</a>
-	        <button type="submit" class="btn btn-primary">Guardar</button>
+	        <a href="javascript:history.go(-1)" class="btn btn-outline-secondary" role="button">Cancelar</a>
+	        <button type="submit" class="btn btn-outline-primary">Guardar</button>
 	    </div>      
     </form>
 

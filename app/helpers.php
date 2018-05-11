@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Request;
 
 function setActive($uri)
 {
-	return Request::is($uri) ? 'active' : '';
+	return Request::is($uri) ? 'active text-dark' : '';
 }

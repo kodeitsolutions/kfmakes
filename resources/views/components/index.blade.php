@@ -163,35 +163,35 @@
     @endif
   </div>
 
-  <div class="col-md-12 row button-table" align="right">          
-    <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="glyphicon glyphicon-plus"></span> Agregar </button>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="glyphicon glyphicon-search"></span> Buscar </button>
-  </div>
-  <div class="row col-md-12">
-    <table class="table table-striped">
-      <thead>
+  <div class="row float-right">
+    <button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
+    <button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+  </div> 
+
+  
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Tipo</th>
+        <th>Nombre</th>
+        <th>Costo</th>
+        <th colspan="2" class="text-center" >Operación</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($components as $component)
         <tr>
-          <th>Tipo</th>
-          <th>Nombre</th>
-          <th>Costo</th>
-          <th colspan="2" class="centered" >Operación</th>
+          <td>{{ $component->type->name }}</td>
+          <td>{{ $component->name }}</td>
+          <td>{{ $component->cost }}</td>
+          
+          <td align="right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$component->id}}"><span class="fa fa-pencil"></span></span></button></td>
+          <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$component->id}}"><span class="fa fa-trash"></span></button></td>
+          
         </tr>
-      </thead>
-      <tbody>
-        @foreach($components as $component)
-          <tr>
-            <td>{{ $component->type->name }}</td>
-            <td>{{ $component->name }}</td>
-            <td>{{ $component->cost }}</td>
-            
-            <td align="right"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit" data-id="{{$component->id}}"><span class="glyphicon glyphicon-pencil"></span></button></td>
-            <td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete" data-id="{{$component->id}}"><span class="glyphicon glyphicon-trash"></span></button></td>
-            
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
+      @endforeach
+    </tbody>
+  </table>
 @endsection
 
 @section('script')

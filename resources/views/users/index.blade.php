@@ -184,41 +184,34 @@
 	    @endif
 	</div>
 	
-	<div class="col-md-12 row " >   
-		<div class="col-md-6" align="right">
-			<h4 class="text-info"  align="right">USUARIOS</h4> 
-		</div>    
-				
-		<div class="col-md-6 button-table" align="right">
-			<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="glyphicon glyphicon-plus"></span> Agregar </button>
-			<button class="btn btn-primary" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="glyphicon glyphicon-search"></span> Buscar </button>
-		</div>
-			
+	
+	<div class="row float-right">
+		<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
+		<button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
 	</div>
 
-	<div class="row col-md-12">	
-		<table class="table table-striped">
-		    <thead>
-		    	<tr>
-			        <th>Nombre</th>
-			        <th>E-Mail</th>
-			        <th colspan="3" class="centered">Operación</th>
-		      	</tr>
-		    </thead>
-		    <tbody>
-		    	@foreach($users as $user)
-		      		<tr>
-		        		<td>{{ $user->name }}</td>
-		        		<td>{{ $user->email }}</td>						
-						<td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="glyphicon glyphicon-pencil"></span></button></td>
-						<td align="right" data-toggle="tooltip" data-placement="top" title="Eliminar" data-container="body"><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="glyphicon glyphicon-trash"></span></button></td>
-						<td align="right" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña" data-container="body"><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="glyphicon glyphicon-lock"></span></button></td>
-			        			        	
-		     		</tr>
-		     	@endforeach	     
-		    </tbody>
-		</table>		
-	</div>
+	
+	<table class="table table-hover">
+	    <thead class="thead-light">
+	    	<tr>
+		        <th>Nombre</th>
+		        <th>E-Mail</th>
+		        <th colspan="3" class="text-center">Operación</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	    	@foreach($users as $user)
+	      		<tr>
+	        		<td>{{ $user->name }}</td>
+	        		<td>{{ $user->email }}</td>						
+					<td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil"></span></button></td>
+					<td align="right" data-toggle="tooltip" data-placement="top" title="Eliminar" data-container="body"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash"></span></button></td>
+					<td align="right" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña" data-container="body"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock"></span></button></td>
+		        			        	
+	     		</tr>
+	     	@endforeach	     
+	    </tbody>
+	</table>
 @endsection
 
 @section('script')

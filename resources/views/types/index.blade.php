@@ -129,7 +129,7 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Buscar</button>
 		            </div>
 		        </form>
@@ -148,37 +148,36 @@
 	                <li>{{ $error }}</li>
 	            @endforeach
 	        </div>
-	    @endif
-	    
+	    @endif	    
 	</div>
 
-	<div class="col-md-12 row button-table" align="right">        	
-		<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="glyphicon glyphicon-plus"></span> Agregar </button>
-		<button class="btn btn-primary" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="glyphicon glyphicon-search"></span> Buscar </button>
+	<div class="row float-right"> 
+		<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
+		<button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
 	</div>
-	<div class="row col-md-12">
-		<table class="table table-striped">
-			<thead>
+	
+	
+	<table class="table table-hover">
+		<thead class="thead-light">
+			<tr>
+				<th>Tipo</th>
+				<th>Nombre</th>
+				<th colspan="2" class="text-center">Operación</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach($types as $type)
 				<tr>
-					<th>Tipo</th>
-					<th>Nombre</th>
-					<th colspan="2" class="centered">Operación</th>
+					<td>{{ $type->kind }}</td>
+					<td>{{ $type->name }}</td>
+					
+					<td align="right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil"></span></button></td>
+          			<td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash"></span></button></td>
+					
 				</tr>
-			</thead>
-			<tbody>
-				@foreach($types as $type)
-					<tr>
-						<td>{{ $type->kind }}</td>
-						<td>{{ $type->name }}</td>
-						
-						<td align="right"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="glyphicon glyphicon-pencil"></span></button></td>
-              			<td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="glyphicon glyphicon-trash"></span></button></td>
-						
-					</tr>
-				@endforeach
-			</tbody>
-		</table>
-	</div>
+			@endforeach
+		</tbody>
+	</table>
 @endsection
 
 @section('script')

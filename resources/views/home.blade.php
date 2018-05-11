@@ -1,27 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <span>Bienvenido</span> 
-                        <span class="version"> Versión 1.0.4</span>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <img class="img-responsive" src="http://via.placeholder.com/375x300" alt="components">
-                            <a href="/component/create" class="btn btn-default btn-dashboard">Componentes</a>
-                        </div>
-                        <div class="col-md-6">
-                            <img class="img-responsive" src="http://via.placeholder.com/375x300" alt="products">
-                            <a href="/product/create" class="btn btn-default btn-dashboard">Piezas</a>
-                        </div>                        
-                    </div>
-                </div>
+    <div class="col-md-6 offset-md-3">    
+        <div class="card">
+            <div class="card-header">
+                <span>Bienvenido</span> 
             </div>
+            <div class="card-body">
+                <div class="col-3">    
+                    <a href="/component/create" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Componentes</a>
+                </div>
+                <div class="col-3">
+                    <a href="/product/create" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Piezas</a>
+                </div>             
+            </div> 
+            <div class="card-footer">Footer</div>
         </div>
     </div>
 @endsection

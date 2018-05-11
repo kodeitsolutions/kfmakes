@@ -41,24 +41,24 @@ function modalEdit(module,id)
 	var moduleUC = upperCase(module);
 
 	$.get('/'+module+'/get'+moduleUC+'/' + id, function(response){
-      	//console.log(response);
-      	if(module === "type"){
-      		$('input[id="name"]').val(response.name);	        
-	        $('#kind').val(response.kind);
-      	} 
+  	console.log(response);
+  	if(module === "type"){
+  		$('input[id="name"]').val(response.name);	
+      $('[name=kind]').val(response.kind);
+  	} 
 
-      	if (module === "component") {
-      		$('#type_id').val(response.type_id);
-      		$('input[id="name"]').val(response.name);
-      		$('input[id="cost"]').val(response.cost);	        
-      	}
+  	if (module === "component") {
+      $('[name=type_id]').val(response.type_id);
+  		$('input[id="name"]').val(response.name);
+  		$('input[id="cost"]').val(response.cost);	        
+  	}
 
-        if (module === "user") {
-          $('input[id="name-edit"]').val(response.name);
-          $('input[id="email-edit"]').val(response.email);
-        }    	    
-    })
-    $('form[id="edit"]').attr('action',module+'/' + id);      	
+    if (module === "user") {
+      $('input[id="name-edit"]').val(response.name);
+      $('input[id="email-edit"]').val(response.email);
+    }    	    
+  })
+  $('form[id="edit"]').attr('action',module+'/' + id);      	
 };
 
 function modalReset(id){

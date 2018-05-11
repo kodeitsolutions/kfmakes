@@ -106,39 +106,38 @@
   </div>
 @endsection
 
-@section('content')
-  <div class="col-md-12 row button-table" align="right">  
-    <a href="/product/create" class="btn btn-success" role="button"> <span class="glyphicon glyphicon-plus"></span> Agregar </a>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="glyphicon glyphicon-search"></span> Buscar </button>
+@section('content')  
+  <div class="row float-right">  
+    <a href="/product/create" class="btn btn-success mr-3" role="button"> <span class="fa fa-plus"></span> Agregar </a>
+    <button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
   </div>
-  <div class="row col-md-12">
-    <table class="table table-striped">
-      <thead>
+  
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>Tipo</th>
+        <th>Nombre</th>
+        <th>Costo KFD</th>
+        <th>Costo EKF</th>
+        <th colspan="2" class="text-center" >Operación</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($products as $index => $product)
         <tr>
-          <th>#</th>
-          <th>Tipo</th>
-          <th>Nombre</th>
-          <th>Costo KFD</th>
-          <th>Costo EKF</th>
-          <th colspan="2" class="centered" >Operación</th>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $product->type->name }}</td>
+          <td>{{ $product->name }}</td>
+          <td>{{ $product->cost_KFD }}</td>
+          <td>{{ $product->cost_EKF }}</td>           
+          <td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a></td>
+          <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash"></span></button></td>
+          
         </tr>
-      </thead>
-      <tbody>
-        @foreach($products as $index => $product)
-          <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $product->type->name }}</td>
-            <td>{{ $product->name }}</td>
-            <td>{{ $product->cost_KFD }}</td>
-            <td>{{ $product->cost_EKF }}</td>           
-            <td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="glyphicon glyphicon-trash"></span></button></td>
-            
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
+      @endforeach
+    </tbody>
+  </table>
 @endsection
 
 @section('script')
