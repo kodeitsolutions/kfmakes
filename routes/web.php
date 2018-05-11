@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::get('component/search', 'ComponentsController@search');
 	Route::delete('component/{component}','ComponentsController@destroy');
 
-	Route::get('product', 'ProductsController@index');
+	Route::get('product', 'ProductsController@index')->name('product');
 	Route::get('product/create', 'ProductsController@create');
 	Route::post('product/add', 'ProductsController@store');
 	Route::get('product/getProduct/{id}', 'ProductsController@show');
