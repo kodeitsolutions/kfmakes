@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse " id="app-navbar-collapse">                    
                 <ul class="navbar-nav ml-auto">
                     @if (!Auth::guest())                            
-                        <li class=" nav-item dropdown">                            
+                        <!--li class=" nav-item dropdown">                            
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">{{ Auth::user()->name }}</a>     
                            
                             <ul class="dropdown-menu" role="menu">
@@ -60,11 +60,35 @@
                                     </form>
                                 </li>
                             </ul>
+                        </li-->
+                         <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-cog"></span></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item mr-auto" href="/user">Usuarios</a>
+                            </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
+                                <a href="{{ route('logout') }}" id="logout" class="dropdown-item" role="button"
+                                    onclick="event.preventDefault(); 
+                                        document.getElementById('logout-form').submit();">
+                                    Salir
+                                </a>                                        
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        </li>  
+                                              
                     @endif
                 </ul>
             </div>
         </nav>
+
 
 
         @if (Auth::check())
