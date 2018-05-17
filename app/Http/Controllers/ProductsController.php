@@ -128,6 +128,7 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         //
+        //dd($request);
         $this->validate($request, [
             'type_id' => 'required',
             'name' => 'required|max:191',
@@ -140,6 +141,7 @@ class ProductsController extends Controller
         $saved = $product->update();
 
         $components = $product->components()->get();
+        //dd($components);
 
         foreach ($request->except(['_method','_token','type_id','name']) as $key => $value) {
             if($components->contains('id',$key)){
@@ -151,7 +153,9 @@ class ProductsController extends Controller
                 }
             }
             else {
-                $product->components()->attach($key,['quantity' => $value]) ;
+                if (!is_null($value)) {
+                    $product->components()->attach($key,['quantity' => $value]) ;
+                }
             }
         }
 
