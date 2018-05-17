@@ -107,6 +107,17 @@
 @endsection
 
 @section('content')  
+  <div class="col-md-12 row">
+    @if($errors->any())
+      <div class="alert alert-danger">
+        <strong>El formulario tiene un error</strong>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </div>
+    @endif
+  </div>
+
   <div class="row float-right">  
     <a href="/product/create" class="btn btn-success mr-3" role="button"> <span class="fa fa-plus"></span> Agregar </a>
     <button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
