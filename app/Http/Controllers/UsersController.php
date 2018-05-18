@@ -18,7 +18,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        $users = User::orderBy('name')->get();
         return view('users.index',compact('users'));
     }
 
@@ -118,14 +118,16 @@ class UsersController extends Controller
         $query = $request->value;
 
         if ($parameter == '' && $query == '') {
-            $users = User::all();
+            $users = User::orderBy('name')->get();;
         } 
         elseif ($parameter == '' && $query != '') {
             $users = User::where('name','LIKE', $query . '%')
-                ->orWhere('email','LIKE', $query . '%')->get();
+                ->orWhere('email','LIKE', $query . '%')
+                ->orderBy('name')
+                ->get();
         }
         else {
-            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->get();
+            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->get();
         }
         
         if($users->isEmpty()) {

@@ -20,9 +20,8 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        $types = Type::all();
-        $products = Product::all();
-        return view('products.index',compact('products','types'));
+        $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
+        return view('products.index',compact('products'));
     }
 
     /**
@@ -33,9 +32,9 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $type_products = Type::where('kind','Pieza')->get();
-        $type_components = Type::where('kind','Componente')->get();
-        $components = Component::all();
+        $type_products = Type::where('kind','Pieza')->orderBy('name')->get();
+        $type_components = Type::where('kind','Componente')->orderBy('name')->get();
+        $components = Component::orderBy('name')->get();
         $product = new Product();
         return view('products.create',compact('product','type_products','type_components','components'))->with("route","add");
     }
@@ -48,7 +47,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
         //dd($request);
         $this->validate($request, [
             'type_id' => 'required',
@@ -112,9 +110,10 @@ class ProductsController extends Controller
     public function edit(Request $request,Product $product)
     {
         //
-        $type_products = Type::where('kind','Pieza')->get();
-        $type_components = Type::where('kind','Componente')->get();
+        $type_products = Type::where('kind','Pieza')->orderBy('name')->get();
+        $type_components = Type::where('kind','Componente')->orderBy('name')->get();
         $components = $product->components()->get();
+
         return view('products.create',compact('product','type_products','type_components','components'))->with("route","edit");
     }
 
@@ -211,30 +210,34 @@ class ProductsController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        $parameter = $request->search;
-        $query = $request->value;
-
         if ($parameter == '' && $query == '') {
-            $products = Product::all();
+            $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); ;
         } 
         elseif ($parameter == '' && $query != '') {
-            $products = Product::where('name','LIKE', $query . '%')
+            $products = Product::where('products.name','LIKE', $query . '%')
                 ->orWhere('cost_EKF','LIKE', $query . '%')
                 ->orWhere('cost_KFD','LIKE', $query . '%')
                 ->orWhereHas('type', function ($q) use ($query){
-                    $q->where('name','LIKE', '%' . $query . '%');
-                })->get();
+                        $q->where('name','LIKE', '%' . $query . '%');
+                    })
+                ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
+                ->get(); 
         }
         elseif ($parameter == 'type') {
             $products = Product::whereHas('type', function ($q) use ($query){
-                $q->where('name','LIKE', '%' . $query . '%');
-            })->get();
+                    $q->where('name','LIKE', '%' . $query . '%');
+                })
+            ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
+            ->get(); 
         }
         elseif ($parameter == 'cost') {
             $products = Product::where('cost_EKF','LIKE', $query . '%')
-                ->orWhere('cost_KFD','LIKE', $query . '%')->get();
+                ->orWhere('cost_KFD','LIKE', $query . '%')
+                ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
+                ->get(); 
         } else {
-            $products = Product::where($parameter, 'LIKE', '%' . $query . '%')->get();
+            $products = Product::where('products.'.$parameter, 'LIKE', '%' . $query . '%')
+                ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
         }        
         
         if($products->isEmpty()) {

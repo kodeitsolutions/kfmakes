@@ -19,8 +19,8 @@ class ComponentsController extends Controller
     public function index()
     {
         //
-        $types = Type::where('kind','Componente')->get();
-        $components = Component::all();
+        $types = Type::where('kind','Componente')->orderBy('name')->get();
+        $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();        
         return view('components.index',compact('components','types'));
     }
 
@@ -161,26 +161,30 @@ class ComponentsController extends Controller
 
     public function search(Request $request)
     {
+           
         $parameter = $request->search;
         $query = $request->value;
 
         if ($parameter == '' && $query == '') {
-            $components = Component::all();
+            $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
         } 
         elseif ($parameter == '' && $query != '') {
-            $components = Component::where('name','LIKE', $query . '%')
+            $components = Component::where('components.name','LIKE', $query . '%')
                 ->orWhere('cost','LIKE', $query . '%')
                 ->orwhereHas('type', function ($q) use ($query){
-                    $q->where('name','LIKE', '%' . $query . '%');
-                })->get();
+                        $q->where('name','LIKE', '%' . $query . '%');
+                    })
+                ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
         }
         elseif ($parameter == 'type') {
             $components = Component::whereHas('type', function ($q) use ($query){
-                $q->where('name','LIKE', '%' . $query . '%');
-            })->get();
+                    $q->where('name','LIKE', '%' . $query . '%');
+                })
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
         }
         else {
-            $components = Component::where($parameter, 'LIKE', '%' . $query . '%')->get();        
+            $components = Component::where('components.'.$parameter, 'LIKE', '%' . $query . '%')
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();      
         }
 
         if($components->isEmpty()) {
