@@ -30,8 +30,8 @@
 			        </div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
 		            </div>
 				</form>		        
 	      	</div>	      	   
@@ -54,8 +54,8 @@
 		          	<form method="POST" action="" id="delete">
 			            {{ method_field('DELETE') }}
 			            {{ csrf_field() }}
-			            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-			            <button type="submit" class="btn btn-danger btn-delete">Eliminar</button>
+			            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+			            <button type="submit" class="btn btn-warning">Eliminar</button>
 		          	</form>
 	        	</div>
 	      	</div>      
@@ -91,8 +91,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
 		            </div>
 		        </form>
 		          
@@ -129,14 +129,20 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Buscar</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-info" id="saveButton">Buscar</button>
 		            </div>
 		        </form>
 		          
 	      	</div>      
 	    </div> 
   	</div>
+@endsection
+
+@section('navigation')
+  @if (Auth::check())
+    @include('navigation')
+  @endif
 @endsection
 
 @section('content')
@@ -153,7 +159,7 @@
 
 	<div class="row float-right"> 
 		<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
-		<button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+		<button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
 	</div>
 	
 	

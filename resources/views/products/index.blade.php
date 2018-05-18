@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('modal-delete')
     <div id="myModalDelete" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -14,59 +16,14 @@
                 <form method="POST" action="" id="delete">
                   {{ method_field('DELETE') }}
                   {{ csrf_field() }}
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-danger btn-delete">Eliminar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-warning">Eliminar</button>
                 </form>
             </div>
           </div>      
       </div>    
   </div>
 @endsection
-
-@section('modal-edit')
-  <div id="myModalEdit" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Editar componente</h4>
-        </div>
-          
-        <form method="POST" action="" id="edit">
-          {{ method_field('PATCH') }}
-          {{ csrf_field() }}
-
-          <div class="modal-body form-group">  
-            <div class="form-group ">
-              <label class="control-label">Tipo:</label>
-              <select id="type_id" class="form-control input-sm" name="type_id">
-                @foreach($types as $type)
-                  <option value="{{ $type->id }}">{{ $type->name }}</option>
-                @endforeach    
-              </select>             
-            </div>  
-
-            <div class="form-group">
-              <label class="control-label">Nombre:</label>
-              <input type="text" class="form-control" name="name" id="name" value="" required autofocus>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label">Costo:</label>
-              <input type="number" class="form-control" min="0" step="0.001" name="cost" id="cost" value="" required>
-            </div>           
-          </div>
-
-          <div class="modal-footer form-group">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
-          </div>
-        </form>
-              
-      </div>      
-    </div> 
-  </div>
-@endsection
-
 
 @section('modal-search')
   <div id="myModalSearch" class="modal fade" role="dialog">
@@ -96,8 +53,8 @@
             </div>
 
             <div class="modal-footer form-group">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary btn-edit" id="saveButton">Buscar</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary" id="saveButton">Buscar</button>
             </div>
         </form>
               
@@ -106,7 +63,13 @@
   </div>
 @endsection
 
-@section('content')  
+@section('navigation')
+  @if (Auth::check())
+    @include('navigation')
+  @endif
+@endsection
+
+@section('content') 
   <div class="col-md-12 row">
     @if($errors->any())
       <div class="alert alert-danger">
@@ -120,7 +83,7 @@
 
   <div class="row float-right">  
     <a href="/product/create" class="btn btn-success mr-3" role="button"> <span class="fa fa-plus"></span> Agregar </a>
-    <button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+    <button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
   </div>
   
   <table class="table table-hover">

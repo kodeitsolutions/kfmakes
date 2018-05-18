@@ -34,8 +34,8 @@
                     </div>
 
                     <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit" id="saveButton">Guardar</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
 		            </div>
                 </form>
 	      	</div>	      	   
@@ -58,8 +58,8 @@
 					<form method="POST" action="" id="delete">
 						{{ method_field('DELETE') }}
 						{{ csrf_field() }}
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-danger btn-delete">Eliminar</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-warning">Eliminar</button>
 					</form>
 				</div>
 			</div>			
@@ -89,8 +89,8 @@
 					        </div>					        
 				        </div>
 				        <div class="modal-footer form-group">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary btn-edit">Guardar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Guardar</button>
 						</div>
 			    </form> 		
 			</div>			
@@ -126,8 +126,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit">Buscar</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary">Buscar</button>
 		            </div>
 		        </form>
 		          
@@ -149,19 +149,19 @@
 
 		            <div class="modal-body form-group">  
 		               	<div class="form-group">
-	                        <label for="password" class="control-label">Contraseña:</label>
+	                        <label for="password" class="control-label">Nueva contraseña:</label>
 							<input id="password-reset" type="password" class="form-control" name="password" required autofocus>
 	                    </div>
 
 	                    <div class="form-group">
-	                        <label for="password-confirm" class="control-label">Confirmar Contraseña:</label>
+	                        <label for="password-confirm" class="control-label">Confirmar contraseña:</label>
 	                        <input id="password-reset-confirm" type="password" class="form-control" name="password_confirmation" required>
 	                    </div>          
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary btn-edit">Restablecer</button>
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary">Restablecer</button>
 		            </div>
 
 			            
@@ -185,9 +185,14 @@
 	</div>
 	
 	
-	<div class="row float-right">
-		<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
-		<button class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+	<div class="row">
+		<div class="mr-auto ml-3">
+			<a href="/product" class="btn btn-light" role="button"><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
+		</div>
+		<div class="ml-auto">
+			<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
+			<button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+		</div>		
 	</div>
 
 	
@@ -206,7 +211,7 @@
 	        		<td>{{ $user->email }}</td>						
 					<td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil"></span></button></td>
 					<td align="right" data-toggle="tooltip" data-placement="top" title="Eliminar" data-container="body"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash"></span></button></td>
-					<td align="right" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña" data-container="body"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock"></span></button></td>
+					<td align="right" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña" data-container="body"><button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock"></span></button></td>
 		        			        	
 	     		</tr>
 	     	@endforeach	     

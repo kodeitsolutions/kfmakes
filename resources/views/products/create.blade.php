@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('navigation')
+  @if (Auth::check())
+    @include('navigation')
+  @endif
+@endsection
+
 @section('content')
 	@if($route == 'edit')
     	<p class="text-primary text-center font-weight-bold">Editar pieza</p>
@@ -47,8 +53,8 @@
 			<div id="accordion">
 			  <div class="card">
 			    <div class="card-header" id="heading{{ $type_component->id }}">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}">
-			        	{{ $type_component->name }}<span class="fa fa-chevron-down pull-right"></span>
+			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}" class="text-dark">
+			        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right"></span>
 			        </a>
 			      
 			    </div>
@@ -64,7 +70,7 @@
 			            </tr>            
 			          </thead>
 			          <tbody>
-			          	@foreach($type_component->components as $t_component)
+			          	@foreach($type_component->components->sortBy('name') as $t_component)
 				            <tr>
 				              	<td>{{$t_component->name}}</td>
 				              	<td>{{$t_component->cost}}</td>
@@ -90,34 +96,19 @@
 			    </div>
 			  </div>			  
 			</div>
+		@endforeach		
 
-		@endforeach
-
-		
-
-		<div class="form-group col-xs-2 col-sm-12" align="right">
-	        <a href="javascript:history.go(-1)" class="btn btn-outline-secondary" role="button">Cancelar</a>
-	        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+		<div class="row form-group float-right" ">
+	        <a href="javascript:history.go(-1)" class="btn btn-danger mr-3" role="button">Cancelar</a>
+	        <button type="submit" class="btn btn-primary">Guardar</button>
 	    </div>      
     </form>
+@endsection
 
-
-
-
-								{{--<table>
-									<thead>
-										<tr>
-											<th>nombre</th>
-											<th>cantidad</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($components as $component)
-											<tr>
-												<td>{{$component->name}}</td>						
-												<td>{{$component->pivot->quantity}}</td>						
-											</tr>
-										@endforeach
-									</tbody>
-								</table>--}}
+@section('script')
+	<script>
+		$(window).bind('beforeunload', function(){
+		  	return 'Are you sure you want to leave?';
+		});
+	</script>
 @endsection
