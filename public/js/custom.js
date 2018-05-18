@@ -3,19 +3,11 @@ $(document).ready(function(){
   setTimeout(function() {
     $('.alert').fadeOut('fast');
   }, 5000); 
- 
-
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
   
   $('.modal').on('hidden.bs.modal', function(){
     $(this).find('form')[0].reset();
   });
   
-  //$('[data-toggle="tooltip"]').tooltip();
 });
 
 function upperCase(name) {
