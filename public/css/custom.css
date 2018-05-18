@@ -16,7 +16,6 @@ html, body {
     margin-bottom: 5px;
 }
 
-
 .table {
     margin-top: 10px;
 }
@@ -28,4 +27,7 @@ html, body {
 .centered {
     text-align:center;
 }
-
+ 
+a:hover {
+    text-decoration: none;
+}
