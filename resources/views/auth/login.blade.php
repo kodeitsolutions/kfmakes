@@ -62,7 +62,7 @@
                         </div>
                     </form>         
                 </div> 
-                <div class="card-footer">Version 1.1.0</div>
+                <div class="card-footer">Version 1.1.1</div>
             </div>            
         </div>
     </div>
