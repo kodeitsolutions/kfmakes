@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::patch('type/{type}', 'TypesController@update');
 	Route::get('type/search', 'TypesController@search');
 	Route::delete('type/{type}','TypesController@destroy');
+	Route::get('type/export','TypesController@export');
+	Route::post('type/import','TypesController@import');
 
 	Route::get('component', 'ComponentsController@index');
 	Route::post('component/add', 'ComponentsController@store');
@@ -32,16 +34,21 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::patch('component/{component}', 'ComponentsController@update');
 	Route::get('component/search', 'ComponentsController@search');
 	Route::delete('component/{component}','ComponentsController@destroy');
+	Route::get('component/export','ComponentsController@export');
+	Route::post('component/import','ComponentsController@import');
 
 	Route::get('product', 'ProductsController@index')->name('product');
 	Route::get('product/create', 'ProductsController@create');
 	Route::post('product/add', 'ProductsController@store');
 	Route::get('product/getProduct/{id}', 'ProductsController@show');
+	Route::get('product/getProductComponents/{id}', 'ProductsController@components');
 	Route::get('product/{product}/edit', 'ProductsController@edit');
 	Route::patch('product/{product}', 'ProductsController@update');
 	Route::get('product/search', 'ProductsController@search');
 	Route::delete('product/{product}','ProductsController@destroy');
 	Route::get('product/cost/{product}', 'ProductsController@cost');
+	Route::get('product/export','ProductsController@export');
+	Route::post('product/import','ProductsController@import');
 
 	Route::get('user', 'UsersController@index');
 	Route::get('user/getUser/{id}', 'UsersController@show');
@@ -50,4 +57,6 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::delete('user/{user}', 'UsersController@destroy');
 	Route::get('user/reset/{user}', 'UsersController@resetForm');
 	Route::post('user/reset/{user}','UsersController@updatePassword');
+	Route::get('user/export','UsersController@export');
+	Route::post('user/import','UsersController@import');
 });

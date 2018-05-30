@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
+@section('modal-show')
+  <div id="myModalShow" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Ver Pieza</h4>
+        </div>         
+        
+          <div class="modal-body form-group">
+            <p class="">Componentes</p>           
+            <dl class="row" id="components">
+            </dl>
+          </div> 
 
+          <div class="modal-footer form-group">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="showButton">Cancelar</button>
+          </div>
+        </form>
+              
+      </div>      
+    </div> 
+  </div>
+@endsection
 
 @section('modal-delete')
     <div id="myModalDelete" class="modal fade" role="dialog">
@@ -40,7 +62,7 @@
               <div class="form-group ">
                 <label>Buscar por:</label>
                 <select  id="search" class="form-control input-sm" name="search">
-                  <option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>                  
+                  <option value="" selected disabled>Seleccione el parámetro de búsqueda</option>                  
                   <option value="type">Tipo</option>
                   <option value="name">Nombre</option>
                   <option value="cost">Costo</option>
@@ -54,13 +76,76 @@
 
             <div class="modal-footer form-group">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary" id="saveButton">Buscar</button>
+              <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
         </form>
               
       </div>      
     </div> 
   </div>
+@endsection
+
+@section('modal-import')
+  <div id="myModalImport" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+                <h4 class="modal-title">Importar datos</h4>
+            </div>
+            
+            <form method="POST" action="/product/import" enctype="multipart/form-data">
+                {{ csrf_field() }}
+
+                <div class="modal-body form-group">
+                  <div class="form-group">
+                    <label>Cargar archivo:</label>
+                      <input type="file" class="form-control" name="products_file" id="file">
+                    </div>           
+          </div>
+
+                <div class="modal-footer form-group">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Importar</button>
+                </div>
+            </form>
+              
+          </div>      
+      </div> 
+    </div>
+@endsection
+
+@section('modal-export')
+  <div id="myModalExport" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+                <h4 class="modal-title">Exportar datos</h4>
+            </div>
+            
+            <form method="GET" action="/product/export">
+                {{ csrf_field() }}
+
+                <div class="modal-body form-group">  
+                    <div class="form-group ">
+                      <label>Formato de archivo:</label>
+                    <select  id="extension" class="form-control input-sm" name="extension">
+                      <option value="" selected disabled>Seleccione el formato</option>
+                      <option value="xls">XLS</option>
+                      <option value="xlsx">XLSX</option>
+                      <option value="csv">CSV</option>
+                    </select>                 
+                  </div>                         
+                </div>
+
+                <div class="modal-footer form-group">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="export">Exportar</button>
+                </div>
+            </form>
+              
+          </div>      
+      </div> 
+    </div>
 @endsection
 
 @section('navigation')
@@ -79,22 +164,45 @@
         @endforeach
       </div>
     @endif
-  </div>
+  </div> 
 
-  <div class="row float-right">  
-    <a href="/product/create" class="btn btn-success mr-3" role="button"> <span class="fa fa-plus"></span> Agregar </a>
-    <button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+  <div class="row"> 
+    <div class="mr-auto ml-3">
+      {{--<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+                       <span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>--}}     
+      <span data-toggle="tooltip" data-placement="top" title="Filtrar">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <form method="GET" action="/product/search" id="filter">
+            @foreach($types as $type)
+              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type" value="{{$type->id}}" />{{$type->name}}</li>
+            @endforeach
+            <div class="dropdown-divider"></div>
+            <a href="" class="dropdown-item" onclick="submit('filter')">Aplicar</a> 
+          </form>           
+        </ul>
+      </span>
+    </div>
+    <div class="ml-auto">
+      <a href="/product/create" class="btn btn-success btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"> <span class="fa fa-plus"></span></a>
+      <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+    </div>  
+  </div> 
+
+  
+  <div class="row">
+    
   </div>
   
   <table class="table table-hover">
-    <thead class="thead-light">
-      <tr>
+    <thead class="thead-index">
+      <tr class="text-white">
         <th>#</th>
         <th>Tipo</th>
         <th>Nombre</th>
         <th>Costo KFD</th>
         <th>Costo EKF</th>
-        <th colspan="2" class="text-center" >Operación</th>
+        <th colspan="3" class="text-center">Operación</th>
       </tr>
     </thead>
     <tbody>
@@ -104,9 +212,10 @@
           <td>{{ $product->type->name }}</td>
           <td>{{ $product->name }}</td>
           <td>{{ $product->cost_KFD }}</td>
-          <td>{{ $product->cost_EKF }}</td>           
-          <td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></a></td>
-          <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash"></span></button></td>
+          <td>{{ $product->cost_EKF }}</td>
+          {{--<td align="center"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>--}}     
+          <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
+          <td  align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
           
         </tr>
       @endforeach
@@ -128,6 +237,13 @@
         var product_id = button.data('id');
 
         modalEdit("product",product_id);
-    });       
+    });
+
+    $('#myModalShow').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); 
+        var product_id = button.data('id');
+        
+        modalShow(product_id);
+    });   
   </script>
 @endsection

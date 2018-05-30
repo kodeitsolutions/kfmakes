@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Excel;
 use Response;
 use App\User;
+use App\Type;
+use App\Component;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -81,10 +85,10 @@ class UsersController extends Controller
      */
     public function update(Request $request,User $user)
     {
-        //
+        //dd($request);
         $this->validate($request, [
-            'name-edit' => 'required|max:255',
-            'email-edit' => 'required|email',
+            'name' => 'required|max:255',
+            'email' => 'required|email',
         ]);
 
         $data = $request->all();
@@ -107,9 +111,29 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, User $user)
     {
         //
+        $types = Type::where('user_id',$user->id)->get();
+        $components = Component::where('user_id',$user->id)->get();        
+        $products = Product::where('user_id', $user->id)->get();
+
+        $authenticated = Auth::id();
+        if ($authenticated != $user->id and $types->isEmpty() and $components->isEmpty() and $products->isEmpty()) {
+            $deleted = $user->delete();
+
+            if ($deleted) {
+                $request->session()->flash('flash_message', 'Usuario '.$user->name.' eliminado.');
+            }
+            else {
+                $request->session()->flash('flash_message_not', 'No se pudo eliminar el usuario.');
+            }
+        } 
+        else {
+            $request->session()->flash('flash_message_not', 'No se puede eliminar a sí mismo o a un usuario que tenga registros asociados.');
+        }
+        
+        return redirect('user');
     }
 
     public function search(Request $request)
@@ -159,5 +183,64 @@ class UsersController extends Controller
         }
 
         return redirect('user');
+    }
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'extension' => 'required',
+        ]);
+
+        Excel::create('Usuarios', function($excel) {
+ 
+            $excel->sheet('Datos', function($sheet) { 
+
+                $users = User::all();             
+ 
+                $sheet->fromArray($users);
+ 
+            });
+        })->export($request->extension);
+        
+        return back();
+    }
+
+    public function import(Request $request)
+    {
+        # code...
+        $this->validate($request, [
+            'file' => 'file'
+        ]);
+
+        $path = $request->file('users_file')->getRealPath();
+        $data = Excel::load($path, function($reader) {})->get();
+        
+        $count = 0;
+
+        if($request->hasFile('users_file')){
+            if(!empty($data) && $data->count()){
+                $users = User::all();
+                                
+                foreach ($data as $row) {
+                    if (!$users->contains('id',$row->id)) {
+                       User::create([
+                            'name' => $row->name,
+                            'email' =>$row->email,
+                            'password' =>bcrypt('exclusivo'),
+                        ]);
+                       $count++;
+                    }                    
+                }
+            }
+        } else {
+            $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
+        }
+
+        if ($count > 0) {
+            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+        } else {
+            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+        }
+        
+        return back();      
     }
 }

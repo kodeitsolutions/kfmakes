@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Excel;
 use Response;
 use App\Type;
 use App\Component;
@@ -20,7 +21,7 @@ class ComponentsController extends Controller
     {
         //
         $types = Type::where('kind','Componente')->orderBy('name')->get();
-        $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();        
+        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();        
         return view('components.index',compact('components','types'));
     }
 
@@ -194,5 +195,66 @@ class ComponentsController extends Controller
             $types = Type::all();
             return view('components.index', compact('components','types'));
         }           
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'extension' => 'required',
+        ]);
+
+        Excel::create('Componentes', function($excel) {
+ 
+            $excel->sheet('Datos', function($sheet) { 
+
+                $components = Component::all();             
+ 
+                $sheet->fromArray($components);
+ 
+            });
+        })->export($request->extension);
+
+        return back();
+    }
+
+    public function import(Request $request)
+    {
+        # code...
+        $this->validate($request, [
+            'file' => 'file'
+        ]);
+
+        $path = $request->file('components_file')->getRealPath();
+        $data = Excel::load($path, function($reader) {})->get();
+        
+        $count = 0;
+
+        if($request->hasFile('components_file')){
+            if(!empty($data) && $data->count()){
+                $components = Component::all();
+                                
+                foreach ($data as $row) {
+                    if (!$components->contains('id',$row->id)) {
+                       Component::create([
+                            'name' => $row->name,
+                            'cost' =>$row->cost,
+                            'user_id' =>$row->user_id,
+                            'type_id' =>$row->type_id,
+                        ]);
+                       $count++;
+                    }                    
+                }
+            }
+        } else {
+            $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
+        }
+
+        if ($count > 0) {
+            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+        } else {
+            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+        }
+        
+        return back();      
     }
 }

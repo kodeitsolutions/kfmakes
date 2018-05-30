@@ -5,7 +5,8 @@
         <div class="col-md-8 offset-md-2">
             <div class="card ">
                 <div class="card-header">
-                    <span>Ingresar</span>
+                    {{--<strong><span class="text-white">Ingresar</span></strong>--}}
+                    <p class="text-white font-weight-bold"><b>Ingresar</b></p>
                 </div>
                 <div class="card-body justify-content-md-center">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -62,7 +63,7 @@
                         </div>
                     </form>         
                 </div> 
-                <div class="card-footer">Version 1.1.1</div>
+                <div class="card-footer">Version 1.2.0</div>
             </div>            
         </div>
     </div>

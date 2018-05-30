@@ -36,7 +36,7 @@
                 <ul class="navbar-nav ml-auto">
                     @if (!Auth::guest())    
                          <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-cog"></span></a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-cog"></span></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item mr-auto" href="/user">Usuarios</a>
                             </div>
@@ -47,8 +47,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
                                 <a href="{{ route('logout') }}" id="logout" class="dropdown-item" role="button"
-                                    onclick="event.preventDefault(); 
-                                        document.getElementById('logout-form').submit();">
+                                    onclick="submit('logout-form')">
                                     Salir
                                 </a>                                        
 
@@ -70,15 +69,18 @@
             @yield('modal-edit')
             @yield('modal-search')
             @yield('modal-reset')
+            @yield('modal-import')
+            @yield('modal-export')
+            @yield('modal-show')
             <div class="col-md-12">
                 @if(Session::has('flash_message'))
-                    <div class="alert alert-success"><span class="glyphicon glyphicon-ok-sign"></span><em> {{ session('flash_message') }}</em></div>
+                    <div class="alert alert-success" role="alert"><span class="fa fa-check-circle"></span><em> {{ session('flash_message') }}</em></div>
                 @endif
                 @if(Session::has('flash_message_not'))
-                    <div class="alert alert-danger"><span class="glyphicon glyphicon-remove-sign"></span><em> {{ session('flash_message_not') }}</em></div>
+                    <div class="alert alert-danger" role="alert"><span class="fa fa-times-circle"></span><em> {{ session('flash_message_not') }}</em></div>
                 @endif
                 @if(Session::has('flash_message_info'))
-                    <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span><em> {{ session('flash_message_info') }}</em></div>
+                    <div class="alert alert-info role="alert"><span class="fa fa-info-circle"></span><em> {{ session('flash_message_info') }}</em></div>
                 @endif
             </div>
             @yield('content')         

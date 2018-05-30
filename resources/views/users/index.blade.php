@@ -35,7 +35,7 @@
 
                     <div class="modal-footer form-group">
 		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
+		              	<button type="submit" class="btn btn-primary">Guardar</button>
 		            </div>
                 </form>
 	      	</div>	      	   
@@ -81,11 +81,11 @@
 						<div class="modal-body">
 							<div class="form-group">
 					            <label class="control-label">Nombre:</label>
-					            <input id="name-edit" type="text" class="form-control" name="name" value="" required autofocus>
+					            <input id="name_edit" type="text" class="form-control" name="name" value="" required autofocus>
 					        </div>
 					        <div class="form-group">
 					            <label class="control-label">E-Mail:</label>
-					     		<input id="email-edit" type="email" class="form-control" name="email" value="" required>
+					     		<input id="email_edit" type="email" class="form-control" name="email" value="" required>
 					        </div>					        
 				        </div>
 				        <div class="modal-footer form-group">
@@ -114,7 +114,7 @@
 		               	<div class="form-group ">
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
-			            		<option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>
+			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
 			            		<option value="name">Nombre</option>
 			            		<option value="email">E-Mail</option>
 			            	</select>                 
@@ -172,6 +172,69 @@
   	</div>
 @endsection
 
+@section('modal-import')
+	<div id="myModalImport" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+		    	<div class="modal-header">
+		            <h4 class="modal-title">Importar datos</h4>
+		        </div>
+	        	
+	        	<form method="POST" action="/user/import" enctype="multipart/form-data">
+		          	{{ csrf_field() }}
+
+		            <div class="modal-body form-group">
+			            <div class="form-group">
+			            	<label>Cargar archivo:</label>
+		                	<input type="file" class="form-control-file" name="users_file" id="file">
+		              	</div>           
+					</div>
+
+		            <div class="modal-footer form-group">
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary">Importar</button>
+		            </div>
+		        </form>
+		          
+	      	</div>      
+	    </div> 
+  	</div>
+@endsection
+
+@section('modal-export')
+	<div id="myModalExport" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+		    	<div class="modal-header">
+		            <h4 class="modal-title">Exportar datos</h4>
+		        </div>
+	        	
+	        	<form method="GET" action="/user/export">
+		          	{{ csrf_field() }}
+
+		            <div class="modal-body form-group">  
+		               	<div class="form-group ">
+			                <label>Formato de archivo:</label>
+            				<select  id="extension" class="form-control input-sm" name="extension">
+			            		<option value="" selected disabled>Seleccione el formato</option>
+			            		<option value="xls">XLS</option>
+			            		<option value="xlsx">XLSX</option>
+			            		<option value="csv">CSV</option>
+			            	</select>                 
+			            </div> 			                   
+					</div>
+
+		            <div class="modal-footer form-group">
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary" id="export">Exportar</button>
+		            </div>
+		        </form>
+		          
+	      	</div>      
+	    </div> 
+  	</div>
+@endsection
+
 @section('content')
 	<div class="col-md-12 row">
 	    @if($errors->any())
@@ -183,22 +246,23 @@
 	        </div>
 	    @endif
 	</div>
-	
-	
-	<div class="row">
+			
+	<div class="row"> 
 		<div class="mr-auto ml-3">
-			<a href="/product" class="btn btn-light" role="button"><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
+			<a href="/product" class="btn btn-light btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Salir config."><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
+			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
 		</div>
 		<div class="ml-auto">
-			<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
-			<button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
-		</div>		
+			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-success btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+		</div>	
 	</div>
 
 	
 	<table class="table table-hover">
-	    <thead class="thead-light">
-	    	<tr>
+	    <thead class="thead-index">
+	    	<tr class="text-white">
 		        <th>Nombre</th>
 		        <th>E-Mail</th>
 		        <th colspan="3" class="text-center">Operación</th>
@@ -209,9 +273,9 @@
 	      		<tr>
 	        		<td>{{ $user->name }}</td>
 	        		<td>{{ $user->email }}</td>						
-					<td align="right" data-toggle="tooltip" data-placement="top" title="Editar" data-container="body"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil"></span></button></td>
-					<td align="right" data-toggle="tooltip" data-placement="top" title="Eliminar" data-container="body"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash"></span></button></td>
-					<td align="right" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña" data-container="body"><button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock"></span></button></td>
+					<td align="center"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
+					<td align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+					<td align="center"><button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
 		        			        	
 	     		</tr>
 	     	@endforeach	     

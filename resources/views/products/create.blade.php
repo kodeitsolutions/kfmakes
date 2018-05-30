@@ -8,12 +8,12 @@
 
 @section('content')
 	@if($route == 'edit')
-    	<p class="text-primary text-center font-weight-bold">Editar pieza</p>
+    	<p class="text-center font-weight-bold">Editar pieza</p>
       
       	<form method="POST" action="/product/{{ $product->id }}">
       	{{ method_field('PATCH') }}    
     @else
-      	<p class="text-primary text-center font-weight-bold">Agregar pieza</p>
+      	<p class="text-center font-weight-bold">Agregar pieza</p>
       
       	<form method="POST" action="/product/add">
     @endif	
@@ -49,54 +49,54 @@
 	    </div>
 
 		<div id="accordion" role="tablist" aria-multiselectable="true">
-		@foreach($type_components as $type_component)
-			<div id="accordion">
-			  <div class="card">
-			    <div class="card-header" id="heading{{ $type_component->id }}">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}" class="text-dark">
-			        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right"></span>
-			        </a>
-			      
-			    </div>
+			@foreach($type_components as $type_component)
+				<div id="accordion">
+				  <div class="card">
+				    <div class="card-header" id="heading{{ $type_component->id }}">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}" class="text-white font-weight-bold">
+				        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right"></span>
+				        </a>				      
+				    </div>
 
-			    <div id="collapse{{ $type_component->id }}" class="collapse show" aria-labelledby="heading{{ $type_component->id }}" >
-			      <div class="table-responsive">
-			        <table class="table table-striped">
-			          <thead>
-			            <tr>
-				            <th>Descripción</th>
-				            <th>Costo</th>
-				            <th>Cantidad</th>
-			            </tr>            
-			          </thead>
-			          <tbody>
-			          	@foreach($type_component->components->sortBy('name') as $t_component)
+				    <div id="collapse{{ $type_component->id }}" class="collapse show" aria-labelledby="heading{{ $type_component->id }}" >
+				      <div class="table-responsive">
+				        <table class="table table-striped">
+				          <thead>
 				            <tr>
-				              	<td>{{$t_component->name}}</td>
-				              	<td>{{$t_component->cost}}</td>
-				              	@if($route == 'edit')
-				              		@if($components->contains('id',$t_component->id))				              		
-						              	@foreach($components as $component)
-						              		@if($t_component->id == $component->id)
-												<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ $component->id == $t_component->id ? $component->pivot->quantity : old($t_component->id,'') }}" min="0" step="0.01" placeholder="0,00"></td>
+					            <th>Descripción</th>
+					            <th>Costo</th>
+					            <th>Cantidad</th>
+				            </tr>            
+				          </thead>
+				          <tbody>
+				          	@foreach($type_component->components->sortBy('name') as $t_component)
+					            <tr>
+					              	<td>{{$t_component->name}}</td>
+					              	<td>{{$t_component->cost}}</td>
+					              	@if($route == 'edit')
+					              		@if($components->contains('id',$t_component->id))				              		
+							              	@foreach($components as $component)
+							              		@if($t_component->id == $component->id)
+													<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ $component->id == $t_component->id ? $component->pivot->quantity : old($t_component->id,'') }}" min="0" step="0.001" placeholder="0,000"></td>
 
-											@endif
-						           		@endforeach
+												@endif
+							           		@endforeach
+							           	@else
+							           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.001" placeholder="0,000"></td>
+							           	@endif		           	
 						           	@else
-						           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.01" placeholder="0,00"></td>
-						           	@endif		           	
-					           	@else
-					           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.01" placeholder="0,00"></td>
-					           	@endif
-				            </tr>
-				        @endforeach
-			          </tbody>
-			        </table>			        
-			      </div>
-			    </div>
-			  </div>			  
-			</div>
-		@endforeach		
+						           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.001" placeholder="0,000"></td>
+						           	@endif
+					            </tr>
+					        @endforeach
+				          </tbody>
+				        </table>			        
+				      </div>
+				    </div>
+				  </div>			  
+				</div>
+			@endforeach	
+		</div>	
 
 		<div class="row form-group float-right" ">
 	        <a href="javascript:history.go(-1)" class="btn btn-danger mr-3" role="button">Cancelar</a>
@@ -105,10 +105,14 @@
     </form>
 @endsection
 
-@section('script')
+@section('scriptt')
 	<script>
-		$(window).bind('beforeunload', function(){
-		  	return 'Are you sure you want to leave?';
+		$('#form').data('serialize',$('#form').serialize());
+
+		$(window).bind('beforeunload', function(e){
+		  	//return 'Are you sure you want to leave?';
+		  	if($('#form').serialize()!=$('#form').data('serialize'))return true;
+    		else e=null;
 		});
 	</script>
 @endsection

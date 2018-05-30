@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Excel;
 use Response;
 use App\Type;
 use App\Component;
@@ -175,5 +176,63 @@ class TypesController extends Controller
         else {
             return view('types.index', compact('types'));
         }            
+    }
+
+    public function export(Request $request)
+    {
+        $this->validate($request, [
+            'extension' => 'required',
+        ]);
+
+        Excel::create('Tipos', function($excel) {
+ 
+            $excel->sheet('Datos', function($sheet) { 
+
+                $types = Type::all();             
+ 
+                $sheet->fromArray($types);
+ 
+            });
+        })->export($request->extension);
+    }
+
+    public function import(Request $request)
+    {
+        # code...
+        $this->validate($request, [
+            'file' => 'file'
+        ]);
+
+        $path = $request->file('types_file')->getRealPath();
+        $data = Excel::load($path, function($reader) {})->get();
+        
+        $count = 0;
+
+        if($request->hasFile('types_file')){
+            if(!empty($data) && $data->count()){
+                $types = Type::all();
+                                
+                foreach ($data as $type) {
+                    if (!$types->contains('id',$type->id)) {
+                       Type::create([
+                            'name' => $type->name,
+                            'kind' =>$type->kind,
+                            'user_id' =>$type->user_id,
+                        ]);
+                       $count++;
+                    }                    
+                }
+            }
+        } else {
+            $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
+        }
+
+        if ($count > 0) {
+            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+        } else {
+            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+        }
+        
+        return back();      
     }
 }

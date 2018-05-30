@@ -114,7 +114,10 @@ return [
         ],
         'cost' => [
             'required' => 'El campo costo es obligatorio.',
-        ]
+        ],
+        'extension' => [
+            'required' => 'Debe seleccionar el formato del archivo a exportar.'
+        ],
     ],
 
     /*

@@ -22,6 +22,6 @@ class Product extends Model
 
     public function components()
     {
-       return $this->belongsToMany(Component::class)->withPivot('quantity')->withTimestamps();
+       return $this->belongsToMany(Component::class)->withPivot(['quantity','id'])->withTimestamps();
     }
 }

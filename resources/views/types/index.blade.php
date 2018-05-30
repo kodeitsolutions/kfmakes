@@ -8,7 +8,6 @@
 		            <h4 class="modal-title">Agregar Tipo</h4>
 		        </div>
 
-
 				<form method="POST" action="/type/add">
 					{{ csrf_field()}}
 
@@ -31,7 +30,7 @@
 
 		            <div class="modal-footer form-group">
 		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
+		              	<button type="submit" class="btn btn-primary">Guardar</button>
 		            </div>
 				</form>		        
 	      	</div>	      	   
@@ -92,7 +91,7 @@
 
 		            <div class="modal-footer form-group">
 		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary" id="saveButton">Guardar</button>
+		              	<button type="submit" class="btn btn-primary">Guardar</button>
 		            </div>
 		        </form>
 		          
@@ -100,7 +99,6 @@
 	    </div> 
   	</div>
 @endsection
-
 
 @section('modal-search')
 	<div id="myModalSearch" class="modal fade" role="dialog">
@@ -117,7 +115,7 @@
 		               	<div class="form-group ">
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
-			            		<option value="0" selected disabled>Seleccione el parámetro de búsqueda</option>
+			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
 			            		<option value="kind">Tipo</option>
 			            		<option value="name">Nombre</option>
 			            	</select>                 
@@ -130,7 +128,70 @@
 
 		            <div class="modal-footer form-group">
 		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-info" id="saveButton">Buscar</button>
+		              	<button type="submit" class="btn btn-primary">Buscar</button>
+		            </div>
+		        </form>
+		          
+	      	</div>      
+	    </div> 
+  	</div>
+@endsection
+
+@section('modal-import')
+	<div id="myModalImport" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+		    	<div class="modal-header">
+		            <h4 class="modal-title">Importar datos</h4>
+		        </div>
+	        	
+	        	<form method="POST" action="/type/import" enctype="multipart/form-data">
+		          	{{ csrf_field() }}
+
+		            <div class="modal-body form-group">
+			            <div class="form-group">
+			            	<label>Cargar archivo:</label>
+		                	<input type="file" class="form-control-file" name="types_file" id="file">
+		              	</div>           
+					</div>
+
+		            <div class="modal-footer form-group">
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary">Importar</button>
+		            </div>
+		        </form>
+		          
+	      	</div>      
+	    </div> 
+  	</div>
+@endsection
+
+@section('modal-export')
+	<div id="myModalExport" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+		    	<div class="modal-header">
+		            <h4 class="modal-title">Exportar datos</h4>
+		        </div>
+	        	
+	        	<form method="GET" action="/type/export">
+		          	{{ csrf_field() }}
+
+		            <div class="modal-body form-group">  
+		               	<div class="form-group ">
+			                <label>Formato de archivo:</label>
+            				<select  id="extension" class="form-control input-sm" name="extension">
+			            		<option value="" selected disabled>Seleccione el formato</option>
+			            		<option value="xls">XLS</option>
+			            		<option value="xlsx">XLSX</option>
+			            		<option value="csv">CSV</option>
+			            	</select>                 
+			            </div> 			                   
+					</div>
+
+		            <div class="modal-footer form-group">
+		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-primary" id="export">Exportar</button>
 		            </div>
 		        </form>
 		          
@@ -157,15 +218,21 @@
 	    @endif	    
 	</div>
 
-	<div class="row float-right"> 
-		<button class="btn btn-success mr-3" data-toggle="modal" data-target="#myModalAdd" role="button"><span class="fa fa-plus"></span> Agregar </button>
-		<button class="btn btn-info mr-3" data-toggle="modal" data-target="#myModalSearch" role="button"><span class="fa fa-search"></span> Buscar </button>
+	<div class="row"> 
+		<div class="mr-auto ml-3">
+			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
+		</div>
+		<div class="ml-auto">
+			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-success btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+		</div>	
 	</div>
 	
 	
 	<table class="table table-hover">
-		<thead class="thead-light">
-			<tr>
+		<thead class="thead-index">
+			<tr class="text-white">
 				<th>Tipo</th>
 				<th>Nombre</th>
 				<th colspan="2" class="text-center">Operación</th>
@@ -177,8 +244,8 @@
 					<td>{{ $type->kind }}</td>
 					<td>{{ $type->name }}</td>
 					
-					<td align="right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil"></span></button></td>
-          			<td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash"></span></button></td>
+					<td align="right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
+          			<td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
 					
 				</tr>
 			@endforeach
