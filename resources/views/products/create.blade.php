@@ -15,7 +15,7 @@
     @else
       	<p class="text-center font-weight-bold">Agregar pieza</p>
       
-      	<form method="POST" action="/product/add">
+      	<form method="POST" action="/product/add" id="create">
     @endif	
         {{ csrf_field()}}
 		<div class="row col-md-12 form-group {{ $errors->has('type_id') ? ' has-error' : '' }}">			
@@ -105,14 +105,16 @@
     </form>
 @endsection
 
-@section('scriptt')
-	<script>
-		$('#form').data('serialize',$('#form').serialize());
+@section('script')
+	<script>		
+		$(window).bind('beforeunload', function(){
+		    return "Any changes will be lost";
+		});
 
-		$(window).bind('beforeunload', function(e){
-		  	//return 'Are you sure you want to leave?';
-		  	if($('#form').serialize()!=$('#form').data('serialize'))return true;
-    		else e=null;
+		// Form Submit
+		$(document).on("submit", "form", function(event){
+		    // disable unload warning
+		    $(window).off('beforeunload');
 		});
 	</script>
 @endsection

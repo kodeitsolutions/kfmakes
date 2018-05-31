@@ -168,8 +168,8 @@
 
   <div class="row"> 
     <div class="mr-auto ml-3">
-      <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
-      <span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
+      <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar" style="display: none;><span class="fa fa-upload"></span></button></span>
+      <span data-toggle="modal" data-target="#myModalExport" style="display: none;><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
         <ul class="dropdown-menu" id="filter-list">
@@ -190,12 +190,7 @@
       <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
     </div>  
   </div> 
-
-  
-  <div class="row">
     
-  </div>
-  
   <table class="table table-hover">
     <thead class="thead-index">
       <tr class="text-white">
@@ -215,7 +210,7 @@
           <td>{{ $product->name }}</td>
           <td>{{ $product->cost_KFD }}</td>
           <td>{{ $product->cost_EKF }}</td>
-          <td align="center"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
+          <td align="center"><button id="show-button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}" style="display: none;"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
           <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
           <td  align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
           
