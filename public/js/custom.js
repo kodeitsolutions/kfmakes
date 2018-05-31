@@ -20,11 +20,23 @@ $(document).ready(function() {
     $('dl[id="components"]').empty();
   });
 
-  $('#filter a').click(function(event){
-    console.log('aqui');
+  $('#all').click(function(event){
+    event.preventDefault(); 
+    if($('input[id="type"]').is(':checked') && $('input[id="type"]:checked').length === $('input[id="type"]').length) {
+      $('input[id="type"]').prop('checked',false);
+      $("#all").text('Todos');
+    }
+    else {
+      $('input[id="type"]').prop('checked',true);
+      $("#all").text('Quitar');
+    }
+    event.stopPropagation();
+  })
+
+  $('#filter-button').click(function(event){
     event.preventDefault();
-    document.getElementById('filter-form').submit();
-  });
+  }); 
+
 });
 
 function upperCase(name) {
@@ -97,7 +109,7 @@ function modalShow(id){
   });
 }
 
-function submit(form) {
-  event.preventDefault(); 
-  document.getElementById(form).submit()
+function submitForm(form) {
+  //event.preventDefault(); 
+  document.getElementById(form).submit();
 }

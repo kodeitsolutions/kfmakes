@@ -168,17 +168,19 @@
 
   <div class="row"> 
     <div class="mr-auto ml-3">
-      {{--<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
-                       <span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>--}}     
+      <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+      <span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <form method="GET" action="/product/search" id="filter">
+        <ul class="dropdown-menu" id="filter-list">
+          <a href="" class="dropdown-item" id="all">Todos</a>
+          <div class="dropdown-divider"></div>
+          <form method="GET" action="/product/search" id="filter-form">
             @foreach($types as $type)
               <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type" value="{{$type->id}}" />{{$type->name}}</li>
             @endforeach
             <div class="dropdown-divider"></div>
-            <a href="" class="dropdown-item" onclick="submit('filter')">Aplicar</a> 
+            <a href="" class="dropdown-item" id="filter-button" onclick="submitForm('filter-form')">Aplicar</a> 
           </form>           
         </ul>
       </span>
@@ -213,7 +215,7 @@
           <td>{{ $product->name }}</td>
           <td>{{ $product->cost_KFD }}</td>
           <td>{{ $product->cost_EKF }}</td>
-          {{--<td align="center"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>--}}     
+          <td align="center"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
           <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
           <td  align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
           

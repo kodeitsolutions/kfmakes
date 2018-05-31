@@ -45,11 +45,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               {{ Auth::user()->name }}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
-                                <a href="{{ route('logout') }}" id="logout" class="dropdown-item" role="button"
-                                    onclick="submit('logout-form')">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                                <a href="{{ url('/logout') }}" id="logout" class="dropdown-item" role="button"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
                                     Salir
-                                </a>                                        
+                                </a>                                       
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                     {{ csrf_field() }}
