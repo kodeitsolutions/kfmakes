@@ -222,13 +222,13 @@ class ProductsController extends Controller
     public function search(Request $request)
     {
         if ($request->has('type')) {
-            $products = Product::whereIn('type_id',$request->type)->get();
+            $products = Product::whereIn('type_id',$request->type)->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get();
         } else {
             $parameter = $request->search;
             $query = $request->value;
 
             if ($parameter == '' && $query == '') {
-                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); ;
+                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
             } 
             elseif ($parameter == '' && $query != '') {
                 $products = Product::where('products.name','LIKE', $query . '%')
