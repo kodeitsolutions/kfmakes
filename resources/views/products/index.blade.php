@@ -15,7 +15,7 @@
           </div> 
 
           <div class="modal-footer form-group">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="showButton">Cancelar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="showButton">Cancelar</button>
           </div>
         </form>
               
@@ -38,8 +38,8 @@
                 <form method="POST" action="" id="delete">
                   {{ method_field('DELETE') }}
                   {{ csrf_field() }}
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-warning">Eliminar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-default">Eliminar</button>
                 </form>
             </div>
           </div>      
@@ -75,8 +75,8 @@
             </div>
 
             <div class="modal-footer form-group">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Buscar</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-default">Buscar</button>
             </div>
         </form>
               
@@ -104,8 +104,8 @@
           </div>
 
                 <div class="modal-footer form-group">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Importar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-default">Importar</button>
                 </div>
             </form>
               
@@ -138,8 +138,8 @@
                 </div>
 
                 <div class="modal-footer form-group">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="export">Exportar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-default" id="export">Exportar</button>
                 </div>
             </form>
               
@@ -168,10 +168,10 @@
 
   <div class="row"> 
     <div class="mr-auto ml-3">
-      <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar" style="display: none;><span class="fa fa-upload"></span></button></span>
-      <span data-toggle="modal" data-target="#myModalExport" style="display: none;><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
+      <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+      <span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
-        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
         <ul class="dropdown-menu" id="filter-list">
           <a href="" class="dropdown-item" id="all">Todos</a>
           <div class="dropdown-divider"></div>
@@ -186,8 +186,8 @@
       </span>
     </div>
     <div class="ml-auto">
-      <a href="/product/create" class="btn btn-success btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"> <span class="fa fa-plus"></span></a>
-      <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+      <a href="/product/create" class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"> <span class="fa fa-plus"></span></a>
+      <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
     </div>  
   </div> 
     
@@ -210,9 +210,9 @@
           <td>{{ $product->name }}</td>
           <td>{{ $product->cost_KFD }}</td>
           <td>{{ $product->cost_EKF }}</td>
-          <td align="center"><button id="show-button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}" style="display: none;"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
-          <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-primary btn-sm"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
-          <td  align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+          <td align="center"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
+          <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
+          <td  align="center"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
           
         </tr>
       @endforeach

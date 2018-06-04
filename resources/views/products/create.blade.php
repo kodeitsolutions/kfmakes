@@ -54,7 +54,7 @@
 				  <div class="card">
 				    <div class="card-header" id="heading{{ $type_component->id }}">
 				        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}" class="text-white font-weight-bold">
-				        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right"></span>
+				        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right text-white"></span>
 				        </a>				      
 				    </div>
 
@@ -99,8 +99,8 @@
 		</div>	
 
 		<div class="row form-group float-right" ">
-	        <a href="javascript:history.go(-1)" class="btn btn-danger mr-3" role="button">Cancelar</a>
-	        <button type="submit" class="btn btn-primary">Guardar</button>
+	        <a href="javascript:history.go(-1)" class="btn btn-default mr-3" role="button">Cancelar</a>
+	        <button type="submit" class="btn btn-default">Guardar</button>
 	    </div>      
     </form>
 @endsection

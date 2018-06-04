@@ -34,8 +34,8 @@
                     </div>
 
                     <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary">Guardar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default">Guardar</button>
 		            </div>
                 </form>
 	      	</div>	      	   
@@ -58,8 +58,8 @@
 					<form method="POST" action="" id="delete">
 						{{ method_field('DELETE') }}
 						{{ csrf_field() }}
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-warning">Eliminar</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-default">Eliminar</button>
 					</form>
 				</div>
 			</div>			
@@ -89,8 +89,8 @@
 					        </div>					        
 				        </div>
 				        <div class="modal-footer form-group">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-default">Guardar</button>
 						</div>
 			    </form> 		
 			</div>			
@@ -126,8 +126,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary">Buscar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default">Buscar</button>
 		            </div>
 		        </form>
 		          
@@ -160,8 +160,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary">Restablecer</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default">Restablecer</button>
 		            </div>
 
 			            
@@ -191,8 +191,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary">Importar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default">Importar</button>
 		            </div>
 		        </form>
 		          
@@ -225,8 +225,8 @@
 					</div>
 
 		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-primary" id="export">Exportar</button>
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default" id="export">Exportar</button>
 		            </div>
 		        </form>
 		          
@@ -249,13 +249,13 @@
 			
 	<div class="row"> 
 		<div class="mr-auto ml-3">
-			<a href="/product" class="btn btn-light btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Salir config."><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
-			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
-			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-secondary btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
+			<a href="/product" class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Salir config."><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
+			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
 		</div>
 		<div class="ml-auto">
-			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-success btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>
-			<span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-info btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
 		</div>	
 	</div>
 
@@ -273,9 +273,9 @@
 	      		<tr>
 	        		<td>{{ $user->name }}</td>
 	        		<td>{{ $user->email }}</td>						
-					<td align="center"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
-					<td align="center"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
-					<td align="center"><button class="btn btn-dark btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
+					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
+					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
 		        			        	
 	     		</tr>
 	     	@endforeach	     

@@ -25,8 +25,23 @@ html, body {
     margin-top: 10px;
 }
  
+a:link,
+.fa {
+    color: #000000;
+}
+
 a:hover {
     text-decoration: none;
+}
+
+.btn {
+    background-color: #d0d0d0;
+    border-color: #000000;
+    border-radius: 0px 0px;
+}
+
+.btn {
+    background-color: #d0d0d0;
 }
 
 .card-header,

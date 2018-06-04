@@ -52,18 +52,18 @@
 
                         <div class="form-group">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary ">
+                                <button type="submit" class="btn btn-default ">
                                     Ingresar
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-default" href="{{ route('password.request') }}" role="button">
                                     ¿Olvidaste la contraseña?
                                 </a>
                             </div>
                         </div>
                     </form>         
                 </div> 
-                <div class="card-footer">Version 1.2.0</div>
+                <div class="card-footer">Version 1.2.1</div>
             </div>            
         </div>
     </div>
