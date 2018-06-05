@@ -273,84 +273,39 @@ class ProductsController extends Controller
             'extension' => 'required',
         ]);   
 
-        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();     
-        //dd($components);
-
-        $array = array();
-        foreach ($components as $component) {
-            # code...
-            array_push($array,  array($component->id => $component->type->name.'/'.$component->name));
-            //$array[$component->id] = array($component->id => $component->type->name.'/'.$component->name);
-        }        
-        dd($array);
-
-        /*Excel::create('Piezas', function($excel) {
- 
-            $excel->sheet('Datos', function($sheet) { 
-
-                $products = Product::all();*/
-
-                $arr = array();
-                foreach($products as $product) {
-                    foreach($product->components()->get() as $component){
-                        $data = array($product->id, $product->name, $product->cost_KFD, $product->cost_EKF, $product->created_at,$product->updated_at,$component->id, $component->pivot->quantity);
-                        array_push($arr, $data);
-                    }
-                }
-
-                /*$sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
-                        'id', 'name', 'cost_KFD', 'cost_EKF', 'created_at','updated_at', 'component_id', 'quantity'
-                    )
-
-                );
- 
-            });
-        })->export($request->extension);
-        
-        return back();*/
-    }
-
-    /*public function export(Request $request)
-    {
-        $this->validate($request, [
-            'extension' => 'required',
-        ]);
-
         Excel::create('Piezas', function($excel) {
  
             $excel->sheet('Piezas', function($sheet) { 
 
-                $products = Product::all();             
- 
-                $sheet->fromArray($products);
- 
-            });
+                $products = Product::with('type')->get();
+                $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
 
-            $excel->sheet('Componentes', function($sheet) { 
+                for ($i=0; $i < count($products) ; $i++) { 
+                    # code...
+                    $productData[] = [
+                        'ID' => $products[$i]->id,
+                        'NOMBRE' => $products[$i]->name,
+                        'TIPO' => $products[$i]->type->name,
+                        'COSTO KFD' => $products[$i]->cost_KFD,
+                        'COSTO EKF' => $products[$i]->cost_EKF,                
+                    ];
 
-                $products = Product::all();  
-
-                //$components = $products->components()->get();
-
-                //$sheet->fromArray($components);
-                $arr = array();
-                foreach($products as $product) {
-                    foreach($product->components()->get() as $component){
-                        $data = array($component->pivot->id, $product->id, $component->id, $component->pivot->quantity);
-                        array_push($arr, $data);
+                    //ADD ALL COMPONENTS - AGREGAR TODOS LOS COMPONENTES
+                    foreach ($components as $component) {
+                        $productData[$i][$component->type->name.'/'.$component->name] = '0.000';
                     }
-                }
-
-                $sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
-                        'id', 'component_id', 'product_id','quantity')
-
-                );
+                    //SET VALUE OF PRODUCT COMPONENTS - ASIGNAR EL VALOR DE LOS COMPONENTES DE LA PIEZA
+                    foreach($products[$i]->components()->get() as $component){
+                        $productData[$i][$component->type->name.'/'.$component->name] = $component->pivot->quantity;
+                    }
+                }     
+ 
+                $sheet->fromArray($productData);
  
             });
-        })->export($request->extension);
 
-        return back();
-    }*/
+        })->export($request->extension);
+    }    
 
     /*public function import(Request $request)
     {

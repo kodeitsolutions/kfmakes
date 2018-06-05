@@ -132,7 +132,6 @@
                       <option value="" selected disabled>Seleccione el formato</option>
                       <option value="xls">XLS</option>
                       <option value="xlsx">XLSX</option>
-                      <option value="csv">CSV</option>
                     </select>                 
                   </div>                         
                 </div>
@@ -169,7 +168,7 @@
   <div class="row"> 
     <div class="mr-auto ml-3">
       <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar" style="display: none"><span class="fa fa-upload"></span></button></span>
-      <span data-toggle="modal" data-target="#myModalExport" disabled><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar" style="display: none"><span class="fa fa-download"></span></button></span>   
+      <span data-toggle="modal" data-target="#myModalExport" disabled><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
         <ul class="dropdown-menu" id="filter-list">
