@@ -21,7 +21,7 @@ class TypesController extends Controller
     public function index()
     {
         //
-        $types = Type::orderBy('kind')->orderBy('name')->get();
+        $types = Type::orderBy('kind')->orderBy('name')->paginate(7);
         return view('types.index',compact('types'));
     }
 
@@ -158,16 +158,16 @@ class TypesController extends Controller
         $query = $request->value;
 
         if ($parameter == '' && $query == '') {
-            $types = Type::orderBy('kind')->orderBy('name')->get();
+            $types = Type::orderBy('kind')->orderBy('name')->paginate(7);
         } 
         elseif ($parameter == '' && $query != '') {
             $types = Type::where('kind','LIKE', $query . '%')
                 ->orWhere('name','LIKE', $query . '%')
                 ->orderBy('kind')->orderBy('name')
-                ->get();
+                ->paginate(7);
         } 
         else {
-            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->get();        
+            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->paginate(7);   
         }
 
         if($types->isEmpty()) {

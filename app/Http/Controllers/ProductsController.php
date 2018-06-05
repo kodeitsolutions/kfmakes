@@ -22,7 +22,7 @@ class ProductsController extends Controller
     {
         //
         $types = Type::where('kind','Pieza')->orderBy('name')->get();
-        $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
+        $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7); 
         return view('products.index',compact('products','types'));
     }
 
@@ -222,13 +222,13 @@ class ProductsController extends Controller
     public function search(Request $request)
     {
         if ($request->has('type')) {
-            $products = Product::whereIn('type_id',$request->type)->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get();
+            $products = Product::whereIn('type_id',$request->type)->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
         } else {
             $parameter = $request->search;
             $query = $request->value;
 
             if ($parameter == '' && $query == '') {
-                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
+                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
             } 
             elseif ($parameter == '' && $query != '') {
                 $products = Product::where('products.name','LIKE', $query . '%')
@@ -238,23 +238,23 @@ class ProductsController extends Controller
                             $q->where('name','LIKE', '%' . $query . '%');
                         })
                     ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                    ->get(); 
+                    ->paginate(7); 
             }
             elseif ($parameter == 'type') {
                 $products = Product::whereHas('type', function ($q) use ($query){
                         $q->where('name','LIKE', '%' . $query . '%');
                     })
                 ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                ->get(); 
+                ->paginate(7);; 
             }
             elseif ($parameter == 'cost') {
                 $products = Product::where('cost_EKF','LIKE', $query . '%')
                     ->orWhere('cost_KFD','LIKE', $query . '%')
                     ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                    ->get(); 
+                    ->paginate(7); 
             } else {
                 $products = Product::where('products.'.$parameter, 'LIKE', '%' . $query . '%')
-                    ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get(); 
+                    ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
             }             
         }
 
@@ -264,23 +264,31 @@ class ProductsController extends Controller
         else {
             $types = Type::where('kind','Pieza')->orderBy('name')->get();
             return view('products.index', compact('products','types'));
-        }
-        
-
-            
+        }  
     }
 
-    /*public function export(Request $request)
+    public function export(Request $request)
     {
         $this->validate($request, [
             'extension' => 'required',
-        ]);        
-        
-        Excel::create('Piezas', function($excel) {
+        ]);   
+
+        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();     
+        //dd($components);
+
+        $array = array();
+        foreach ($components as $component) {
+            # code...
+            array_push($array,  array($component->id => $component->type->name.'/'.$component->name));
+            //$array[$component->id] = array($component->id => $component->type->name.'/'.$component->name);
+        }        
+        dd($array);
+
+        /*Excel::create('Piezas', function($excel) {
  
             $excel->sheet('Datos', function($sheet) { 
 
-                $products = Product::all();
+                $products = Product::all();*/
 
                 $arr = array();
                 foreach($products as $product) {
@@ -290,7 +298,7 @@ class ProductsController extends Controller
                     }
                 }
 
-                $sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
+                /*$sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
                         'id', 'name', 'cost_KFD', 'cost_EKF', 'created_at','updated_at', 'component_id', 'quantity'
                     )
 
@@ -299,10 +307,10 @@ class ProductsController extends Controller
             });
         })->export($request->extension);
         
-        return back();
-    }*/
+        return back();*/
+    }
 
-    public function export(Request $request)
+    /*public function export(Request $request)
     {
         $this->validate($request, [
             'extension' => 'required',
@@ -322,9 +330,9 @@ class ProductsController extends Controller
 
                 $products = Product::all();  
 
-                /*$components = $products->components()->get();
+                //$components = $products->components()->get();
 
-                $sheet->fromArray($components);*/
+                //$sheet->fromArray($components);
                 $arr = array();
                 foreach($products as $product) {
                     foreach($product->components()->get() as $component){
@@ -342,7 +350,7 @@ class ProductsController extends Controller
         })->export($request->extension);
 
         return back();
-    }
+    }*/
 
     /*public function import(Request $request)
     {

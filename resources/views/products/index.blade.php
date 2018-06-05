@@ -218,6 +218,9 @@
       @endforeach
     </tbody>
   </table>
+  <div class="row justify-content-center">
+    {{ $products->links('vendor.pagination.bootstrap-4') }}
+  </div>
 @endsection
 
 @section('script')

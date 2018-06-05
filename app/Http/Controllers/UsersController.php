@@ -22,7 +22,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::orderBy('name')->get();
+        $users = User::orderBy('name')->paginate(7);
         return view('users.index',compact('users'));
     }
 
@@ -142,16 +142,16 @@ class UsersController extends Controller
         $query = $request->value;
 
         if ($parameter == '' && $query == '') {
-            $users = User::orderBy('name')->get();;
+            $users = User::orderBy('name')->paginate(7);
         } 
         elseif ($parameter == '' && $query != '') {
             $users = User::where('name','LIKE', $query . '%')
                 ->orWhere('email','LIKE', $query . '%')
                 ->orderBy('name')
-                ->get();
+                ->paginate(7);
         }
         else {
-            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->get();
+            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(7);
         }
         
         if($users->isEmpty()) {

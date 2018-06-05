@@ -21,7 +21,7 @@ class ComponentsController extends Controller
     {
         //
         $types = Type::where('kind','Componente')->orderBy('name')->get();
-        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();        
+        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);        
         return view('components.index',compact('components','types'));
     }
 
@@ -167,7 +167,7 @@ class ComponentsController extends Controller
         $query = $request->value;
 
         if ($parameter == '' && $query == '') {
-            $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
+            $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);
         } 
         elseif ($parameter == '' && $query != '') {
             $components = Component::where('components.name','LIKE', $query . '%')
@@ -175,17 +175,18 @@ class ComponentsController extends Controller
                 ->orwhereHas('type', function ($q) use ($query){
                         $q->where('name','LIKE', '%' . $query . '%');
                     })
-                ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
+                ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')
+                ->paginate(7);
         }
         elseif ($parameter == 'type') {
             $components = Component::whereHas('type', function ($q) use ($query){
                     $q->where('name','LIKE', '%' . $query . '%');
                 })
-            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);
         }
         else {
             $components = Component::where('components.'.$parameter, 'LIKE', '%' . $query . '%')
-            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();      
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);      
         }
 
         if($components->isEmpty()) {
