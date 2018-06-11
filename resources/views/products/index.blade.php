@@ -10,8 +10,18 @@
         
           <div class="modal-body form-group">
             <p class="">Componentes</p>           
-            <dl class="row" id="components">
-            </dl>
+            <table class="table table-sm" id="description">
+              <thead class="thead-light">
+                <tr>
+                  <td>#</td>
+                  <td>Tipo</td>
+                  <td>Nombre</td>
+                  <td>Cantidad</td>
+                </tr>
+              </thead>
+              <tbody id="description-body">                
+              </tbody>
+            </table>
           </div> 
 
           <div class="modal-footer form-group">
@@ -193,25 +203,25 @@
   <table class="table table-hover">
     <thead class="thead-index">
       <tr class="text-white">
-        <th>#</th>
-        <th>Tipo</th>
-        <th>Nombre</th>
-        <th>Costo KFD</th>
-        <th>Costo EKF</th>
-        <th colspan="3" class="text-center">Operación</th>
+        <th scope="col">#</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Costo KFD</th>
+        <th scope="col">Costo EKF</th>
+        <th scope="col" colspan="3" class="text-center">Operación</th>
       </tr>
     </thead>
     <tbody>
       @foreach($products as $index => $product)
-        <tr>
-          <td>{{ $index + 1 }}</td>
+        <tr>          
+          <th scope="row"> {{ $index + 1 }}</th>
           <td>{{ $product->type->name }}</td>
           <td>{{ $product->name }}</td>
           <td>{{ $product->cost_KFD }}</td>
           <td>{{ $product->cost_EKF }}</td>
-          <td align="center"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}" style="display: none"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
+          <td align="right"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
           <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
-          <td  align="center"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+          <td  align="left"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
           
         </tr>
       @endforeach

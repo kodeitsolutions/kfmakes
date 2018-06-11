@@ -16,8 +16,8 @@ $(document).ready(function() {
     $('#myModalExport').modal('hide');
   });
 
-  $('#showButton').click(function(){
-    $('dl[id="components"]').empty();
+  $('#showButton').click(function(event){
+    $('.table-row').remove();
   });
 
   $('#all').click(function(event){
@@ -36,7 +36,6 @@ $(document).ready(function() {
   $('#filter-button').click(function(event){
     event.preventDefault();
   }); 
-
 });
 
 function upperCase(name) {
@@ -86,27 +85,24 @@ function modalReset(id){
   $('form[id="reset"]').attr('action','/user/reset/' + id);
 };
 
+function setRow(rowId, colNum, newValue)
+{
+  console.log('entre')
+    //$('#descrption').find('tr#'+rowId).find('td:eq(+'+colNum+')').html(newValue);
+    $('<td id="index_'+rowId+'">'+ (rowId+1) +'</td>').appendTo('#'+rowId);
+};
+
 function modalShow(id){
   $.get('/product/getProductComponents/' + id, function(response){
-    
-    console.log(response);
-    for (var i = 0; i < response.length; i++) {
-      $('<dt class="col-sm-3" id="'+i+'">'+ (i+1) +'.</dt>').appendTo("#components");
 
-      $.get('/type/getType/' + response[i].type_id, function(type){      
-        console.log(i)
-        //$('<dd class="col-sm-3" id="type">'+type.name+'</dd>').appendTo('#index_'+type.id);
-        $('dt[id="'+ i +'"]').append('<dd class="col-sm-3" id="type">'+type.name+'</dd>');
-        //$('dt').prepend('<dd class="col-sm-3" id="type">'+type.name+'</dd>'); 
-        //$('<dd class="col-sm-3" id="type">'+type.name+'</dd>').appendTo("dl");          
-      }); 
-
-      $('dt[id="'+ i +'"]').append('<dd class="col-sm-3" id="name">'+response[i].name+'</dd>');
-      $('dt[id="'+ i +'"]').append('<dd class="col-sm-3" id="quantity">'+response[i].pivot.quantity+'</dd>');
-
-      //$('dt').append('</br>');
+    $('#description-body tr').not(':first').not(':last').remove();
+    var html = '';
+    for(var i = 0; i < response.length; i++){
+      html += '<tr class="table-row"><td>' + (i+1) + '</td><td>' + response[i].type_name + '</td><td>' + response[i].name + '</td><td>' + response[i].pivot.quantity + '</td></tr>';
     }
-  });
+                
+    $('#description tr').first().after(html);
+  }); 
 }
 
 function submitForm(form) {

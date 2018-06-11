@@ -109,11 +109,14 @@ class ProductsController extends Controller
         $product = Product::find($id);
 
         $components = $product->components()->get();  
+
         if (is_null($components))
         {
             return redirect('/product');
         }
-        //dd($components);
+        foreach ($components as $component) {
+            $component->append('type_name')->toArray();
+        }
         return Response::json($components);
     }
 

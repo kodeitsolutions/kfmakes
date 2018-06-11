@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     //
-
     protected $fillable = ['name','cost_KFD','cost_EKF', 'minutes','user_id','type_id'];
+    protected $appends = ['type_name'];
 
     public function user()
     {
@@ -24,4 +24,11 @@ class Product extends Model
     {
        return $this->belongsToMany(Component::class)->withPivot(['quantity','id'])->withTimestamps();
     }
+
+    public function getTypeNameAttribute()
+    {
+        $type = Type::find($this->type_id);
+        return $type->name;
+    }  
+        
 }
