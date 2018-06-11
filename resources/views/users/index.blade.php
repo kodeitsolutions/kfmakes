@@ -263,9 +263,9 @@
 	<table class="table table-hover">
 	    <thead class="thead-index">
 	    	<tr class="text-white">
-		        <th>Nombre</th>
-		        <th>E-Mail</th>
-		        <th colspan="3" class="text-center">Operación</th>
+		        <th scope="col">Nombre</th>
+		        <th scope="col">E-Mail</th>
+		        <th scope="col" colspan="3" class="text-center">Operación</th>
 	      	</tr>
 	    </thead>
 	    <tbody>

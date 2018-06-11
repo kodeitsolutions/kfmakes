@@ -233,9 +233,9 @@
 	<table class="table table-hover">
 		<thead class="thead-index">
 			<tr class="text-white">
-				<th>Tipo</th>
-				<th>Nombre</th>
-				<th colspan="2" class="text-center">Operación</th>
+				<th scope="col">Tipo</th>
+				<th scope="col">Nombre</th>
+				<th scope="col" colspan="2" class="text-center">Operación</th>
 			</tr>
 		</thead>
 		<tbody>
