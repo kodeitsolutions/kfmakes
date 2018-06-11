@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="container">   
-        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ url('/') }}">
