@@ -26,12 +26,14 @@
     <div class="container">   
         <nav class="navbar navbar-expand-lg navbar-light bg-light">           
             
-            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'KFMakes') }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-navbar-collapse" ><span class="navbar-toggler-icon"></span></button>            
-                
-            <div class="collapse navbar-collapse " id="app-navbar-collapse">                    
-                <ul class="navbar-nav ml-auto">
-                    @if (!Auth::guest())    
+            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'KFMakes') }}</a>                       
+            
+            @if (!Auth::guest())
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-navbar-collapse" ><span class="navbar-toggler-icon"></span></button> 
+
+                <div class="collapse navbar-collapse " id="app-navbar-collapse">                    
+                    <ul class="navbar-nav ml-auto">
+                        
                          <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="fa fa-cog"></span></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -53,10 +55,10 @@
                                     {{ csrf_field() }}
                                 </form>
                             </div>
-                        </li>                                               
-                    @endif
-                </ul>
-            </div>
+                        </li>
+                    </ul>
+                </div>
+            @endif
         </nav>
 
         @yield('navigation')        
