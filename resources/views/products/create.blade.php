@@ -48,52 +48,49 @@
 		    @endif
 	    </div>
 
-		<div id="accordion" role="tablist" aria-multiselectable="true">
-			@foreach($type_components as $type_component)
-				<div id="accordion">
-				  <div class="card">
+		<div id="accordion" >
+			@foreach($type_components as $type_component)				
+				<div class="card">
 				    <div class="card-header" id="heading{{ $type_component->id }}">
-				        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $type_component->id }}" class="text-white font-weight-bold">
-				        	{{ $type_component->name }} <span class="fa fa-chevron-down pull-right text-white"></span>
-				        </a>				      
+				        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{ $type_component->id }}" class="text-white font-weight-bold" aria-expanded="true" aria-controls="collapse{{ $type_component->id }}">
+				        	{{ $type_component->name }} <span class="fa fa-chevron-up pull-right text-white"></span>
+				        </a>
 				    </div>
 
-				    <div id="collapse{{ $type_component->id }}" class="collapse show" aria-labelledby="heading{{ $type_component->id }}" >
-				      <div class="table-responsive">
-				        <table class="table table-striped">
-				          <thead>
-				            <tr>
-					            <th>Descripción</th>
-					            <th>Costo</th>
-					            <th>Cantidad</th>
-				            </tr>            
-				          </thead>
-				          <tbody>
-				          	@foreach($type_component->components->sortBy('name') as $t_component)
+				    <div id="collapse{{ $type_component->id }}" class="collapse show" aria-labelledby="heading{{ $type_component->id }}" data-parent="#accordion">
+			    		<div class="table-responsive">
+					        <table class="table table-striped">
+					          <thead>
 					            <tr>
-					              	<td>{{$t_component->name}}</td>
-					              	<td>{{$t_component->cost}}</td>
-					              	@if($route == 'edit')
-					              		@if($components->contains('id',$t_component->id))				              		
-							              	@foreach($components as $component)
-							              		@if($t_component->id == $component->id)
-													<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ $component->id == $t_component->id ? $component->pivot->quantity : old($t_component->id,'') }}" min="0" step="0.001" placeholder="0,000"></td>
-
-												@endif
-							           		@endforeach
+						            <th>Descripción</th>
+						            <th>Costo</th>
+						            <th>Cantidad</th>
+					            </tr>            
+					          </thead>
+					          <tbody>
+					          	@foreach($type_component->components->sortBy('name') as $t_component)
+						            <tr>
+						              	<td>{{$t_component->name}}</td>
+						              	<td>{{$t_component->cost}}</td>
+						              	@if($route == 'edit')
+						              		@if($components->contains('id',$t_component->id))				              		
+								              	@foreach($components as $component)
+								              		@if($t_component->id == $component->id)
+														<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ $component->id == $t_component->id ? $component->pivot->quantity : old($t_component->id,'') }}" min="0" step="0.001" placeholder="0,000"></td>
+													@endif
+								           		@endforeach
+								           	@else
+								           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.001" placeholder="0,000"></td>
+								           	@endif		           	
 							           	@else
 							           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.001" placeholder="0,000"></td>
-							           	@endif		           	
-						           	@else
-						           		<td><input class="form-control" type="number" name="{{$t_component->id}}" value="{{ old($t_component->id) }}" min="0" step="0.001" placeholder="0,000"></td>
-						           	@endif
-					            </tr>
-					        @endforeach
-				          </tbody>
-				        </table>			        
-				      </div>
+							           	@endif
+						            </tr>
+						        @endforeach
+					          </tbody>
+					        </table>			        
+				      	</div>			      	
 				    </div>
-				  </div>			  
 				</div>
 			@endforeach	
 		</div>	

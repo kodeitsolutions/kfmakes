@@ -36,6 +36,13 @@ $(document).ready(function() {
   $('#filter-button').click(function(event){
     event.preventDefault();
   }); 
+
+  $('.collapse').on('shown.bs.collapse', function(){
+    $(this).parent().find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+  })
+  $('.collapse').on('hidden.bs.collapse', function(){
+    $(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+  });
 });
 
 function upperCase(name) {
@@ -109,3 +116,13 @@ function submitForm(form) {
   //event.preventDefault(); 
   document.getElementById(form).submit();
 }
+
+
+$('#accordion').on('shown.bs.collapse', function(){
+  console.log('hola')
+  //$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+})
+$('#accordion').on('hidden.bs.collapse', function(){
+  console.log('hola')
+  //$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+});
