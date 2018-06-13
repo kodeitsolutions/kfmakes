@@ -199,34 +199,36 @@
       <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
     </div>  
   </div> 
-    
-  <table class="table table-hover">
-    <thead class="thead-index">
-      <tr class="text-white">
-        <th scope="col">#</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Costo KFD</th>
-        <th scope="col">Costo EKF</th>
-        <th scope="col" colspan="3" class="text-center">Operación</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($products as $index => $product)
-        <tr>          
-          <th scope="row"> {{ $index + 1 }}</th>
-          <td>{{ $product->type->name }}</td>
-          <td>{{ $product->name }}</td>
-          <td>{{ $product->cost_KFD }}</td>
-          <td>{{ $product->cost_EKF }}</td>
-          <td align="right"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
-          <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
-          <td  align="left"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
-          
+  
+  <div class="table-responsive-sm">  
+    <table class="table table-hover">
+      <thead class="thead-index">
+        <tr class="text-white">
+          <th scope="col">#</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Costo KFD</th>
+          <th scope="col">Costo EKF</th>
+          <th scope="col" colspan="3" class="text-center">Operación</th>
         </tr>
-      @endforeach
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @foreach($products as $index => $product)
+          <tr>          
+            <th scope="row"> {{ $index + 1 }}</th>
+            <td>{{ $product->type->name }}</td>
+            <td>{{ $product->name }}</td>
+            <td>{{ $product->cost_KFD }}</td>
+            <td>{{ $product->cost_EKF }}</td>
+            <td align="right"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
+            <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
+            <td  align="left"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+            
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
   <div class="row justify-content-center">
     {{ $products->links('vendor.pagination.bootstrap-4') }}
   </div>

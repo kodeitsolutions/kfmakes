@@ -259,28 +259,29 @@
 		</div>	
 	</div>
 
-	
-	<table class="table table-hover">
-	    <thead class="thead-index">
-	    	<tr class="text-white">
-		        <th scope="col">Nombre</th>
-		        <th scope="col">E-Mail</th>
-		        <th scope="col" colspan="3" class="text-center">Operación</th>
-	      	</tr>
-	    </thead>
-	    <tbody>
-	    	@foreach($users as $user)
-	      		<tr>
-	        		<td>{{ $user->name }}</td>
-	        		<td>{{ $user->email }}</td>						
-					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
-					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
-					<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
-		        			        	
-	     		</tr>
-	     	@endforeach	     
-	    </tbody>
-	</table>
+	<div class="table-responsive-sm">
+		<table class="table table-hover">
+		    <thead class="thead-index">
+		    	<tr class="text-white">
+			        <th scope="col">Nombre</th>
+			        <th scope="col">E-Mail</th>
+			        <th scope="col" colspan="3" class="text-center">Operación</th>
+		      	</tr>
+		    </thead>
+		    <tbody>
+		    	@foreach($users as $user)
+		      		<tr>
+		        		<td>{{ $user->name }}</td>
+		        		<td>{{ $user->email }}</td>						
+						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
+						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
+			        			        	
+		     		</tr>
+		     	@endforeach	     
+		    </tbody>
+		</table>
+	</div>
 	<div class="row justify-content-center">
 	    {{ $users->links('vendor.pagination.bootstrap-4') }}
 	</div>

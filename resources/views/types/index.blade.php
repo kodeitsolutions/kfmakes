@@ -229,28 +229,29 @@
 		</div>	
 	</div>
 	
-	
-	<table class="table table-hover">
-		<thead class="thead-index">
-			<tr class="text-white">
-				<th scope="col">Tipo</th>
-				<th scope="col">Nombre</th>
-				<th scope="col" colspan="2" class="text-center">Operación</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($types as $type)
-				<tr>
-					<td>{{ $type->kind }}</td>
-					<td>{{ $type->name }}</td>
-					
-					<td align="right"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
-          			<td><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
-					
+	<div class="table-responsive-sm">
+		<table class="table table-hover">
+			<thead class="thead-index">
+				<tr class="text-white">
+					<th scope="col">Tipo</th>
+					<th scope="col">Nombre</th>
+					<th scope="col" colspan="2" class="text-center">Operación</th>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach($types as $type)
+					<tr>
+						<td>{{ $type->kind }}</td>
+						<td>{{ $type->name }}</td>
+						
+						<td align="right"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
+	          			<td><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+						
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 	<div class="row justify-content-center">
     {{ $types->links('vendor.pagination.bootstrap-4') }}
   </div>
