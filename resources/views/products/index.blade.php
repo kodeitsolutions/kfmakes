@@ -5,7 +5,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Ver Pieza</h4>
+          <h4 class="modal-title" id="title-show"></h4>
         </div>         
         
           <div class="modal-body form-group">
@@ -25,7 +25,7 @@
           </div> 
 
           <div class="modal-footer form-group">
-            <button type="button" class="btn btn-default" data-dismiss="modal" id="showButton">Cancelar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="showButton">Cerrar</button>
           </div>
         </form>
               
@@ -43,6 +43,7 @@
             </div>
             <div class="modal-body">
               <p>¿Está seguro que desea eliminar la pieza?</p>
+              <label id="name">Nombre</label>
             </div>
             <div class="modal-footer ">           
                 <form method="POST" action="" id="delete">
@@ -220,9 +221,9 @@
             <td>{{ $product->name }}</td>
             <td>{{ $product->cost_KFD }}</td>
             <td>{{ $product->cost_EKF }}</td>
-            <td align="right"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver mas"></span></button></td>    
-            <td align="center"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>          
-            <td  align="left"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
+            <td align="right"><span data-toggle="tooltip" data-placement="top" title="Ver mas"><button id="show-button" class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalShow" data-id="{{$product->id}}"><span class="fa fa-eye"></span></button></span></td>    
+            <td align="center"><span  data-toggle="tooltip" data-placement="top" title="Editar"><a href="/product/{{$product->id}}/edit" class="btn btn-default btn-sm border border-dark" role="button"><span class="fa fa-pencil"></span></a></span></td>          
+            <td  align="left"><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm border border-dark" data-toggle="modal" data-target="#myModalDelete" data-id="{{$product->id}}"><span class="fa fa-trash"></span></button></span></td>
             
           </tr>
         @endforeach

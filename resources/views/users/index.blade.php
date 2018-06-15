@@ -273,9 +273,9 @@
 		      		<tr>
 		        		<td>{{ $user->name }}</td>
 		        		<td>{{ $user->email }}</td>						
-						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
-						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>
-						<td align="center"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"></span></button></td>
+						<td align="center"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$user->id}}"><span class="fa fa-pencil"></span></button></span></td>
+						<td align="center"><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$user->id}}"><span class="fa fa-trash"></span></button></span></td>
+						<td align="center"><span data-toggle="tooltip" data-placement="top" title="Cambiar contraseña"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalReset" data-id="{{$user->id}}"><span class="fa fa-lock"></span></button></span></td>
 			        			        	
 		     		</tr>
 		     	@endforeach	     

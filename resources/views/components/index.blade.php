@@ -248,7 +248,7 @@
           <th scope="col">Tipo</th>
           <th scope="col">Nombre</th>
           <th scope="col">Costo</th>
-          <th scope="col" colspan="2" class="text-center" >Operación</th>
+          <th scope="col" colspan="2" class="text-center">Operación</th>
         </tr>
       </thead>
       <tbody>
@@ -258,8 +258,8 @@
             <td>{{ $component->name }}</td>
             <td>{{ $component->cost }}</td>
             
-            <td align="right"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$component->id}}"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></button></td>
-            <td><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$component->id}}"><span class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar"></span></button></td>            
+            <td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$component->id}}"><span class="fa fa-pencil"></span></button></span></td>
+            <td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$component->id}}"><span class="fa fa-trash"></span></button></span></td>            
           </tr>
         @endforeach
       </tbody>
