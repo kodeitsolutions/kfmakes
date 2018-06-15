@@ -100,6 +100,7 @@ class ProductsController extends Controller
         {
             return redirect('/product');
         }
+        $product->append('type_name')->toArray();
         return Response::json($product);
     }
 

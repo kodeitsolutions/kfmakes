@@ -56,7 +56,11 @@ function modalDelete(module,id){
 	
 	$.get('/'+module+'/get'+moduleUC+'/' + id, function(response){
 		//console.log(response);
-		$('label[id="name"]').text(response.name);	
+    if (module === "product") {
+      $('label[id="name"]').text(response.type_name + ' ' + response.name);
+    } else {
+      $('label[id="name"]').text(response.name);
+    }			
   })
 		
   $('form[id="delete"]').attr('action','/'+module+'/' + id);
@@ -92,37 +96,23 @@ function modalReset(id){
   $('form[id="reset"]').attr('action','/user/reset/' + id);
 };
 
-function setRow(rowId, colNum, newValue)
-{
-  console.log('entre')
-    //$('#descrption').find('tr#'+rowId).find('td:eq(+'+colNum+')').html(newValue);
-    $('<td id="index_'+rowId+'">'+ (rowId+1) +'</td>').appendTo('#'+rowId);
-};
-
 function modalShow(id){
-  $.get('/product/getProductComponents/' + id, function(response){
-
+  $.get('/product/getProductComponents/' + id, function(components){
+    
     $('#description-body tr').not(':first').not(':last').remove();
     var html = '';
-    for(var i = 0; i < response.length; i++){
-      html += '<tr class="table-row"><td>' + (i+1) + '</td><td>' + response[i].type_name + '</td><td>' + response[i].name + '</td><td>' + response[i].pivot.quantity + '</td></tr>';
+    for(var i = 0; i < components.length; i++){
+      html += '<tr class="table-row"><td>' + (i+1) + '</td><td>' + components[i].type_name + '</td><td>' + components[i].name + '</td><td>' + components[i].pivot.quantity + '</td></tr>';
     }
                 
     $('#description tr').first().after(html);
   }); 
+  $.get('/product/getProduct/' + id, function(product){
+    
+    $('#title-show').text(product.type_name + ' ' +product.name);
+  });
 }
 
 function submitForm(form) {
-  //event.preventDefault(); 
   document.getElementById(form).submit();
-}
-
-
-$('#accordion').on('shown.bs.collapse', function(){
-  console.log('hola')
-  //$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
-})
-$('#accordion').on('hidden.bs.collapse', function(){
-  console.log('hola')
-  //$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
-});
+};
