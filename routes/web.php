@@ -18,7 +18,11 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::group(['middleware' => ['auth','revalidate']], function(){
+	Route::get('/module', 'HomeController@module')->name('module');
+	Route::post('/chosen', 'HomeController@chosen');
+
 	Route::get('type', 'TypesController@index');
 	Route::post('type/add', 'TypesController@store');
 	Route::get('type/getType/{id}', 'TypesController@show');
@@ -59,4 +63,13 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::post('user/reset/{user}','UsersController@updatePassword');
 	Route::get('user/export','UsersController@export');
 	Route::post('user/import','UsersController@import');
+
+	Route::get('category', 'CategoryController@index');
+	Route::post('category/add', 'CategoryController@store');
+	Route::get('category/getCategory/{id}', 'CategoryController@show');
+	Route::patch('category/{category}', 'CategoryController@update');
+	Route::get('category/search', 'CategoryController@search');
+	Route::delete('category/{category}','CategoryController@destroy');
+	Route::get('category/export','CategoryController@export');
+	Route::post('category/import','CategoryController@import');
 });

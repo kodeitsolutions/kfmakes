@@ -118,6 +118,9 @@ return [
         'extension' => [
             'required' => 'Debe seleccionar el formato del archivo a exportar.'
         ],
+        'module' => [
+            'required' => 'Debe seleccionar un módulo para continuar.'
+        ]
     ],
 
     /*

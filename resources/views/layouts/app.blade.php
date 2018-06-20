@@ -25,7 +25,7 @@
     <div class="container">   
         <nav class="navbar navbar-expand-lg navbar-light bg-light">           
             
-            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'KFMakes') }}</a>                       
+            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'KFMakes') }}</a>                      
             
             @if (!Auth::guest())
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-navbar-collapse" ><span class="navbar-toggler-icon"></span></button> 
@@ -43,12 +43,16 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               {{ Auth::user()->name }}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/module" class="dropdown-item" role="button"> Cambiar módulo</a>
+
+                                <div class="dropdown-divider"></div>
+
                                 <a href="{{ url('/logout') }}" id="logout" class="dropdown-item" role="button"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     Salir
-                                </a>                                       
+                                </a> 
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                     {{ csrf_field() }}

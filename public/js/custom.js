@@ -87,7 +87,11 @@ function modalEdit(module,id)
     if (module === "user") {
       $('input[id="name_edit"]').val(response.name);
       $('input[id="email_edit"]').val(response.email);
-    }    	    
+    } 
+
+    if (module === "category") {
+      $('input[id="name"]').val(response.name);
+    }   	    
   })
   $('form[id="edit"]').attr('action','/'+module+'/' + id);      	
 };
