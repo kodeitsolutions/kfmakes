@@ -209,14 +209,15 @@ class UsersController extends Controller
         # code...
         $this->validate($request, [
             'file' => 'file'
-        ]);
-
-        $path = $request->file('users_file')->getRealPath();
-        $data = Excel::load($path, function($reader) {})->get();
+        ]);            
         
         $count = 0;
 
         if($request->hasFile('users_file')){
+            
+            $path = $request->file('users_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+
             if(!empty($data) && $data->count()){
                 $users = User::all();
                                 
@@ -231,14 +232,13 @@ class UsersController extends Controller
                     }                    
                 }
             }
+            if ($count > 0) {
+                $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+            } else {
+                $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+            }
         } else {
             $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
-        }
-
-        if ($count > 0) {
-            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
-        } else {
-            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
         }
         
         return back();      

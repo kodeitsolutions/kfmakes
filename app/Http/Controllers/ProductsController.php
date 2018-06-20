@@ -89,7 +89,7 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -279,7 +279,7 @@ class ProductsController extends Controller
 
         Excel::create('Piezas', function($excel) {
  
-            $excel->sheet('Piezas', function($sheet) { 
+            $excel->sheet('Datos', function($sheet) { 
 
                 $products = Product::with('type')->get();
                 $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->get();

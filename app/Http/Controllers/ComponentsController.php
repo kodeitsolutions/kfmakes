@@ -72,7 +72,7 @@ class ComponentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Component  $component
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -224,13 +224,14 @@ class ComponentsController extends Controller
         $this->validate($request, [
             'file' => 'file'
         ]);
-
-        $path = $request->file('components_file')->getRealPath();
-        $data = Excel::load($path, function($reader) {})->get();
         
         $count = 0;
 
         if($request->hasFile('components_file')){
+            
+            $path = $request->file('components_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+
             if(!empty($data) && $data->count()){
                 $components = Component::all();
                                 
@@ -246,16 +247,15 @@ class ComponentsController extends Controller
                     }                    
                 }
             }
+            if ($count > 0) {
+                $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+            } else {
+                $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+            }
         } else {
             $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
         }
-
-        if ($count > 0) {
-            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
-        } else {
-            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
-        }
         
-        return back();      
+        return back();         
     }
 }

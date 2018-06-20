@@ -33,7 +33,6 @@ class TypesController extends Controller
     public function create()
     {
         //
-        return view('types.create');
     }
 
     /**
@@ -69,7 +68,7 @@ class TypesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -201,14 +200,14 @@ class TypesController extends Controller
         # code...
         $this->validate($request, [
             'file' => 'file'
-        ]);
-
-        $path = $request->file('types_file')->getRealPath();
-        $data = Excel::load($path, function($reader) {})->get();
+        ]);            
         
         $count = 0;
 
         if($request->hasFile('types_file')){
+            $path = $request->file('types_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+
             if(!empty($data) && $data->count()){
                 $types = Type::all();
                                 
@@ -223,14 +222,13 @@ class TypesController extends Controller
                     }                    
                 }
             }
+            if ($count > 0) {
+                $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
+            } else {
+                $request->session()->flash('flash_message_info', 'No habían registros por importar.');
+            }
         } else {
             $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
-        }
-
-        if ($count > 0) {
-            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
-        } else {
-            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
         }
         
         return back();      
