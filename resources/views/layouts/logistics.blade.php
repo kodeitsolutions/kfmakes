@@ -7,8 +7,11 @@
 		  	<li class="nav-item ">
 		    	<a class="nav-link {{ setActive('article')}} {{ setActive('article/search')}}" href="/article">Artículos</a>
 		  	</li>
+		  	<li class="nav-item ">
+		    	<a class="nav-link {{ setActive('location')}} {{ setActive('location/search')}}" href="/location">Ubicaciones</a>
+		  	</li>
 		 	<li class="nav-item ">
-		    	<a class="nav-link {{ setActive('inventory')}} {{ setActive('inventory/create')}} {{ setActive('inventory/search')}}" href="/inventory">Inventario</a>
+		    	<a class="nav-link {{ setActive('record')}} {{ setActive('record/inventory')}} {{ setActive('record/create')}} {{ setActive('record/search')}}" href="/record/inventory">Inventario</a>
 		  	</li>
 		</ul>
 	</div>

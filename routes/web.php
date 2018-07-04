@@ -72,4 +72,33 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::delete('category/{category}','CategoryController@destroy');
 	Route::get('category/export','CategoryController@export');
 	Route::post('category/import','CategoryController@import');
+
+	Route::get('article', 'ArticleController@index');
+	Route::post('article/add', 'ArticleController@store');
+	Route::get('article/getArticle/{id}', 'ArticleController@show');
+	Route::patch('article/{article}', 'ArticleController@update');
+	Route::get('article/search', 'ArticleController@search');
+	Route::delete('article/{article}','ArticleController@destroy');
+	Route::get('article/export','ArticleController@export');
+	Route::post('article/import','ArticleController@import');
+
+	Route::get('location', 'LocationController@index');
+	Route::post('location/add', 'LocationController@store');
+	Route::get('location/getLocation/{id}', 'LocationController@show');
+	Route::patch('location/{location}', 'LocationController@update');
+	Route::get('location/search', 'LocationController@search');
+	Route::delete('location/{location}','LocationController@destroy');
+	Route::get('location/export','LocationController@export');
+	Route::post('location/import','LocationController@import');
+
+	Route::get('record', 'RecordController@index');
+	Route::post('record/add', 'RecordController@store');
+	Route::get('record/getRecord/{id}', 'RecordController@show');
+	Route::patch('record/{record}', 'RecordController@update');
+	Route::get('record/search', 'RecordController@search');
+	Route::delete('record/{record}','RecordController@destroy');
+	Route::get('record/export','RecordController@export');
+	Route::post('record/import','RecordController@import');
+	Route::get('record/inventory','RecordController@inventory');
+	Route::post('record/move/{record}','RecordController@move');
 });

@@ -70,3 +70,7 @@ a:hover {
 .dropdown-item.active, .dropdown-item:active {
     background-color: #0edbad;
 }
+
+#product-edit {
+    display: none;
+}

@@ -18,4 +18,10 @@ class Category extends Model
     {
         return $this->hasMany(Type::class);
     }
+
+    public function articles()
+    {
+        # code...
+        return $this->hasMany(Article::class);
+    }
 }

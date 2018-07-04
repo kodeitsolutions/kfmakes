@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Excel;
 use Response;
+use App\Type;
+use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
 
@@ -116,12 +118,30 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request,Category $category)
     {
         //
+        //$types = Type::where('category_id',$category->id)->get();
+        $articles = Article::where('category_id',$category->id)->get();
+
+        if ($articles->isEmpty()) {
+            $deleted = $category->delete();
+            if ($deleted) {
+                $request->session()->flash('flash_message', 'Categoría '.$category->name.' eliminada.');
+            }
+            else{
+                $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría.');   
+            }
+        }
+        else {
+            $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría ya que existen registros asociados a esta.');
+        }
+
+        return redirect('/category');
     }
 
     public function search(Request $request)
