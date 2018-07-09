@@ -73,7 +73,7 @@
 			            </div>
 
 			            <div class="form-group" id="product-edit">
-			            	<label class="control-label">Pieza</label>
+			            	<label class="control-label">Pieza:</label>
 			            	<select id="product_id" class="form-control input-sm" name="product_id">
 			          			<option value="" selected disabled>Seleccione la pieza:</option>
 			          			@foreach($products as $product)
