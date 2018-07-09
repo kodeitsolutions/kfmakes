@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+        $date = date('d/m/Y');
+        view()->share('date',$date);
     }
 
     /**
