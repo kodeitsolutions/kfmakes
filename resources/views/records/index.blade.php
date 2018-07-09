@@ -24,7 +24,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Fecha:</label>
-							<input type="text" class="form-control" name="date" id="date" value="" required>
+							<input type="text" class="form-control" name="date" id="date" value="{{ $date }}" required>
 						</div>
 
 			            <div class="form-group">

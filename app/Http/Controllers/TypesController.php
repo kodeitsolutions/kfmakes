@@ -6,6 +6,7 @@ use Auth;
 use Excel;
 use Response;
 use App\Type;
+use App\Category;
 use App\Component;
 use App\Product;
 use Illuminate\Http\Request;
@@ -21,8 +22,11 @@ class TypesController extends Controller
     public function index()
     {
         //
+        $categories = Category::where('name','LIKE', 'Pieza%')
+            ->orWhere('name','LIKE','Componente%')
+            ->get();
         $types = Type::orderBy('kind')->orderBy('name')->paginate(7);
-        return view('types.index',compact('types'));
+        return view('types.index',compact('types','categories'));
     }
 
     /**
@@ -46,11 +50,13 @@ class TypesController extends Controller
         //dd($request);
         $this->validate($request, [
             'name' => 'required|max:191|unique:types,name,NULL,id,kind,'.$request->kind,
-            'kind' => 'required|max:191'
+            'category_id' => 'required'
         ]);
-
         
-        $type = new Type($request->all());       
+        $type = new Type($request->all()); 
+
+        $category = Category::find($request->category_id);
+        $type->kind = $category->name;
 
         $type->user_id = Auth::id();
         $saved = $type->save();

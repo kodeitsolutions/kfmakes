@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'KFMakes') }}</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -23,10 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/messages/messages.es-es.js"></script>
 
-    <script src="{{ URL::asset('js/custom.js') }}"></script>
-
-    
-    
+    <script src="{{ URL::asset('js/custom.js') }}"></script>  
 
 </head>
 <body>

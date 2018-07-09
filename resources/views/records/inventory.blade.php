@@ -24,7 +24,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Fecha:</label>
-							<input type="text" class="form-control" name="date" id="date" value="">
+							<input type="text" class="form-control" name="date" id="date" value="{{ $date }}">
 						</div>
 
 			            <div class="form-group">
@@ -277,15 +277,28 @@
 						@else
 							<td>{{$article->product->type_name}} - {{$article->product->name}}</td>
 						@endif
-						@if($query->contains('id',$article->id))
-							{{--dd($query)--}}
-							@foreach($query as $q)
-								@if($q->id == $article->id and $q->country == 'Estados Unidos')
+						@if($query->contains('id',$article->id))							
+							@php $filter = collect([]); 
+							$filter = $query->where('id',$article->id) @endphp
+							@if($filter->contains('country', 'Estados Unidos') and $filter->contains('country','Venezuela'))
+								@foreach($filter as $q)
+									@if($q->id == $article->id and $q->country == 'Estados Unidos')
+										<td>{{ $q->stock }}</td>
+									@elseif($q->id == $article->id and $q->country == 'Venezuela')
+										<td>{{ $q->stock }}</td>														
+									@endif
+								@endforeach
+							@elseif($filter->contains('country', 'Estados Unidos') and !$filter->contains('country','Venezuela'))
+								@foreach($filter as $q)
+									<td>{{ $q->stock }}</td>									
+									<td>0.00</td>									
+								@endforeach
+							@else
+								@foreach($filter as $q)
+									<td>0.00</td>
 									<td>{{ $q->stock }}</td>
-								@elseif($q->id == $article->id and $q->country == 'Venezuela')
-									<td>{{ $q->stock }}</td>														
-								@endif
-							@endforeach
+								@endforeach
+							@endif
 						@else
 							<td>0.00</td>
 							<td>0.00</td>

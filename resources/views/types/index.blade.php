@@ -15,10 +15,11 @@
 
 			            <div class="form-group">
 			                <label class="control-label c">Tipo:</label>
-			            	<select id="kind" class="form-control input-sm" name="kind" required>
-			          			<option value="" selected disabled>Seleccione el tipo:</option>
-			          			<option value="Componente">Componente</option>
-			          			<option value="Pieza">Pieza</option>
+			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
+			          			<option value="" selected disabled>Seleccione la categoría:</option>
+			          			@foreach($categories as $category)
+				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				                @endforeach
 			          		</select>
 			            </div>
 
@@ -76,11 +77,12 @@
 
 		            <div class="modal-body form-group">  
 		               	<div class="form-group ">
-			                <label class="control-label">Tipo:</label>
-			                <select id="kind" class="form-control input-sm" name="kind">
-			          			<option value="Componente">Componente</option>
-			          			<option value="Pieza">Pieza</option>
-			          		</select>                 
+			                <label class="control-label">Categoría:</label>
+			                <select id="category_id" class="form-control input-sm" name="category_id" required>
+			          			@foreach($categories as $category)
+				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				                @endforeach
+			          		</select>                
 			            </div>  
 
 			            <div class="form-group">

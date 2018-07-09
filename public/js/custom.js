@@ -102,7 +102,7 @@ function modalEdit(module,id)
   	//console.log(response);
   	if(module === "type"){
   		$('input[id="name"]').val(response.name);	
-      $('[name=kind]').val(response.kind);
+      $('[name=category_id]').val(response.category_id);
   	} 
 
   	if (module === "component") {
@@ -123,9 +123,12 @@ function modalEdit(module,id)
     if (module === "article") {
       console.log(response.category_id)
       $('[name=category_id]').val(response.category_id);
-      if (response.category_id === '2') {
+      if (response.category_id === 2) {
         $('#product-edit').show();
         $('[name=product_id]').val(response.product_id);
+      }
+      else {
+        $('#product-edit').hide();
       }      
       $('input[id="name"]').val(response.name); 
     }
