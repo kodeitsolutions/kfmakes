@@ -11,7 +11,7 @@
 		    	<a class="nav-link {{ setActive('location')}} {{ setActive('location/search')}}" href="/location">Ubicaciones</a>
 		  	</li>
 		 	<li class="nav-item ">
-		    	<a class="nav-link {{ setActive('record')}} {{ setActive('record/inventory')}} {{ setActive('record/create')}} {{ setActive('record/search')}}" href="/record/inventory">Inventario</a>
+		    	<a class="nav-link {{ setActive('record')}} {{ setActive('inventory')}} {{ setActive('record/create')}} {{ setActive('record/search')}}" href="/inventory">Inventario</a>
 		  	</li>
 		</ul>
 	</div>

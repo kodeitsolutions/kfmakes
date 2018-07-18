@@ -8,7 +8,7 @@ class Record extends Model
 {
     //
 
-    protected $fillable = ['motive','date','article_id','location_id','quantity','comment','user_id'];
+    protected $fillable = ['motive','date','article_id','location_id','quantity','comment','user_id','moved'];
     protected $appends = ['name'];
 
     public function user()

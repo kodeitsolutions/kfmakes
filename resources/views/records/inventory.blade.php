@@ -14,9 +14,9 @@
 					<div class="modal-body form-group">  
 
 						<div class="form-group">
-							<label class="control-label">Motivo</label>
+							<label class="control-label">Motivo:</label>
 			            	<select id="motive" class="form-control input-sm" name="motive" required>
-			            		<option value="" selected disabled>Seleccione un motivo:</option>
+			            		<option value="" selected disabled>Seleccione un motivo</option>
 			            		<option value="entrada">Entrada</option>
 			            		<option value="salida">Salida</option>
 			            	</select>
@@ -30,7 +30,7 @@
 			            <div class="form-group">
 			                <label class="control-label">Artículo:</label>
 			            	<select id="article_id" class="form-control input-sm" name="article_id" required>
-			          			<option value="" selected disabled>Seleccione el artículo:</option>
+			          			<option value="" selected disabled>Seleccione el artículo</option>
 			          			@foreach($articles as $article)
 				                  	<option value="{{ $article->id }}">{{ $article->name }}</option>
 				                @endforeach
@@ -38,9 +38,9 @@
 			            </div>
 
 			            <div class="form-group">
-			            	<label class="control-label">Ubicación</label>
+			            	<label class="control-label">Ubicación:</label>
 			            	<select id="location_id" class="form-control input-sm" name="location_id">
-			          			<option value="" selected disabled>Seleccione la ubicación:</option>
+			          			<option value="" selected disabled>Seleccione la ubicación</option>
 			          			@foreach($locations as $location)
 				                  	<option value="{{ $location->id }}">{{ $location->name }}</option>
 				                @endforeach
@@ -68,98 +68,25 @@
 	</div>
 @endsection
 
-@section('modal-edit')
-  	<div id="myModalEdit" class="modal fade" role="dialog">
-	    <div class="modal-dialog">
-	      	<div class="modal-content">
-		    	<div class="modal-header">
-		            <h4 class="modal-title">Editar Categoría</h4>
-		        </div>
-	        	
-	        	<form method="POST" action="" id="edit">
-		          	{{ method_field('PATCH') }}
-		          	{{ csrf_field() }}
-
-		          	<div class="modal-body form-group">
-			            <div class="form-group">
-			                <label class="control-label">Artículo:</label>
-			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			<option value="" selected disabled>Seleccione el artículo:</option>
-			          			@foreach($articles as $article)
-				                  	<option value="{{ $article->id }}">{{ $article->name }}</option>
-				                @endforeach
-			          		</select>
-			            </div>
-
-			            <div class="form-group">
-			            	<label class="control-label">Ubicación</label>
-			            	<select id="product_id" class="form-control input-sm" name="product_id">
-			          			<option value="" selected disabled>Seleccione la ubicación:</option>
-			          			@foreach($locations as $location)
-				                  	<option value="{{ $location->id }}">{{ $location->name }}</option>
-				                @endforeach
-			          		</select>
-			            </div>
-
-			            <div class="form-group">
-			              	<label class="control-label">Nombre:</label>
-			              	<input type="text" class="form-control" name="name" id="name" value="" required autofocus>
-			            </div>
-			        </div>
-
-		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-default">Guardar</button>
-		            </div>
-		        </form>
-		          
-	      	</div>      
-	    </div> 
-  	</div>
-@endsection
-
-@section('modal-delete')
-  	<div id="myModalDelete" class="modal fade" role="dialog">
-	    <div class="modal-dialog">
-	      	<div class="modal-content">
-		        <div class="modal-header">
-		            <h4 class="modal-title">Eliminar Movimiento</h4>
-		        </div>
-		        <div class="modal-body">
-		          <p>¿Está seguro que desea eliminar el movimiento?</p>
-		          <label id="name">Nombre</label>
-		        </div>
-	        	<div class="modal-footer ">           
-		          	<form method="POST" action="" id="delete">
-			            {{ method_field('DELETE') }}
-			            {{ csrf_field() }}
-			            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-			            <button type="submit" class="btn btn-default">Eliminar</button>
-		          	</form>
-	        	</div>
-	      	</div>      
-	    </div>    
-	</div>
-@endsection
-
 @section('modal-search')
 	<div id="myModalSearch" class="modal fade" role="dialog">
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		            <h4 class="modal-title">Buscar Movimiento</h4>
+		            <h4 class="modal-title">Buscar Inventario</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/record/search">
+	        	<form method="GET" action="/inventory/search">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
 		               	<div class="form-group ">
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
-			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
-			            		<option value="motive">Motivo</option>
+			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>   		
 			            		<option value="article">Artículo</option>
+			            		<option value="category">Categoría</option>
+			            		<option value="product">Pieza</option>
 			            		<option value="location">Ubicación</option>
 			            	</select>                 
 			            </div>  
@@ -188,13 +115,13 @@
 		            <h4 class="modal-title">Trasladar existencia</h4>
 		        </div>
 	        	
-	        	<form method="POST" action="/record/move" id="move">
+	        	<form method="GET" action="" id="move">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
 		               	<div class="form-group ">
 			                <label>Origen:</label>
-            				<select  id="origin" class="form-control input-sm" name="origin">
+            				<select  id="origin" class="form-control input-sm" name="origin" required>
 			            		<option value="" selected disabled>Seleccione el origen</option>
 			            		@foreach($locations as $location)
 			            			<option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -203,7 +130,7 @@
 			            </div>
 			            <div class="form-group ">
 			                <label>Destino:</label>
-            				<select  id="destination" class="form-control input-sm" name="destination">
+            				<select  id="destination" class="form-control input-sm" name="destination" required>
 			            		<option value="" selected disabled>Seleccione el destino</option>
 			            		@foreach($locations as $location)
 			            			<option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -212,7 +139,7 @@
 			            </div> 
 			            <div class="form-group">
 			                <label class="control-label">Cantidad:</label>
-			                <input type="number" value="" min="0" step="0.01" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
+			                <input type="number" value="" min="1" step="0.01" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
 			            </div>			                   
 					</div>
 
@@ -251,7 +178,7 @@
 		</div>
 		<div class="ml-auto">			
 			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>
-			<span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalSearch" style="display: none;"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
 		</div>	
 	</div>
 	
@@ -259,7 +186,7 @@
 		<table class="table table-hover">
 			<thead class="thead-index">
 				<tr class="text-white">
-					<th scope="col">Nombre</th>
+					<th scope="col">Artículo</th>
 					<th scope="col">Categoría</th>
 					<th scope="col">Pieza</th>
 					<th scope="col">Estados Unidos</th>
@@ -277,26 +204,26 @@
 						@else
 							<td>{{$article->product->type_name}} - {{$article->product->name}}</td>
 						@endif
-						@if($query->contains('id',$article->id))							
+						@if($records->contains('id',$article->id))							
 							@php $filter = collect([]); 
-							$filter = $query->where('id',$article->id) @endphp
+							$filter = $records->where('id',$article->id) @endphp
 							@if($filter->contains('country', 'Estados Unidos') and $filter->contains('country','Venezuela'))
-								@foreach($filter as $q)
-									@if($q->id == $article->id and $q->country == 'Estados Unidos')
-										<td>{{ $q->stock }}</td>
-									@elseif($q->id == $article->id and $q->country == 'Venezuela')
-										<td>{{ $q->stock }}</td>														
+								@foreach($filter as $query)
+									@if($query->id == $article->id and $query->country == 'Estados Unidos')
+										<td>{{ $query->stock }}</td>
+									@elseif($query->id == $article->id and $query->country == 'Venezuela')
+										<td>{{ $query->stock }}</td>													
 									@endif
 								@endforeach
 							@elseif($filter->contains('country', 'Estados Unidos') and !$filter->contains('country','Venezuela'))
-								@foreach($filter as $q)
-									<td>{{ $q->stock }}</td>									
+								@foreach($filter as $query)
+									<td>{{ $query->stock }}</td>									
 									<td>0.00</td>									
 								@endforeach
 							@else
-								@foreach($filter as $q)
+								@foreach($filter as $query)
 									<td>0.00</td>
-									<td>{{ $q->stock }}</td>
+									<td>{{ $query->stock }}</td>
 								@endforeach
 							@endif
 						@else
@@ -311,32 +238,17 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    	{{ $articles->links('vendor.pagination.bootstrap-4') }}
+    	{{-- $articles->links('vendor.pagination.bootstrap-4') --}}
   	</div>
 @endsection
 
 @section('script')
   <script> 
-  	productShow();
-    /*$('#myModalDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var article_id = button.data('id')
-
-        modalDelete("article", article_id);
-    });
-
-    $('#myModalEdit').on('show.bs.modal', function (event) {    	
-        var button = $(event.relatedTarget); 
-        var article_id = button.data('id');
-
-       modalEdit("article",article_id);
-    });*/
-
     $('#myModalMove').on('show.bs.modal', function (event) {    	
         var button = $(event.relatedTarget); 
         var record_id = button.data('id');
 
-       modalEdit("record",record_id);
-    });       
+       modalMove("record",record_id);
+    });     
   </script>
 @endsection

@@ -90,7 +90,7 @@ function modalDelete(module,id){
 function modalMove(module,id){
   var moduleUC = upperCase(module);
     
-  $('form[id="move"]').attr('action','/record/move/' + id);
+  $('form[id="move"]').attr('action','/inventory/move/' + id);
 };
 
 

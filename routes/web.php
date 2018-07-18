@@ -99,6 +99,8 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::delete('record/{record}','RecordController@destroy');
 	Route::get('record/export','RecordController@export');
 	Route::post('record/import','RecordController@import');
-	Route::get('record/inventory','RecordController@inventory');
-	Route::post('record/move/{record}','RecordController@move');
+	
+	Route::get('inventory','RecordController@inventory');	
+	Route::get('inventory/move/{article}','RecordController@move');
+	Route::get('inventory/search', 'RecordController@searchInventory');
 });

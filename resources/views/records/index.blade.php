@@ -192,7 +192,12 @@
 
 			            <div class="form-group search-value">
 		                	<input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
-		              	</div>           
+		              	</div>  
+
+		              	<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="moved" name="moved">
+						    <label class="form-check-label" for="moved"> Incluir movimientos de traslados</label>
+						</div>
 					</div>
 
 		            <div class="modal-footer form-group">
@@ -289,7 +294,7 @@
 
 	<div class="row"> 
 		<div class="mr-auto ml-3">
-			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalImport" style="display: none;"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
 			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
 		</div>		
 		<div class="ml-auto">			
@@ -322,7 +327,7 @@
 						<td>{{ $record->quantity }}</td>
 						<td>{{ $record->location->name }}</td>
 						<td>{{ $record->comment}}</td>
-						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$record->id}}"><span class="fa fa-pencil"></span></button></span></td>
+						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar" style="display: none;"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$record->id}}"><span class="fa fa-pencil"></span></button></span></td>
            				<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$record->id}}"><span class="fa fa-trash"></span></button></span></td>				
 					</tr>
 				@endforeach

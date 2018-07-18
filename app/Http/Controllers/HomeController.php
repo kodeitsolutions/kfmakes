@@ -42,7 +42,7 @@ class HomeController extends Controller
         if ($request->module == 'costs') {
             return redirect('product');
         } else {
-            return redirect('category');
+            return redirect('inventory');
         }
         
     }

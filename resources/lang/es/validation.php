@@ -124,6 +124,11 @@ return [
         'category_id' => [
             'required' => 'El campo categoría es obligatorio.',
         ],
+        'quantity' => [
+            'min' => [
+                'numeric' => 'La cantidad a trasladar dbe ser mínimo 1.',
+            ]
+        ]
     ],
 
     /*
