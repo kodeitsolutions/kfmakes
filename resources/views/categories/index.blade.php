@@ -5,23 +5,13 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Agregar Tipo</h4>
+		            <h4 class="modal-title">Agregar Categoría</h4>
 		        </div>
 
-				<form method="POST" action="/type/add">
+				<form method="POST" action="/category/add">
 					{{ csrf_field()}}
 
-					<div class="modal-body form-group">  
-
-			            <div class="form-group">
-			                <label class="control-label c">Tipo:</label>
-			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			<option value="" selected disabled>Seleccione la categoría:</option>
-			          			@foreach($categories as $category)
-				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                @endforeach
-			          		</select>
-			            </div>
+					<div class="modal-body form-group"> 			            
 
 			            <div class="form-group">
 			                <label class="control-label">Nombre:</label>
@@ -44,10 +34,10 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Eliminar Tipo</h4>
+		            <h4 class="modal-title">Eliminar Categoría</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>¿Está seguro que desea eliminar el tipo?</p>
+		          <p>¿Está seguro que desea eliminar la categoría?</p>
 		          <label id="name">Nombre</label>
 		        </div>
 	        	<div class="modal-footer ">           
@@ -68,22 +58,14 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		            <h4 class="modal-title">Editar tipo</h4>
+		            <h4 class="modal-title">Editar Categoría</h4>
 		        </div>
 	        	
 	        	<form method="POST" action="" id="edit">
 		          	{{ method_field('PATCH') }}
 		          	{{ csrf_field() }}
 
-		            <div class="modal-body form-group">  
-		               	<div class="form-group ">
-			                <label class="control-label">Categoría:</label>
-			                <select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			@foreach($categories as $category)
-				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                @endforeach
-			          		</select>                
-			            </div>  
+		            <div class="modal-body form-group">		               	
 
 			            <div class="form-group">
 		                	<label class="control-label">Nombre:</label>
@@ -107,10 +89,10 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		            <h4 class="modal-title">Buscar tipo</h4>
+		            <h4 class="modal-title">Buscar categoría</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/search">
+	        	<form method="GET" action="/category/search">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -118,7 +100,6 @@
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
 			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
-			            		<option value="kind">Tipo</option>
 			            		<option value="name">Nombre</option>
 			            	</select>                 
 			            </div>  
@@ -147,13 +128,13 @@
 		            <h4 class="modal-title">Importar datos</h4>
 		        </div>
 	        	
-	        	<form method="POST" action="/type/import" enctype="multipart/form-data">
+	        	<form method="POST" action="/category/import" enctype="multipart/form-data">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">
 			            <div class="form-group">
 			            	<label>Cargar archivo:</label>
-		                	<input type="file" class="form-control-file" name="types_file" id="file">
+		                	<input type="file" class="form-control-file" name="categories_file" id="file">
 		              	</div>           
 					</div>
 
@@ -176,7 +157,7 @@
 		            <h4 class="modal-title">Exportar datos</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/export">
+	        	<form method="GET" action="/category/export">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -204,7 +185,7 @@
 
 @section('navigation')
   @if (Auth::check())
-    @include('layouts.costs')
+    @include('layouts.logistics')
   @endif
 @endsection
 
@@ -235,19 +216,17 @@
 		<table class="table table-hover">
 			<thead class="thead-index">
 				<tr class="text-white">
-					<th scope="col">Tipo</th>
 					<th scope="col">Nombre</th>
 					<th scope="col" colspan="2" class="text-center">Operación</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($types as $type)
+				@foreach($categories as $category)
 					<tr>
-						<td>{{ $type->kind }}</td>
-						<td>{{ $type->name }}</td>
+						<td>{{ $category->name }}</td>
 						
-						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil"></span></button></span></td>
-	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash"></span></button></span></td>
+						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$category->id}}"><span class="fa fa-pencil"></span></button></span></td>
+	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$category->id}}"><span class="fa fa-trash"></span></button></span></td>
 						
 					</tr>
 				@endforeach
@@ -255,24 +234,24 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    {{ $types->links('vendor.pagination.bootstrap-4') }}
-  </div>
+    	{{-- $categories->links('vendor.pagination.bootstrap-4') --}}
+  	</div>
 @endsection
 
 @section('script')
-  <script type="text/javascript"> 
+  <script> 
     $('#myModalDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var type_id = button.data('id')
+        var category_id = button.data('id')
 
-        modalDelete("type", type_id);
+        modalDelete("category", category_id);
     });
 
     $('#myModalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); 
-        var type_id = button.data('id');
+        var category_id = button.data('id');
 
-       modalEdit("type",type_id);
+       modalEdit("category",category_id);
     });       
   </script>
 @endsection

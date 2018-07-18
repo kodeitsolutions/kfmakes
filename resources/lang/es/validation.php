@@ -110,7 +110,7 @@ return [
         ],
         'name' => [
             'required' => 'El campo nombre es obligatorio.',
-            'unique' => 'Este nombre ya ha sido registrado para el tipo seleccionado.'
+            'unique' => 'Este nombre ya ha sido registrado.'
         ],
         'cost' => [
             'required' => 'El campo costo es obligatorio.',
@@ -118,6 +118,17 @@ return [
         'extension' => [
             'required' => 'Debe seleccionar el formato del archivo a exportar.'
         ],
+        'module' => [
+            'required' => 'Debe seleccionar un módulo para continuar.'
+        ],
+        'category_id' => [
+            'required' => 'El campo categoría es obligatorio.',
+        ],
+        'quantity' => [
+            'min' => [
+                'numeric' => 'La cantidad a trasladar dbe ser mínimo 1.',
+            ]
+        ]
     ],
 
     /*

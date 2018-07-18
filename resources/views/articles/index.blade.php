@@ -5,20 +5,30 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Agregar Tipo</h4>
+		            <h4 class="modal-title">Agregar Artículo</h4>
 		        </div>
 
-				<form method="POST" action="/type/add">
+				<form method="POST" action="/article/add">
 					{{ csrf_field()}}
 
 					<div class="modal-body form-group">  
 
 			            <div class="form-group">
-			                <label class="control-label c">Tipo:</label>
+			                <label class="control-label">Categoría:</label>
 			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
 			          			<option value="" selected disabled>Seleccione la categoría:</option>
 			          			@foreach($categories as $category)
 				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				                @endforeach
+			          		</select>
+			            </div>
+
+			            <div class="form-group conditional-product">
+			            	<label class="control-label">Pieza</label>
+			            	<select id="product_id" class="form-control input-sm" name="product_id">
+			          			<option value="" selected disabled>Seleccione la pieza:</option>
+			          			@foreach($products as $product)
+				                  	<option value="{{ $product->id }}">{{ $product->type_name}} - {{ $product->name }}</option>
 				                @endforeach
 			          		</select>
 			            </div>
@@ -39,15 +49,65 @@
 	</div>
 @endsection
 
+@section('modal-edit')
+  	<div id="myModalEdit" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+		    	<div class="modal-header">
+		            <h4 class="modal-title">Editar Artículo</h4>
+		        </div>
+	        	
+	        	<form method="POST" action="" id="edit">
+		          	{{ method_field('PATCH') }}
+		          	{{ csrf_field() }}
+
+		          	<div class="modal-body form-group">
+			            <div class="form-group">
+			                <label class="control-label">Categoría:</label>
+			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
+			          			<option value="" selected disabled>Seleccione la categoría:</option>
+			          			@foreach($categories as $category)
+				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
+				                @endforeach
+			          		</select>
+			            </div>
+
+			            <div class="form-group" id="product-edit">
+			            	<label class="control-label">Pieza:</label>
+			            	<select id="product_id" class="form-control input-sm" name="product_id">
+			          			<option value="" selected disabled>Seleccione la pieza:</option>
+			          			@foreach($products as $product)
+				                  	<option value="{{ $product->id }}">{{ $product->type_name}} - {{ $product->name }}</option>
+				                @endforeach
+			          		</select>
+			            </div>
+
+			            <div class="form-group">
+			              	<label class="control-label">Nombre:</label>
+			              	<input type="text" class="form-control" name="name" id="name" value="" required autofocus>
+			            </div>
+			        </div>
+
+		            <div class="modal-footer form-group">
+		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		              	<button type="submit" class="btn btn-default">Guardar</button>
+		            </div>
+		        </form>
+		          
+	      	</div>      
+	    </div> 
+  	</div>
+@endsection
+
 @section('modal-delete')
   	<div id="myModalDelete" class="modal fade" role="dialog">
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Eliminar Tipo</h4>
+		            <h4 class="modal-title">Eliminar Artículo</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>¿Está seguro que desea eliminar el tipo?</p>
+		          <p>¿Está seguro que desea eliminar el artículo?</p>
 		          <label id="name">Nombre</label>
 		        </div>
 	        	<div class="modal-footer ">           
@@ -63,54 +123,15 @@
 	</div>
 @endsection
 
-@section('modal-edit')
-  	<div id="myModalEdit" class="modal fade" role="dialog">
-	    <div class="modal-dialog">
-	      	<div class="modal-content">
-		    	<div class="modal-header">
-		            <h4 class="modal-title">Editar tipo</h4>
-		        </div>
-	        	
-	        	<form method="POST" action="" id="edit">
-		          	{{ method_field('PATCH') }}
-		          	{{ csrf_field() }}
-
-		            <div class="modal-body form-group">  
-		               	<div class="form-group ">
-			                <label class="control-label">Categoría:</label>
-			                <select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			@foreach($categories as $category)
-				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                @endforeach
-			          		</select>                
-			            </div>  
-
-			            <div class="form-group">
-		                	<label class="control-label">Nombre:</label>
-		                	<input type="text" class="form-control" name="name" id="name" value="" autofocus>
-		              	</div>           
-					</div>
-
-		            <div class="modal-footer form-group">
-		              	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		              	<button type="submit" class="btn btn-default">Guardar</button>
-		            </div>
-		        </form>
-		          
-	      	</div>      
-	    </div> 
-  	</div>
-@endsection
-
 @section('modal-search')
 	<div id="myModalSearch" class="modal fade" role="dialog">
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		            <h4 class="modal-title">Buscar tipo</h4>
+		            <h4 class="modal-title">Buscar Artículo</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/search">
+	        	<form method="GET" action="/article/search">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -118,8 +139,9 @@
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
 			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
-			            		<option value="kind">Tipo</option>
 			            		<option value="name">Nombre</option>
+			            		<option value="category">Categoría</option>
+			            		<option value="product">Pieza</option>
 			            	</select>                 
 			            </div>  
 
@@ -147,13 +169,13 @@
 		            <h4 class="modal-title">Importar datos</h4>
 		        </div>
 	        	
-	        	<form method="POST" action="/type/import" enctype="multipart/form-data">
+	        	<form method="POST" action="/article/import" enctype="multipart/form-data">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">
 			            <div class="form-group">
 			            	<label>Cargar archivo:</label>
-		                	<input type="file" class="form-control-file" name="types_file" id="file">
+		                	<input type="file" class="form-control-file" name="articles_file" id="file">
 		              	</div>           
 					</div>
 
@@ -176,7 +198,7 @@
 		            <h4 class="modal-title">Exportar datos</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/export">
+	        	<form method="GET" action="/article/export">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -204,7 +226,7 @@
 
 @section('navigation')
   @if (Auth::check())
-    @include('layouts.costs')
+    @include('layouts.logistics')
   @endif
 @endsection
 
@@ -235,19 +257,26 @@
 		<table class="table table-hover">
 			<thead class="thead-index">
 				<tr class="text-white">
-					<th scope="col">Tipo</th>
 					<th scope="col">Nombre</th>
+					<th scope="col">Categoría</th>
+					<th scope="col">Pieza</th>
+					<th scope="col">Existencia</th>
 					<th scope="col" colspan="2" class="text-center">Operación</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($types as $type)
+				@foreach($articles as $article)
 					<tr>
-						<td>{{ $type->kind }}</td>
-						<td>{{ $type->name }}</td>
-						
-						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil"></span></button></span></td>
-	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash"></span></button></span></td>
+						<td>{{ $article->name }}</td>
+						<td>{{ $article->category->name }}</td>
+						@if(is_null($article->product_id))
+							<td></td>
+						@else
+							<td>{{$article->product->type_name}} - {{$article->product->name}}</td>
+						@endif
+						<td>{{ $article->stock }} </td>
+						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$article->id}}"><span class="fa fa-pencil"></span></button></span></td>
+	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$article->id}}"><span class="fa fa-trash"></span></button></span></td>
 						
 					</tr>
 				@endforeach
@@ -255,24 +284,25 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    {{ $types->links('vendor.pagination.bootstrap-4') }}
-  </div>
+    	{{ $articles->links('vendor.pagination.bootstrap-4') }}
+  	</div>
 @endsection
 
 @section('script')
-  <script type="text/javascript"> 
+  <script> 
+  	productShow();
     $('#myModalDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var type_id = button.data('id')
+        var article_id = button.data('id')
 
-        modalDelete("type", type_id);
+        modalDelete("article", article_id);
     });
 
-    $('#myModalEdit').on('show.bs.modal', function (event) {
+    $('#myModalEdit').on('show.bs.modal', function (event) {    	
         var button = $(event.relatedTarget); 
-        var type_id = button.data('id');
+        var article_id = button.data('id');
 
-       modalEdit("type",type_id);
+       modalEdit("article",article_id);
     });       
   </script>
 @endsection

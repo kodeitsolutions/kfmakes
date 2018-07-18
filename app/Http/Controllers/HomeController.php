@@ -23,6 +23,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('product');
+        return redirect('module');
+    }
+
+    public function module($value='')
+    {
+        # code...
+        return view('layouts.module');
+    }
+
+    public function chosen(Request $request)
+    {
+        # code...
+        $this->validate($request,[
+            'module' => 'required'
+        ]);
+        //dd($request);
+        if ($request->module == 'costs') {
+            return redirect('product');
+        } else {
+            return redirect('inventory');
+        }
+        
     }
 }

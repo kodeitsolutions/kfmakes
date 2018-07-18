@@ -160,7 +160,7 @@
 
 @section('navigation')
   @if (Auth::check())
-    @include('navigation')
+    @include('layouts.costs')
   @endif
 @endsection
 

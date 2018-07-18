@@ -5,27 +5,36 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Agregar Tipo</h4>
+		            <h4 class="modal-title">Agregar Ubicación</h4>
 		        </div>
 
-				<form method="POST" action="/type/add">
+				<form method="POST" action="/location/add">
 					{{ csrf_field()}}
 
 					<div class="modal-body form-group">  
 
 			            <div class="form-group">
-			                <label class="control-label c">Tipo:</label>
-			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			<option value="" selected disabled>Seleccione la categoría:</option>
-			          			@foreach($categories as $category)
-				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                @endforeach
-			          		</select>
+			                <label class="control-label">Nombre:</label>
+			                <input type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
 			            </div>
 
 			            <div class="form-group">
-			                <label class="control-label">Nombre:</label>
-			                <input type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
+			                <label class="control-label">Teléfono:</label>
+			                <input type="text" class="form-control" name="telephone" value="" placeholder="Ingrese el teléfono.">
+			            </div>
+
+			            <div class="form-group">
+			                <label class="control-label">Encargado:</label>
+			                <input type="text" class="form-control" name="in_charge" value="" placeholder="Ingrese el nombre del encargado.">
+			            </div>
+
+			            <div class="form-group">
+			                <label class="control-label">País:</label>
+			                <select  id="country" class="form-control input-sm" name="country" required>
+			            		<option value="" selected disabled>Seleccione el país</option>
+			            		<option value="Estados Unidos">Estados Unidos</option>
+			            		<option value="Venezuela">Venezuela</option>
+			            	</select> 
 			            </div>
 			        </div>
 
@@ -44,10 +53,10 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		        <div class="modal-header">
-		            <h4 class="modal-title">Eliminar Tipo</h4>
+		            <h4 class="modal-title">Eliminar Ubicación</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>¿Está seguro que desea eliminar el tipo?</p>
+		          <p>¿Está seguro que desea eliminar la ubicación?</p>
 		          <label id="name">Nombre</label>
 		        </div>
 	        	<div class="modal-footer ">           
@@ -68,7 +77,7 @@
 	    <div class="modal-dialog">
 	      	<div class="modal-content">
 		    	<div class="modal-header">
-		            <h4 class="modal-title">Editar tipo</h4>
+		            <h4 class="modal-title">Editar ubicación</h4>
 		        </div>
 	        	
 	        	<form method="POST" action="" id="edit">
@@ -76,19 +85,27 @@
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
-		               	<div class="form-group ">
-			                <label class="control-label">Categoría:</label>
-			                <select id="category_id" class="form-control input-sm" name="category_id" required>
-			          			@foreach($categories as $category)
-				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                @endforeach
-			          		</select>                
-			            </div>  
-
-			            <div class="form-group">
+		                <div class="form-group">
 		                	<label class="control-label">Nombre:</label>
-		                	<input type="text" class="form-control" name="name" id="name" value="" autofocus>
+		                	<input type="text" class="form-control" name="name" id="name" value="" required autofocus>
 		              	</div>           
+
+		              	<div class="form-group">
+		                	<label class="control-label">Teléfono:</label>
+		                	<input type="text" class="form-control" name="telephone" id="telephone" value="">
+		              	</div>
+
+		              	<div class="form-group">
+		                	<label class="control-label">Encargado:</label>
+		                	<input type="text" class="form-control" name="in_charge" id="in_charge" value="">
+		              	</div>
+		              	<div class="form-group">
+			                <label class="control-label">País:</label>
+			                <select  id="country" class="form-control input-sm" name="country">
+			            		<option value="Estados Unidos">Estados Unidos</option>
+			            		<option value="Venezuela">Venezuela</option>
+			            	</select> 
+			            </div>
 					</div>
 
 		            <div class="modal-footer form-group">
@@ -110,7 +127,7 @@
 		            <h4 class="modal-title">Buscar tipo</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/search">
+	        	<form method="GET" action="/location/search">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -118,8 +135,10 @@
 			                <label>Buscar por:</label>
             				<select  id="search" class="form-control input-sm" name="search">
 			            		<option value="" selected disabled>Seleccione el parámetro de búsqueda</option>
-			            		<option value="kind">Tipo</option>
 			            		<option value="name">Nombre</option>
+			            		<option value="telephone">Teléfono</option>
+			            		<option value="in_charge">Encargado</option>
+			            		<option value="country">País</option>
 			            	</select>                 
 			            </div>  
 
@@ -147,13 +166,13 @@
 		            <h4 class="modal-title">Importar datos</h4>
 		        </div>
 	        	
-	        	<form method="POST" action="/type/import" enctype="multipart/form-data">
+	        	<form method="POST" action="/location/import" enctype="multipart/form-data">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">
 			            <div class="form-group">
 			            	<label>Cargar archivo:</label>
-		                	<input type="file" class="form-control-file" name="types_file" id="file">
+		                	<input type="file" class="form-control-file" name="locations_file" id="file">
 		              	</div>           
 					</div>
 
@@ -176,7 +195,7 @@
 		            <h4 class="modal-title">Exportar datos</h4>
 		        </div>
 	        	
-	        	<form method="GET" action="/type/export">
+	        	<form method="GET" action="/location/export">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">  
@@ -204,7 +223,7 @@
 
 @section('navigation')
   @if (Auth::check())
-    @include('layouts.costs')
+    @include('layouts.logistics')
   @endif
 @endsection
 
@@ -235,19 +254,22 @@
 		<table class="table table-hover">
 			<thead class="thead-index">
 				<tr class="text-white">
-					<th scope="col">Tipo</th>
 					<th scope="col">Nombre</th>
+					<th scope="col">Teléfono</th>
+					<th scope="col">Encargado</th>
+					<th scope="col">País</th>
 					<th scope="col" colspan="2" class="text-center">Operación</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($types as $type)
+				@foreach($locations as $location)
 					<tr>
-						<td>{{ $type->kind }}</td>
-						<td>{{ $type->name }}</td>
-						
-						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$type->id}}"><span class="fa fa-pencil"></span></button></span></td>
-	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$type->id}}"><span class="fa fa-trash"></span></button></span></td>
+						<td>{{ $location->name }}</td>
+						<td>{{ $location->telephone }}</td>
+						<td>{{ $location->in_charge}}</td>
+						<td>{{ $location->country}}</td>
+						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$location->id}}"><span class="fa fa-pencil"></span></button></span></td>
+	          			<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$location->id}}"><span class="fa fa-trash"></span></button></span></td>
 						
 					</tr>
 				@endforeach
@@ -255,7 +277,7 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    {{ $types->links('vendor.pagination.bootstrap-4') }}
+    {{ $locations->links('vendor.pagination.bootstrap-4') }}
   </div>
 @endsection
 
@@ -263,16 +285,16 @@
   <script type="text/javascript"> 
     $('#myModalDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var type_id = button.data('id')
+        var location_id = button.data('id')
 
-        modalDelete("type", type_id);
+        modalDelete("location", location_id);
     });
 
     $('#myModalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); 
-        var type_id = button.data('id');
+        var location_id = button.data('id');
 
-       modalEdit("type",type_id);
+       modalEdit("location",location_id);
     });       
   </script>
 @endsection

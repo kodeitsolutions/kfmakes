@@ -146,7 +146,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
         //dd($request);
         $this->validate($request, [
             'type_id' => 'required',
