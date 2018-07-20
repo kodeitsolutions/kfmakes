@@ -140,7 +140,11 @@
 			            <div class="form-group">
 			                <label class="control-label">Cantidad:</label>
 			                <input type="number" value="" min="1" step="0.01" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
-			            </div>			                   
+			            </div>	
+			            <div class="form-group">
+			                <label class="control-label">Comentario:</label>
+			                <textarea class="form-control" name="comment" rows="2"></textarea>
+			            </div>		                   
 					</div>
 
 		            <div class="modal-footer form-group">

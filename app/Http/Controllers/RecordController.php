@@ -510,11 +510,11 @@ class RecordController extends Controller
             $request->session()->flash('flash_message_not', 'El origen no puede ser igual al destino.'); 
         }
         else {    
-            $exit = $this->create('salida',$article->id,$request->origin,$request->quantity,'Traslado de salida prueba');
+            $exit = $this->create('salida',$article->id,$request->origin,$request->quantity,$request->comment);
             $done_exit = $this->updateStock($exit,$article,'salida',$request->quantity,$request->origin);
 
             if ($done_exit) {
-                $entry = $this->create('entrada',$article->id,$request->destination,$request->quantity,'Traslado de entrada prueba');
+                $entry = $this->create('entrada',$article->id,$request->destination,$request->quantity,$request->comment);
                 $done_entry = $this->updateStock($entry,$article,'entrada',$request->quantity,$request->destination);
             }
             else {
