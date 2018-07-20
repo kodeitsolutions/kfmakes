@@ -89,6 +89,10 @@ function modalDelete(module,id){
 
 function modalMove(module,id){
   var moduleUC = upperCase(module);
+
+  $.get('/'+module+'/get'+moduleUC+'/' + id, function(response){
+    $('#article').text('Artículo: ' + response.name);
+  });
     
   $('form[id="move"]').attr('action','/inventory/move/' + id);
 };

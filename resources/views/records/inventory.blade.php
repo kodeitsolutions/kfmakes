@@ -118,7 +118,10 @@
 	        	<form method="GET" action="" id="move">
 		          	{{ csrf_field() }}
 
-		            <div class="modal-body form-group">  
+		            <div class="modal-body form-group"> 
+		            	<div class="form-group">
+		            		<p id="article" class="font-weight-bold"></p>
+		            	</div> 
 		               	<div class="form-group ">
 			                <label>Origen:</label>
             				<select  id="origin" class="form-control input-sm" name="origin" required>
@@ -250,9 +253,9 @@
   <script> 
     $('#myModalMove').on('show.bs.modal', function (event) {    	
         var button = $(event.relatedTarget); 
-        var record_id = button.data('id');
+        var article_id = button.data('id');
 
-       modalMove("record",record_id);
+       	modalMove("article",article_id);
     });     
   </script>
 @endsection
