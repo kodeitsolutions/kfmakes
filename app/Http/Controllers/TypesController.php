@@ -172,14 +172,17 @@ class TypesController extends Controller
                 ->paginate(7);
         } 
         else {
-            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->paginate(7);   
+            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->paginate(7);  
         }
 
         if($types->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
         }
         else {
-            return view('types.index', compact('types'));
+            $categories = Category::where('name','LIKE', 'Pieza%')
+                ->orWhere('name','LIKE','Componente%')
+                ->get();
+            return view('types.index', compact('types','categories'));
         }            
     }
 
