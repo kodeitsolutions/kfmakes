@@ -134,7 +134,7 @@
               </div>  
 
               <div class="form-group">
-                <input type="text" class="form-control" name="value" value="" placeholder="Buscar...">
+                <input type="text" class="form-control" name="value" value="" placeholder="Buscar..." autofocus>
               </div>           
             </div>
 
@@ -266,7 +266,7 @@
     </table>
   </div>
   <div class="row justify-content-center">
-    {{ $components->links('vendor.pagination.bootstrap-4') }}
+    {{ $components->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') }}
   </div>
 @endsection
 

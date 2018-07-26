@@ -255,8 +255,8 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    {{ $types->links('vendor.pagination.bootstrap-4') }}
-  </div>
+    	{{ $types->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') }}
+  	</div>
 @endsection
 
 @section('script')

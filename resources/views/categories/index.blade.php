@@ -234,7 +234,7 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    	{{-- $categories->links('vendor.pagination.bootstrap-4') --}}
+    	{{ $categories->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') }}
   	</div>
 @endsection
 

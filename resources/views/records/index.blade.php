@@ -335,7 +335,7 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    	{{ $records->links('vendor.pagination.bootstrap-4') }}
+    	{{ $records->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') }}
   	</div>
 @endsection
 
