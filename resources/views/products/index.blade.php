@@ -208,8 +208,8 @@
           <th scope="col">#</th>
           <th scope="col">Tipo</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Costo KFD</th>
-          <th scope="col">Costo EKF</th>
+          <th scope="col">KFD</th>
+          <th scope="col">EKF</th>
           <th scope="col" colspan="3" class="text-center">Operación</th>
         </tr>
       </thead>

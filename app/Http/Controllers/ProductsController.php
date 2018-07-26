@@ -217,8 +217,8 @@ class ProductsController extends Controller
             $total = $total + ($component->cost * $component->pivot->quantity);
         }
 
-        $product->cost_KFD = ($total * 1.5);
-        $product->cost_EKF = ($total * 2);
+        $product->cost_KFD = number_format(($total * 1.5),2);
+        $product->cost_EKF = number_format(($total * 2),2);
         $product->update();
     }
 
