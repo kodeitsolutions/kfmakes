@@ -126,8 +126,12 @@ return [
         ],
         'quantity' => [
             'min' => [
-                'numeric' => 'La cantidad a trasladar dbe ser mínimo 1.',
+                'numeric' => 'La cantidad a trasladar debe ser mínimo 1.',
             ]
+        ],
+        'telephone' => [
+            'max' => 'El teléfono no debe contener mas 11 caracteres.',
+            'regex' => 'El formato del teléfono no es válido. Formato xxxx-xxxxxxx.'
         ]
     ],
 

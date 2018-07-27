@@ -44,8 +44,20 @@ class LocationController extends Controller
         //
         $this->validate($request,[
             'name' => 'required|max:191|unique:locations',
+            'telephone' => 'max:11|regex:/^\d{3,4}-\d{7}$/',
             'country' => 'required'
         ]);
+
+        /*if ($request->has('telephone')) {
+            $numbersOnly = preg_replace("[^0-9]", "", $request->telephone);
+            $numberOfDigits = strlen($numbersOnly);
+            if ($numberOfDigits == 7 or $numberOfDigits == 10) {
+                echo $numbersOnly;
+            } else {
+                return back()->with('flash_message_not', 'No se pudo crear la ubicación.');
+            }
+        }*/
+        
 
         $location = new Location($request->all());
 
@@ -101,6 +113,7 @@ class LocationController extends Controller
         //
         $this->validate($request, [
             'name' => 'required|max:191|unique:locations,name,'.$location->id,
+            'telephone' => 'max:11|regex:/^\d{3,4}-\d{7}$/',
             'country' => 'required'
         ]);
 
