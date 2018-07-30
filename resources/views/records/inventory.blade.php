@@ -182,6 +182,20 @@
 	<div class="row"> 	
 		<div class="mr-auto ml-3">
 			<a href="/record" class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Movimientos"> <span class="fa fa-list-ul"></span></a>	
+			<span data-toggle="tooltip" data-placement="top" title="Filtrar">
+		        <button type="button" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
+		        <ul class="dropdown-menu" id="filter-list">
+		          	<a href="" class="dropdown-item" id="all">Todos</a>
+		          	<div class="dropdown-divider"></div>
+		          	<form method="GET" action="/inventory/search" id="filter-form">
+			            @foreach($categories as $category)
+			              	<li class="dropdown-item"><input type="checkbox" class="form-check-input" name="category[]" id="filter" value="{{$category->id}}" />{{$category->name}}</li>
+			            @endforeach
+		            	<div class="dropdown-divider"></div>
+		            	<a href="" class="dropdown-item" id="filter-button" onclick="submitForm('filter-form')">Aplicar</a> 
+		          	</form>           
+		        </ul>
+		    </span>
 		</div>
 		<div class="ml-auto">			
 			<span data-toggle="modal" data-target="#myModalAdd"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"><span class="fa fa-plus"></span></button></span>

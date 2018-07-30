@@ -9,6 +9,7 @@ use Excel;
 use Session;
 use Response;
 use App\Article;
+use App\Category;
 use App\Location;
 use App\Record;
 use Illuminate\Http\Request;
@@ -42,11 +43,12 @@ class RecordController extends Controller
             ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
             ->groupBy('articles.name','articles.id','locations.country')
             ->get();
+        $categories = Category::orderBy('name')->get();
 
         //dd($query);
         $locations = Location::orderBy('name')->get();
         $articles = Article::orderBy('name')->paginate(7);
-        return view('records.inventory',compact('articles','locations','records'));
+        return view('records.inventory',compact('articles','locations','records','categories'));
     }
 
     /**
@@ -330,92 +332,21 @@ class RecordController extends Controller
 
     public function searchInventory(Request $request)
     {
-        //dd($request);
+        $articles = Article::whereIn('category_id',$request->category)->join('categories','articles.category_id','=','categories.id')->orderBy('categories.name')->orderBy('articles.name')->select('articles.*')->paginate(7);
 
-        /*$query = DB::table('records')            
-            ->join('articles', 'records.article_id', '=', 'articles.id')
+        $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
             ->join('locations', 'records.location_id', '=', 'locations.id')
             ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
             ->groupBy('articles.name','articles.id','locations.country')
-            ->get();*/
-
-        $parameter = $request->search;
-        $query = $request->value;
-
-        if ($parameter == '' and $query == '') {
-            return redirect('inventory');
-        }
-        elseif ($parameter == '' and $query != '') {
-            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
-                ->join('locations', 'records.location_id', '=', 'locations.id')
-                ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
-                ->whereHas('article', function ($q) use ($query){
-                    $q->orWhere('name','LIKE', '%' . $query . '%')
-                        ->orWhereHas('category', function($f) use ($query){
-                            $f->where('name','LIKE', '%' . $query . '%');
-                        })
-                        ->orWhereHas('product', function($f) use ($query){
-                            $f->where('name','LIKE', '%' . $query . '%');
-                        });
-                    })
-                ->orWhereHas('location', function ($q) use ($query){
-                        $q->where('name','LIKE', '%' . $query . '%');
-                    })            
-                ->groupBy('articles.name','articles.id','locations.country')
-                ->get();
-        }
-        elseif ($parameter == 'article'){
-            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
-                ->join('locations', 'records.location_id', '=', 'locations.id')
-                ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
-                ->whereHas('article', function ($q) use ($query){
-                    $q->where('name','LIKE', '%' . $query . '%');
-                })
-                ->groupBy('articles.name','articles.id','locations.country')
-                ->toSql();
-        }
-        elseif ($parameter == 'category'){
-            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
-                ->join('locations', 'records.location_id', '=', 'locations.id')
-                ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
-                ->whereHas('article', function ($q) use ($query){
-                    $q->whereHas('category', function($f) use ($query){
-                            $f->where('name','LIKE', '%' . $query . '%');
-                        });
-                })
-                ->groupBy('articles.name','articles.id','locations.country');
-            $articles = Article::whereHas('category', function($f) use ($query){
-                            $f->where('name','LIKE', '%' . $query . '%');
-                        })
-                    ->select(DB::raw('0.00 AS stock'),'articles.name','articles.id',DB::raw('"" as country' ))
-                    ->whereNotIn('id',$records->getQuery())
-                    ->union($records)
-                    ->get();
-        }
-        else {
-             $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
-                ->join('locations', 'records.location_id', '=', 'locations.id')
-                ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
-                ->where($parameter, 'LIKE', '%' . $query . '%')
-                ->toSql();
-
-        }
-
-        //dd($records);
+            ->get();
+        
         if($records->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
         }
-        else {
-            $array = [];
-            foreach ($records as $record) {
-                array_push($array, $record->id);
-            }
-            //dd($array);
-            
-            $articles = Article::whereIn('id',$array)->orderBy('name')->get();
-            //dd($articles);
+        else {            
+            $categories = Category::orderBy('name')->get();
             $locations = Location::orderBy('name')->get();
-            return view('records.inventory', compact('articles','locations','records'));
+            return view('records.inventory', compact('articles','locations','records','categories'));
         } 
     }
 

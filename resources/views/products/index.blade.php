@@ -187,7 +187,7 @@
           <div class="dropdown-divider"></div>
           <form method="GET" action="/product/search" id="filter-form">
             @foreach($types as $type)
-              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type" value="{{$type->id}}" />{{$type->name}}</li>
+              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="filter" value="{{$type->id}}" />{{$type->name}}</li>
             @endforeach
             <div class="dropdown-divider"></div>
             <a href="" class="dropdown-item" id="filter-button" onclick="submitForm('filter-form')">Aplicar</a> 

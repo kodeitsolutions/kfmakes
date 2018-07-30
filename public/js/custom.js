@@ -22,12 +22,12 @@ $(document).ready(function() {
 
   $('#all').click(function(event){
     event.preventDefault(); 
-    if($('input[id="type"]').is(':checked') && $('input[id="type"]:checked').length === $('input[id="type"]').length) {
-      $('input[id="type"]').prop('checked',false);
+    if($('input[id="filter"]').is(':checked') && $('input[id="filter"]:checked').length === $('input[id="filter"]').length) {
+      $('input[id="filter"]').prop('checked',false);
       $("#all").text('Todos');
     }
     else {
-      $('input[id="type"]').prop('checked',true);
+      $('input[id="filter"]').prop('checked',true);
       $("#all").text('Quitar');
     }
     event.stopPropagation();
