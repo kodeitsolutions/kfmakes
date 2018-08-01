@@ -132,6 +132,12 @@ return [
         'telephone' => [
             'max' => 'El teléfono no debe contener mas 11 caracteres.',
             'regex' => 'El formato del teléfono no es válido. Formato xxxx-xxxxxxx.'
+        ],
+        'date_from' => [
+            'required_if' => 'El campo Fecha desde es obligatorio cuando se busca por fecha.'
+        ],
+        'date_to' => [
+            'required_if' => 'El campo Fecha desde es obligatorio cuando se busca por fecha.'
         ]
     ],
 

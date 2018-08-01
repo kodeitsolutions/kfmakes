@@ -277,11 +277,23 @@ class RecordController extends Controller
 
     public function search(Request $request)
     {
-        //dd($request);   
+        //dd($request); 
+
+        $this->validate($request,[
+            'date_from' => 'required_if:search_record,date',
+            'date_to' => 'required_if:search_record,date'
+        ]);
+
         $parameter = $request->search_record;
         $query = $request->value;
-        
-        if ($parameter == '' and $query == '') {
+
+        if ($parameter == 'date'){
+            $records = Record::whereBetween('date',[$this->formatDate($request->date_from),$this->formatDate($request->date_to)])
+                ->when(!$request->has('moved'), function ($q){
+                        $q->where('moved','=', false);
+                    })->paginate(20);
+        }  
+        elseif ($parameter == '' and $query == '') {
             $records = Record::when(!$request->has('moved'), function ($q){
                         $q->where('moved','=', false);
                     })->paginate(20);
@@ -302,14 +314,6 @@ class RecordController extends Controller
                 ->join('articles','records.article_id','=','articles.id')
                 ->join('locations','records.location_id','=','locations.id')
                 ->select('records.*')
-                ->paginate(20);
-        }
-        elseif ($parameter == 'date') {
-            $date = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_search)));
-            $records = Record::where('date','=', $date)
-                ->when(!$request->has('moved'), function ($q){
-                        $q->where('moved','=', false);
-                    })
                 ->paginate(20);
         }
         else {
@@ -461,5 +465,10 @@ class RecordController extends Controller
         }
         return back();
         
+    }
+
+    public function formatDate($value)
+    {
+       return date('Y-m-d', strtotime(str_replace('/', '-', $value)));
     }
 }

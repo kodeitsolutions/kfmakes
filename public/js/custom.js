@@ -22,12 +22,12 @@ $(document).ready(function() {
 
   $('#all').click(function(event){
     event.preventDefault(); 
-    if($('input[id="filter"]').is(':checked') && $('input[id="filter"]:checked').length === $('input[id="filter"]').length) {
-      $('input[id="filter"]').prop('checked',false);
+    if($('input[id="type"]').is(':checked') && $('input[id="type"]:checked').length === $('input[id="type"]').length) {
+      $('input[id="type"]').prop('checked',false);
       $("#all").text('Todos');
     }
     else {
-      $('input[id="filter"]').prop('checked',true);
+      $('input[id="type"]').prop('checked',true);
       $("#all").text('Quitar');
     }
     event.stopPropagation();
@@ -58,7 +58,12 @@ $(document).ready(function() {
     format: 'dd/mm/yyyy',
     uiLibrary: 'bootstrap4'
   });
-  $('#date_search').datepicker({
+  $('#date_from').datepicker({
+    locale: 'es-es',
+    format: 'dd/mm/yyyy',
+    uiLibrary: 'bootstrap4'
+  });
+  $('#date_to').datepicker({
     locale: 'es-es',
     format: 'dd/mm/yyyy',
     uiLibrary: 'bootstrap4'
@@ -89,10 +94,6 @@ function modalDelete(module,id){
 
 function modalMove(module,id){
   var moduleUC = upperCase(module);
-
-  $.get('/'+module+'/get'+moduleUC+'/' + id, function(response){
-    $('#article').text('Artículo: ' + response.name);
-  });
     
   $('form[id="move"]').attr('action','/inventory/move/' + id);
 };

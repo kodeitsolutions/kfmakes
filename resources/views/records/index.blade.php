@@ -186,8 +186,13 @@
 			            </div>
 
 			            <div class="form-group conditional-date">
-			            	<label class="control-label">Fecha:</label>
-							<input type="text" class="form-control date" name="date_search" id="date_search" value="">
+			            	<label class="control-label">Desde:</label>
+							<input type="text" class="form-control date" name="date_from" id="date_from" value="{{date('01/01/Y')}}">
+			            </div> 
+
+			            <div class="form-group conditional-date">
+			            	<label class="control-label">Hasta:</label>
+							<input type="text" class="form-control date" name="date_to" id="date_to" value="{{$date}}">
 			            </div>  
 
 			            <div class="form-group search-value">
