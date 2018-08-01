@@ -24,12 +24,14 @@ html, body {
     margin-top: 10px;
 }
 
-a:link,
+a:link
 .fa {
     color: #000000;
 }
 
-a:hover {
+a:hover,
+a:visited {
+    color: #000000;
     text-decoration: none;
 }
 
@@ -69,6 +71,10 @@ a:hover {
 
 .dropdown-item.active, .dropdown-item:active {
     background-color: #0edbad;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #0edbad;
 }
 
 #product-edit {
