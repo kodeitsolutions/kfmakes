@@ -331,9 +331,8 @@
 						<td>{{ $record->article->name }}</td>
 						<td>{{ $record->quantity }}</td>
 						<td>{{ $record->location->name }}</td>
-						<td>{{ $record->comment}}</td>
-						<td align="right"><span data-toggle="tooltip" data-placement="top" title="Editar" style="display: none;"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalEdit" data-id="{{$record->id}}"><span class="fa fa-pencil"></span></button></span></td>
-           				<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$record->id}}"><span class="fa fa-trash"></span></button></span></td>				
+						<td>{{ $record->comment}}</td>						
+           				<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$record->id}}" @if ($record->moved) disabled @endif><span class="fa fa-trash" ></span></button></span></td>				
 					</tr>
 				@endforeach
 			</tbody>
