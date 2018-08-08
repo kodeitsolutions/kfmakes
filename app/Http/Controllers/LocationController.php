@@ -45,7 +45,7 @@ class LocationController extends Controller
         $request->merge(array('telephone' => str_replace(' ','', $request->telephone)));
         
         $this->validate($request,[
-            'name' => 'required|max:191|unique:locations',
+            'name' => 'required|max:191|unique:locations,name,NULL,id,country,'.$request->country,
             'telephone' => 'max:15',
             //'telephone' => 'max:1|regex:/^\d{3,4}-\d{7}$/',
             'country' => 'required'
@@ -107,7 +107,7 @@ class LocationController extends Controller
         $request->merge(array('telephone' => str_replace(' ','', $request->telephone)));
         
         $this->validate($request, [
-            'name' => 'required|max:191|unique:locations,name,'.$location->id,
+            'name' => 'required|max:191|unique:locations,name,'.$location->id.',id,country,'.$request->country,
             'telephone' => 'max:15',
             'country' => 'required'
         ]);
