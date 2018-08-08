@@ -130,7 +130,7 @@ return [
             ]
         ],
         'telephone' => [
-            'max' => 'El teléfono no debe contener mas 11 caracteres.',
+            'max' => 'El teléfono no debe contener mas de :max caracteres.',
             'regex' => 'El formato del teléfono no es válido. Formato xxxx-xxxxxxx.'
         ],
         'date_from' => [
