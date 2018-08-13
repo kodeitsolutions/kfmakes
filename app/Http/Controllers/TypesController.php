@@ -112,7 +112,7 @@ class TypesController extends Controller
         //
         $this->validate($request, [
             'name' => 'required|max:191|unique:types,name,'.$type->id.',id,kind,'.$request->kind,
-            'kind' => 'required|max:191',
+            'category_id' => 'required',
         ]);
 
         $data = $request->all();        
