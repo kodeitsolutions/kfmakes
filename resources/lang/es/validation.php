@@ -125,9 +125,7 @@ return [
             'required' => 'El campo categoría es obligatorio.',
         ],
         'quantity' => [
-            'min' => [
-                'numeric' => 'La cantidad a trasladar debe ser mínimo 1.',
-            ]
+            'min' => 'La cantidad a trasladar debe ser mínimo :min.',
         ],
         'telephone' => [
             'max' => 'El teléfono no debe contener mas de :max caracteres.',
