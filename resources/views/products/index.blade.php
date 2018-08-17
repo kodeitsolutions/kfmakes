@@ -181,13 +181,13 @@
       <span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar" style="display: none"><span class="fa fa-upload"></span></button></span>
       <span data-toggle="modal" data-target="#myModalExport" disabled><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>   
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
-        <button type="button" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
+        <button type="button" id="filter" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
         <ul class="dropdown-menu" id="filter-list">
-          <a href="" class="dropdown-item" id="all">Todos</a>
+          <a href="" class="dropdown-item" id="all"> Todos</a>
           <div class="dropdown-divider"></div>
           <form method="GET" action="/product/search" id="filter-form">
             @foreach($types as $type)
-              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="filter" value="{{$type->id}}" />{{$type->name}}</li>
+              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type" value="{{$type->id}}" @if($products->contains('type_id',$type->id)) checked @endif/>{{$type->name}}</li>
             @endforeach
             <div class="dropdown-divider"></div>
             <a href="" class="dropdown-item" id="filter-button" onclick="submitForm('filter-form')">Aplicar</a> 
@@ -236,7 +236,7 @@
 @endsection
 
 @section('script')
-  <script type="text/javascript"> 
+  <script>    
     $('#myModalDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
         var product_id = button.data('id')

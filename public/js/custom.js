@@ -31,7 +31,7 @@ $(document).ready(function() {
       $("#all").text('Quitar');
     }
     event.stopPropagation();
-  })
+  });
 
   $('#filter-button').click(function(event){
     event.preventDefault();
