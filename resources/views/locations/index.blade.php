@@ -282,7 +282,7 @@
 @endsection
 
 @section('script')
-  <script type="text/javascript"> 
+  <script> 
     $('#myModalDelete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
         var location_id = button.data('id')
