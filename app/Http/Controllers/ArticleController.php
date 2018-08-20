@@ -47,8 +47,9 @@ class ArticleController extends Controller
     {
         //
         $this->validate($request, [
-            'name' => 'required|max:191|unique:articles',
+            'name' => 'required|max:191|unique:articles',            
             'category_id' => 'required',
+            'product_id' => 'required_if:category_id,2'
         ]);
 
         $article = new Article($request->all());
@@ -104,7 +105,9 @@ class ArticleController extends Controller
     {
         //
         $this->validate($request, [
-            'name' => 'required|max:191|unique:articles,name,'.$article->id
+            'name' => 'required|max:191|unique:articles,name,'.$article->id,
+            'category_id' => 'required',
+            'product_id' => 'required_if:category_id,2'
         ]);
 
         $saved = $article->update($request->all());

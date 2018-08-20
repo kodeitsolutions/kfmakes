@@ -136,6 +136,9 @@ return [
         ],
         'date_to' => [
             'required_if' => 'El campo Fecha desde es obligatorio cuando se busca por fecha.'
+        ],
+        'product_id' => [
+            'required_if' => 'El campo Pieza es obligatorio cuando la categoría del artículo es Pieza.'
         ]
     ],
 

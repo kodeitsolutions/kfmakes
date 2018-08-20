@@ -24,7 +24,7 @@
 			            </div>
 
 			            <div class="form-group conditional-product">
-			            	<label class="control-label">Pieza</label>
+			            	<label class="control-label">Pieza:</label>
 			            	<select id="product_id" class="form-control input-sm" name="product_id">
 			          			<option value="" selected disabled>Seleccione la pieza:</option>
 			          			@foreach($products as $product)
@@ -64,7 +64,7 @@
 		          	<div class="modal-body form-group">
 			            <div class="form-group">
 			                <label class="control-label">Categoría:</label>
-			            	<select id="category_id" class="form-control input-sm" name="category_id" required>
+			            	<select id="category_id_edit" class="form-control input-sm" name="category_id" required disabled>
 			          			<option value="" selected disabled>Seleccione la categoría:</option>
 			          			@foreach($categories as $category)
 				                  	<option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -72,7 +72,7 @@
 			          		</select>
 			            </div>
 
-			            <div class="form-group" id="product-edit">
+			            <div class="form-group conditional-product" id="product-edit">
 			            	<label class="control-label">Pieza:</label>
 			            	<select id="product_id" class="form-control input-sm" name="product_id">
 			          			<option value="" selected disabled>Seleccione la pieza:</option>
