@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Auth;
 use Excel;
 use Response;
-use App\Type;
 use App\Article;
 use App\Category;
+use App\Component;
+use App\Type;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -125,20 +126,26 @@ class CategoryController extends Controller
     public function destroy(Request $request,Category $category)
     {
         //
-        //$types = Type::where('category_id',$category->id)->get();
-        $articles = Article::where('category_id',$category->id)->get();
-
-        if ($articles->isEmpty()) {
-            $deleted = $category->delete();
-            if ($deleted) {
-                $request->session()->flash('flash_message', 'Categoría '.$category->name.' eliminada.');
-            }
-            else{
-                $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría.');   
-            }
+        if ($category->id == 1 or $category->id == 2) {
+            $request->session()->flash('flash_message_not', 'No se puede eliminar la categoría '.$category->name.'.');
         }
-        else {
-            $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría ya que existen registros asociados a esta.');
+        else{  
+            $components = Component::where('category_id',$category->id)->get();
+            $types = Type::where('category_id',$category->id)->get();        
+            $articles = Article::where('category_id',$category->id)->get();
+
+            if ($articles->isEmpty() and $types->isEmpty() and $components->isEmpty()) {  
+                $deleted = $category->delete();
+                if ($deleted) {
+                    $request->session()->flash('flash_message', 'Categoría '.$category->name.' eliminada.');
+                }
+                else{
+                    $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría.');   
+                }
+            }
+            else {
+                $request->session()->flash('flash_message_not', 'No se pudo eliminar la categoría '.$category->id.' ya que existen registros asociados a esta.');
+            }
         }
 
         return redirect('/category');
