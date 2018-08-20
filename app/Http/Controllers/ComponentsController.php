@@ -57,6 +57,7 @@ class ComponentsController extends Controller
         $component = new Component($request->all());       
 
         $component->user_id = Auth::id();
+        $component->category_id = 1;
         $saved = $component->save();
 
         if ($saved) {
