@@ -42,7 +42,7 @@
 			            	<select id="location_id" class="form-control input-sm" name="location_id" required>
 			          			<option value="" selected disabled>Seleccione la ubicación:</option>
 			          			@foreach($locations as $location)
-				                  	<option value="{{ $location->id }}">{{ $location->name }}</option>
+				                  	<option value="{{ $location->id }}">{{ $location->name }} - {{$location->country}}</option>
 				                @endforeach
 			          		</select>
 			            </div>			            
