@@ -11,6 +11,11 @@ html, body {
     margin: 0;
 }
 
+input:required,
+select:required {
+    box-shadow: none;
+}
+
 .row{
     margin-top: 5px;
     margin-bottom: 5px;
@@ -29,8 +34,7 @@ a:link
     color: #000000;
 }
 
-a:hover,
-a:visited {
+a:link {
     color: #000000;
     text-decoration: none;
 }
