@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth','revalidate']], function(){
 	Route::get('product/cost/{product}', 'ProductsController@cost');
 	Route::get('product/export','ProductsController@export');
 	Route::post('product/import','ProductsController@import');
+	Route::get('product/recalculate','ProductsController@recalculate');
 
 	Route::get('user', 'UsersController@index');
 	Route::get('user/getUser/{id}', 'UsersController@show');

@@ -222,6 +222,17 @@ class ProductsController extends Controller
         $product->update();
     }
 
+    public function recalculate()
+    {
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $this->cost($product);
+        }
+
+        return redirect('product');
+    }
+
     public function search(Request $request)
     {
         if ($request->has('type')) {

@@ -196,6 +196,7 @@
       </span>
     </div>
     <div class="ml-auto">
+      <a href="/product/recalculate" class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Recalcular"> <span class="fa fa-refresh"></span></a>
       <a href="/product/create" class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Agregar"> <span class="fa fa-plus"></span></a>
       <span data-toggle="modal" data-target="#myModalSearch"><button class="btn btn-default btn-sm mr-3 border border-dark" role="button" data-toggle="tooltip" data-placement="top" title="Buscar"><span class="fa fa-search"></span></button></span>
     </div>  
