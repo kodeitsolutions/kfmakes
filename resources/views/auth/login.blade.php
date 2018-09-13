@@ -55,17 +55,14 @@
                                     Ingresar
                                 </button>
 
-                                {{--<a class="btn btn-default" href="{{ route('password.request') }}" role="button">
+                                <a class="btn btn-default" href="{{ route('password.request') }}" role="button">
                                     ¿Olvidaste la contraseña?
-                                </a>--}}
-                                <a class="btn btn-default" href="#" role="button">
-                                    ¿Olvidaste la contraseña?
-                                </a>                                
+                                </a>                            
                             </div>
                         </div>
                     </form>         
                 </div> 
-                <div class="card-footer">Version 1.3.0</div>
+                <div class="card-footer">Version 1.3.3</div>
             </div>            
         </div>
     </div>

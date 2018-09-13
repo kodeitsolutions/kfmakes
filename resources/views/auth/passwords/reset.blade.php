@@ -5,14 +5,14 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <span>Restablecer Contraseña</span>
+                    <p class="text-white font-weight-bold"><b>Restablecer Contraseña</b></p>
                 </div>
                 <div class="card-body">
                     <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
-
-                        <input type="hidden" name="token" value="">
-
+                        
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        
                         <div class="form-group row {{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail:</label>
 
@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group row">
                                 <div class="col-md-10 offset-md-4">
                                     <button type="submit" class="btn btn-default">
                                         Restablecer
