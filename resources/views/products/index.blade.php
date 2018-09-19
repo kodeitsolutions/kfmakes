@@ -183,12 +183,14 @@
       <span data-toggle="tooltip" data-placement="top" title="Filtrar">
         <button type="button" id="filter" class="btn btn-default btn-sm dropdown-toggle border border-dark" data-toggle="dropdown"><span class="fa fa-filter"></span> <span class="caret"></span></button>
         <ul class="dropdown-menu" id="filter-list">
-          <a href="" class="dropdown-item" id="all"> Todos</a>
-          <div class="dropdown-divider"></div>
-          <form method="GET" action="/product/search" id="filter-form">
-            @foreach($types as $type)
-              <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type" value="{{$type->id}}" @if($products->contains('type_id',$type->id)) checked @endif/>{{$type->name}}</li>
-            @endforeach
+          <div id="checkbox-container">
+            <a href="" class="dropdown-item" id="all"> Todos</a>
+            <div class="dropdown-divider"></div>
+            <form method="GET" action="/product/search" id="filter-form">
+              @foreach($types as $type)
+                <li class="dropdown-item"><input type="checkbox" class="form-check-input" name="type[]" id="type{{$type->id}}" value="{{$type->id}}"/>{{$type->name}}</li>
+              @endforeach
+          </div>
             <div class="dropdown-divider"></div>
             <a href="" class="dropdown-item" id="filter-button" onclick="submitForm('filter-form')">Aplicar</a> 
           </form>           
@@ -239,24 +241,47 @@
 @section('script')
   <script>    
     $('#myModalDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var product_id = button.data('id')
-        
-        modalDelete("product", product_id);
+      var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
+      var product_id = button.data('id')
+      
+      modalDelete("product", product_id);
     });
 
     $('#myModalEdit').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); 
-        var product_id = button.data('id');
+      var button = $(event.relatedTarget); 
+      var product_id = button.data('id');
 
-        modalEdit("product",product_id);
+      modalEdit("product",product_id);
     });
 
     $('#myModalShow').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); 
-        var product_id = button.data('id');
-        
-        modalShow(product_id);
-    });   
+      var button = $(event.relatedTarget); 
+      var product_id = button.data('id');
+      
+      modalShow(product_id);
+    });  
+
+    var productsValues = JSON.parse(localStorage.getItem('productsValues')) || {};
+    var $checkboxes = $("#checkbox-container :checkbox");
+    var $button = $("#checkbox-container a");   
+
+    $button.on("click", function() {
+      event.preventDefault();
+      handleButtonClick();
+      updateButtonStatus();
+      updateStorage(productsValues,'productsValues');
+      event.stopPropagation();
+    });
+
+    $checkboxes.on("change", function(){
+      updateButtonStatus();
+      updateStorage(productsValues,'productsValues');
+    });    
+
+    $.each(productsValues, function(key, value) {
+      $("#" + key).prop('checked', value);
+    });
+
+    $button.text(productsValues["buttonText"]);
   </script>
 @endsection

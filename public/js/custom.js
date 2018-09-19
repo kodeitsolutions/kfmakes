@@ -18,20 +18,7 @@ $(document).ready(function() {
 
   $('#showButton').click(function(event){
     $('.table-row').remove();
-  });
-
-  $('#all').click(function(event){
-    event.preventDefault(); 
-    if($('input[id="type"]').is(':checked') && $('input[id="type"]:checked').length === $('input[id="type"]').length) {
-      $('input[id="type"]').prop('checked',false);
-      $("#all").text('Todos');
-    }
-    else {
-      $('input[id="type"]').prop('checked',true);
-      $("#all").text('Quitar');
-    }
-    event.stopPropagation();
-  });
+  });  
 
   $('#filter-button').click(function(event){
     event.preventDefault();
@@ -208,3 +195,26 @@ function formatDate(date){
   var date_formatted = date.split('-').reverse().join('/');  
   return date_formatted;
 }
+
+function allChecked(){
+  return $checkboxes.length === $checkboxes.filter(":checked").length;
+}
+
+function updateButtonStatus(){
+  $button.text(allChecked() ? "Quitar" : "Todos");
+}
+
+function handleButtonClick(){
+  $checkboxes.prop("checked", allChecked()? false : true)
+}
+
+function updateStorage(values,item){
+  
+  $checkboxes.each(function(){
+    values[this.id] = this.checked;
+  });
+
+  values["buttonText"] = $button.text();
+  localStorage.setItem(item, JSON.stringify(values));
+}
+

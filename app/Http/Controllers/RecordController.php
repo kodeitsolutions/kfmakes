@@ -28,7 +28,6 @@ class RecordController extends Controller
         $locations = Location::orderBy('name')->get();
         $records = Record::where('moved','=',false)->paginate(20);
         return view('records.index',compact('records','locations','articles'));
-
     }
 
     /**
@@ -45,7 +44,6 @@ class RecordController extends Controller
             ->get();
         $categories = Category::orderBy('name')->get();
 
-        //dd($query);
         $locations = Location::orderBy('name')->get();
         $articles = Article::orderBy('name')->paginate(7);
         return view('records.inventory',compact('articles','locations','records','categories'));
@@ -82,7 +80,6 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
         //dd($request);
         Session::put('PreviousURL', URL::previous());
         $this->validate($request, [
@@ -157,7 +154,6 @@ class RecordController extends Controller
      */
     public function update(Request $request, Record $record)
     {
-        //
         //dd($request);
         $this->validate($request, [
             'motive' => 'required',
@@ -169,8 +165,7 @@ class RecordController extends Controller
 
         $data = $request->all(); 
         
-        $data['date'] = $record->getFormatDate($request->date_edit);   
-        //dd($data);
+        $data['date'] = $record->getFormatDate($request->date_edit);  
 
         $article = Article::find($request->article_id);
 
@@ -182,7 +177,7 @@ class RecordController extends Controller
             $done = $this->updateStock($record,$article,$motive);
 
             $record->quantity = $request->quantity;
-            //dd($record);
+           
             $done = $this->updateStock($record,$article,$request->motive);
         }
         elseif ($request->quantity != $record->quantity and $request->motive == $record->motive and $request->location_id == $record->location_id){
@@ -209,7 +204,7 @@ class RecordController extends Controller
      */
     public function destroy(Request $request,Record $record)
     {
-        //        dd($record);
+        //dd($record);
         if ($record->moved) {
             $request->session()->flash('flash_message_not', 'No se puede eliminar el movimiento ya que pertenece a un traslado.');
         } else {
@@ -230,8 +225,7 @@ class RecordController extends Controller
             else{
                 $request->session()->flash('flash_message_not', 'No se pudo eliminar el movimiento.'); 
             }
-        }  
-        //return redirect('/record');
+        } 
         return back();
         
     }
@@ -239,7 +233,6 @@ class RecordController extends Controller
     public function updateStock(Record $record,Article $article,$motive,$quantity,$location_id)
     {
         # code...
-
         $record->quantity = ($motive == 'entrada') ? $quantity : ($quantity*(-1));
         $article->stock = $article->stock + $record->quantity;
         if ($article->stock < 0){
@@ -336,13 +329,22 @@ class RecordController extends Controller
 
     public function searchInventory(Request $request)
     {
-        $articles = Article::whereIn('category_id',$request->category)->join('categories','articles.category_id','=','categories.id')->orderBy('categories.name')->orderBy('articles.name')->select('articles.*')->paginate(7);
+        if ($request->has('category')) {
+            $articles = Article::whereIn('category_id',$request->category)->join('categories','articles.category_id','=','categories.id')->orderBy('categories.name')->orderBy('articles.name')->select('articles.*')->paginate(7);
 
-        $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
+            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
+                ->join('locations', 'records.location_id', '=', 'locations.id')
+                ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
+                ->groupBy('articles.name','articles.id','locations.country')
+                ->get();
+        } else {
+            $articles = Article::orderBy('name')->paginate(7);
+            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
             ->join('locations', 'records.location_id', '=', 'locations.id')
             ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
             ->groupBy('articles.name','articles.id','locations.country')
             ->get();
+        }             
         
         if($records->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
@@ -364,7 +366,7 @@ class RecordController extends Controller
  
             $excel->sheet('Datos', function($sheet) { 
 
-                $records = Record::all();             
+                $records = Record::where();             
  
                 $sheet->fromArray($records);
  
@@ -374,30 +376,35 @@ class RecordController extends Controller
 
     public function import(Request $request)
     {
-        # code...
+        //dd($request);
         $this->validate($request, [
             'file' => 'file'
         ]);        
         
         $count = 0;
 
-        if($request->hasFile('locations_file')){
-            $path = $request->file('locations_file')->getRealPath();
+        if($request->hasFile('records_file')){
+            $path = $request->file('records_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             
             if(!empty($data) && $data->count()){
-                $locations = Location::all();
+                $records = Record::where('moved','=', false)->get();
                                 
-                foreach ($data as $location) {
-                    if (!$locations->contains('id',$location->id)) {
-                       Location::create([
-                            'name' => $location->name,
-                            'telephone' => $location->telephone,
-                            'in_charge' => $location->in_charge,
-                            'country' => $location->country,
-                            'user_id' =>$location->user_id,
-                        ]);
-                       $count++;
+                foreach ($data as $row) {
+                    if (!$records->contains('id',$row->id)) {
+                        $record = $this->create($row->motive,$row->article_id,$row->location_id,$row->quantity,$row->comment);
+                        
+                        $record->moved = false;
+                        $record->save();
+                        $article = Article::find($record->article_id);
+                        
+                        $done = $this->updateStock($record,$article,$record->motive,$record->quantity,$record->location_id);
+
+                        if ($done) {
+                            $count++;
+                        } else {
+                           $record->delete();
+                        }
                     }                    
                 }
             }
@@ -416,7 +423,6 @@ class RecordController extends Controller
 
     public function move(Request $request,Article $article)
     {
-        # code...
         //dd($request);
         $this->validate($request,[
             'origin' => 'required',
