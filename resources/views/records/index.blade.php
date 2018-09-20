@@ -224,7 +224,7 @@
 		            <h4 class="modal-title">Importar datos</h4>
 		        </div>
 	        	
-	        	<form method="POST" action="/article/import" enctype="multipart/form-data">
+	        	<form method="POST" action="/record/import" enctype="multipart/form-data">
 		          	{{ csrf_field() }}
 
 		            <div class="modal-body form-group">
@@ -299,7 +299,7 @@
 
 	<div class="row"> 
 		<div class="mr-auto ml-3">
-			<span data-toggle="modal" data-target="#myModalImport" style="display: none;"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
+			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
 			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
 		</div>		
 		<div class="ml-auto">			
@@ -324,7 +324,7 @@
 			</thead>
 			<tbody>
 				@foreach($records as $index => $record)
-	         	 	<tr>          
+	         	 	<tr>         
 	            		<th scope="row"> {{ $index + 1 }}</th>
 						<td>@if($record->motive == 'entrada') Entrada @else Salida @endif</td>
 						<td>{{ $record->dateView() }}</td>
