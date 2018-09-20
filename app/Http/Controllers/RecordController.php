@@ -332,11 +332,15 @@ class RecordController extends Controller
         if ($request->has('category')) {
             $articles = Article::whereIn('category_id',$request->category)->join('categories','articles.category_id','=','categories.id')->orderBy('categories.name')->orderBy('articles.name')->select('articles.*')->paginate(7);
 
-            $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
+            if (!$articles->isEmpty()) {
+                $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
                 ->join('locations', 'records.location_id', '=', 'locations.id')
                 ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
                 ->groupBy('articles.name','articles.id','locations.country')
                 ->get();
+            } else {
+               return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
+            }            
         } else {
             $articles = Article::orderBy('name')->paginate(7);
             $records = Record::join('articles', 'records.article_id', '=', 'articles.id')
@@ -344,7 +348,7 @@ class RecordController extends Controller
             ->select(DB::raw('SUM(CASE WHEN motive = "entrada" THEN quantity ELSE -quantity END) AS stock'),'articles.name','articles.id','locations.country')
             ->groupBy('articles.name','articles.id','locations.country')
             ->get();
-        }             
+        }
         
         if($records->isEmpty()) {
             return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
