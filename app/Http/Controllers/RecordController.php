@@ -339,7 +339,7 @@ class RecordController extends Controller
                 ->groupBy('articles.name','articles.id','locations.country')
                 ->get();
             } else {
-               return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
+               return back()->with('flash_message_info', 'No hay resultados para el filtro aplicado.');
             }            
         } else {
             $articles = Article::orderBy('name')->paginate(7);
@@ -349,15 +349,10 @@ class RecordController extends Controller
             ->groupBy('articles.name','articles.id','locations.country')
             ->get();
         }
-        
-        if($records->isEmpty()) {
-            return back()->with('flash_message_info', 'No hay resultados para la búsqueda realizada.');
-        }
-        else {            
-            $categories = Category::orderBy('name')->get();
-            $locations = Location::orderBy('name')->get();
-            return view('records.inventory', compact('articles','locations','records','categories'));
-        } 
+                  
+        $categories = Category::orderBy('name')->get();
+        $locations = Location::orderBy('name')->get();
+        return view('records.inventory', compact('articles','locations','records','categories'));
     }
 
     public function export(Request $request)
