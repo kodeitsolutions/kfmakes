@@ -15,12 +15,22 @@
 
 			            <div class="form-group">
 			                <label class="control-label">Nombre:</label>
-			                <input type="text" class="form-control" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
+			                <input type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" name="name" value="" placeholder="Ingrese el nombre." required autofocus>
+			                @if ($errors->has('name'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('name') }}</strong></span>
+	                            </div>
+	                        @endif
 			            </div>
 
 			            <div class="form-group">
 			                <label class="control-label">Teléfono:</label>
-			                <input type="text" class="form-control" name="telephone" value="" placeholder="Ingrese el teléfono.">
+			                <input type="text" class="form-control @if ($errors->has('telephone')) is-invalid @endif" name="telephone" value="" placeholder="Ingrese el teléfono.">
+			                @if ($errors->has('telephone'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('telephone') }}</strong></span>
+	                            </div>
+	                        @endif
 			            </div>
 
 			            <div class="form-group">
@@ -30,11 +40,16 @@
 
 			            <div class="form-group">
 			                <label class="control-label">País:</label>
-			                <select  id="country" class="form-control input-sm" name="country" required>
+			                <select  id="country" class="form-control input-sm @if ($errors->has('country')) is-invalid @endif" name="country" required>
 			            		<option value="" selected disabled>Seleccione el país</option>
 			            		<option value="Estados Unidos">Estados Unidos</option>
 			            		<option value="Venezuela">Venezuela</option>
 			            	</select> 
+			            	@if ($errors->has('country'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('country') }}</strong></span>
+	                            </div>
+	                        @endif
 			            </div>
 			        </div>
 
@@ -87,12 +102,22 @@
 		            <div class="modal-body form-group">  
 		                <div class="form-group">
 		                	<label class="control-label">Nombre:</label>
-		                	<input type="text" class="form-control" name="name" id="name" value="" required autofocus>
+		                	<input type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" name="name" id="name" value="" required autofocus>
+		                	@if ($errors->has('name'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('name') }}</strong></span>
+	                            </div>
+	                        @endif
 		              	</div>           
 
 		              	<div class="form-group">
 		                	<label class="control-label">Teléfono:</label>
-		                	<input type="text" class="form-control" name="telephone" id="telephone" value="">
+		                	<input type="text" class="form-control @if ($errors->has('telephone')) is-invalid @endif" name="telephone" id="telephone" value="">
+		                	@if ($errors->has('telephone'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('telephone') }}</strong></span>
+	                            </div>
+	                        @endif
 		              	</div>
 
 		              	<div class="form-group">
@@ -101,10 +126,15 @@
 		              	</div>
 		              	<div class="form-group">
 			                <label class="control-label">País:</label>
-			                <select  id="country" class="form-control input-sm" name="country">
+			                <select  id="country" class="form-control input-sm @if ($errors->has('country')) is-invalid @endif" name="country">
 			            		<option value="Estados Unidos">Estados Unidos</option>
 			            		<option value="Venezuela">Venezuela</option>
 			            	</select> 
+			            	@if ($errors->has('country'))
+				                <div class="invalid-feedback">
+	                                <span><strong>{{ $errors->first('country') }}</strong></span>
+	                            </div>
+	                        @endif
 			            </div>
 					</div>
 
@@ -228,7 +258,7 @@
 @endsection
 
 @section('content')
-	<div class="col-md-12 row">
+	{{--<div class="col-md-12 row">
 	    @if($errors->any())
 	        <div class="alert alert-danger">
 	          	<strong>El formulario tiene un error</strong>
@@ -237,7 +267,7 @@
 	            @endforeach
 	        </div>
 	    @endif	    
-	</div>
+	</div>--}}
 
 	<div class="row"> 
 		<div class="mr-auto ml-3">
@@ -284,17 +314,33 @@
 @section('script')
   <script> 
     $('#myModalDelete').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // BOTÓN QUE EJECUTÓ EL MODAL
-        var location_id = button.data('id')
+        var button = $(event.relatedTarget); // BOTÓN QUE EJECUTÓ EL MODAL
+        var location_id = button.data('id');
 
         modalDelete("location", location_id);
     });
 
     $('#myModalEdit').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); 
-        var location_id = button.data('id');
+        var button = $(event.relatedTarget);         
 
-       modalEdit("location",location_id);
-    });       
+        location_id = (button.data('id') == null) ? getModalId(localStorage.getItem('modal')) : button.data('id');
+
+        clearErrors('#myModalEdit_' + location_id);
+       	modalEdit("location",location_id);
+    });  
+
+    $('#myModalAdd').on('shown.bs.modal', function (event) {
+    	clearErrors('#myModalAdd');  
+    	localStorage.setItem('modal', '#myModalAdd');
+    });
+    $('#myModalEdit').on('shown.bs.modal', function (event) {
+        var location_id = $(event.relatedTarget).data('id');  
+    	localStorage.setItem('modal', '#myModalEdit_' + location_id);
+    });
+
+    @if (count($errors) > 0)
+    	var modal = getModalShow();
+    	$(modal).modal('show');
+	@endif   
   </script>
 @endsection

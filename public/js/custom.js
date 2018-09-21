@@ -57,6 +57,13 @@ $(document).ready(function() {
   });
 });
 
+/*$('#myModalAdd').on('shown.bs.modal', function (event) {  
+  localStorage.setItem('modal', '#myModalAdd');
+});
+$('#myModalEdit').on('shown.bs.modal', function (event) {  
+  localStorage.setItem('modal', '#myModalEdit');
+});*/
+
 function upperCase(name) {
 	name = name.slice(0,1).toUpperCase() + name.slice(1).toLowerCase();	    
     return name;
@@ -216,5 +223,24 @@ function updateStorage(values,item){
 
   values["buttonText"] = $button.text();
   localStorage.setItem(item, JSON.stringify(values));
+}
+
+function getModalId (modal) {  
+  var modal_part = modal.split('_');
+
+  return modal_part[1];
+}
+
+function getModalShow() {
+  var modal = localStorage.getItem('modal');
+  var modal_part = modal.split('_');
+
+  return modal_part[0];
+}
+
+function clearErrors(next){
+  if (localStorage.getItem('modal') !== next) {
+    $("input").removeClass("is-invalid");
+  }
 }
 
