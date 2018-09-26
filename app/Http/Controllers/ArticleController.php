@@ -150,6 +150,12 @@ class ArticleController extends Controller
         return redirect('/article');
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {        
         $parameter = $request->search;
@@ -202,6 +208,12 @@ class ArticleController extends Controller
         }            
     }
 
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -220,6 +232,12 @@ class ArticleController extends Controller
         })->export($request->extension);
     }
 
+    /**
+     * Import resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
         # code...

@@ -6,9 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['category_id','product_id','user_id','name','stock'];
 
+    //Relationships
     public function user()
     {
     	return $this->belongsTo(User::class, 'user_id', 'id');
@@ -33,4 +38,5 @@ class Article extends Model
     {
        return $this->belongsToMany(Location::class)->withPivot(['stock','id'])->withTimestamps();
     }
+    //End Relationships
 }

@@ -136,6 +136,12 @@ class UsersController extends Controller
         return redirect('user');
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
         $parameter = $request->search;
@@ -162,6 +168,13 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Update password of the specified user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function updatePassword(Request $request, User $user)
     {
         //dd($request);
@@ -184,6 +197,12 @@ class UsersController extends Controller
 
         return redirect('user');
     }
+
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -204,6 +223,12 @@ class UsersController extends Controller
         return back();
     }
 
+    /**
+     * Import resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
         # code...

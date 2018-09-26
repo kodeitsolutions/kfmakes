@@ -151,6 +151,12 @@ class CategoryController extends Controller
         return redirect('/category');
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {        
         $parameter = $request->search;
@@ -176,6 +182,11 @@ class CategoryController extends Controller
         }            
     }
 
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -194,6 +205,11 @@ class CategoryController extends Controller
         })->export($request->extension);
     }
 
+    /**
+     * Import resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function import(Request $request)
     {
         # code...

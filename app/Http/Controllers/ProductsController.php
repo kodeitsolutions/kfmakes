@@ -207,6 +207,12 @@ class ProductsController extends Controller
         }
     }
 
+    /**
+     * Calculate cost of products based on its components
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
     public function cost(Product $product)
     {
         $total = 0;
@@ -222,6 +228,11 @@ class ProductsController extends Controller
         $product->update();
     }
 
+    /**
+     * Recalculate cost of products based on its components, in case the components change of price.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function recalculate()
     {
         $products = Product::all();
@@ -233,6 +244,12 @@ class ProductsController extends Controller
         return redirect('product');
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
         if ($request->has('type')) {
@@ -281,6 +298,11 @@ class ProductsController extends Controller
         }  
     }
 
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -320,71 +342,4 @@ class ProductsController extends Controller
 
         })->export($request->extension);
     }    
-
-    /*public function import(Request $request)
-    {
-        # code...
-        $this->validate($request, [
-            'file' => 'file'
-        ]);
-
-        $path = $request->file('products_file')->getRealPath();
-        $data = Excel::load($path, function($reader) {})->get();
-
-        $products_sheet = Excel::selectSheetsByIndex(0)->load($path, function($reader) {})->get();
-        $components_sheet = Excel::selectSheetsByIndex(0)->load($path, function($reader) {})->get();
-
-        
-        
-        $count = 0;
-
-        if($request->hasFile('products_file')){
-            if(!empty($data) && $data->count()){
-                $products = Product::all();
-                                
-                foreach ($data as $row) {
-                    if (!$components->contains('id',$row->id)) {
-                        Product::create([
-                            'name' => $row->name,
-                            'cost_KFD' =>$row->cost_KFD,
-                            'cost_EKF' =>$row->cost_EKF,
-                            'user_id' =>$row->user_id,
-                        ]);
-                        $count++;
-                    }                    
-                }
-                
-            }
-
-            if(!empty($products_sheet) && $products_sheet->count()){
-                $products = Product::all();
-                                
-                foreach ($products_sheet as $row) {
-                    if (!$products->contains('id',$row->id)) {
-                        Product::create([
-                            'name' => $row->name,
-                            'cost_KFD' => $row->cost_KFD,
-                            'cost_EKF' => $row->cost_EKF,
-                            'user_id' => $row->user_id,
-                            'type_id' => $row->type_id, 
-                        ]);
-
-                        $product = Product::create($row->toArray());
-                        $count++;
-                    }                                    
-                }
-                
-            }
-        } else {
-            $request->session()->flash('flash_message_not', 'No se cargó ningún archivo.');
-        }
-
-        if ($count > 0) {
-            $request->session()->flash('flash_message', 'Se importaron '.$count.' registros correctamente.');
-        } else {
-            $request->session()->flash('flash_message_info', 'No habían registros por importar.');
-        }
-        
-        return back();      
-    }*/
 }

@@ -25,15 +25,9 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
+    ];    
 
-    protected $SoftDelete = true;
-
-    public function isSuperuser()
-    {
-        return $this->superuser;
-    }
-
+    //Relationships
     public function types()
     {
         return $this->hasMany(Type::class);
@@ -48,6 +42,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Component::class);
     }
-        
-        
+    //End relationships   
+
+    /**
+     * Check attribute superuser.
+     *
+     * @return attribute
+     */
+    public function isSuperuser()
+    {
+        return $this->superuser;
+    }
 }

@@ -230,6 +230,16 @@ class RecordController extends Controller
         
     }
 
+    /**
+     * Update stock of products after a CRUD operation.
+     *
+     * @param  \App\Record  $record
+     * @param  \App\Article  $article
+     * @param  string  $motive
+     * @param  int  $quantity
+     * @param  int  $location_id
+     * @return boolean 
+     */
     public function updateStock(Record $record,Article $article,$motive,$quantity,$location_id)
     {
         # code...
@@ -268,6 +278,12 @@ class RecordController extends Controller
         }           
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
         //dd($request); 
@@ -327,6 +343,12 @@ class RecordController extends Controller
         }           
     }
 
+    /**
+     * Search inventory of products.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function searchInventory(Request $request)
     {
         if ($request->has('category')) {
@@ -355,6 +377,11 @@ class RecordController extends Controller
         return view('records.inventory', compact('articles','locations','records','categories'));
     }
 
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -373,6 +400,12 @@ class RecordController extends Controller
         })->export($request->extension);
     }
 
+    /**
+     * Import resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
         //dd($request);
@@ -420,6 +453,13 @@ class RecordController extends Controller
         return back();      
     }
 
+    /**
+     * Move certain quantity of the specified article from one location to another.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Article  $article
+     * @return \Illuminate\Http\Response
+     */
     public function move(Request $request,Article $article)
     {
         //dd($request);
@@ -468,12 +508,22 @@ class RecordController extends Controller
                 $request->session()->flash('flash_message_not', 'No se pudo realizar el traslado.');
             }
         }
-        return back();
-        
+        return back();        
     }
 
+    /**
+     * Change format of date to be able to store it in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Article  $article
+     * @return \Illuminate\Http\Response
+     */
     public function formatDate($value)
     {
        return date('Y-m-d', strtotime(str_replace('/', '-', $value)));
     }
 }
+
+
+
+

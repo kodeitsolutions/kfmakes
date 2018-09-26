@@ -26,12 +26,22 @@ class HomeController extends Controller
         return redirect('module');
     }
 
+    /**
+     * Display view to choose module.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function module($value='')
     {
         # code...
         return view('layouts.module');
     }
 
+    /**
+     * Redirect to module.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function chosen(Request $request)
     {
         # code...

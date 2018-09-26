@@ -157,6 +157,12 @@ class TypesController extends Controller
         return redirect('/type');
     }
 
+    /**
+     * Search the specified resource(s).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {        
         $parameter = $request->search;
@@ -186,6 +192,11 @@ class TypesController extends Controller
         }            
     }
 
+    /**
+     * Export all resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function export(Request $request)
     {
         $this->validate($request, [
@@ -204,6 +215,12 @@ class TypesController extends Controller
         })->export($request->extension);
     }
 
+    /**
+     * Import resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
         # code...
