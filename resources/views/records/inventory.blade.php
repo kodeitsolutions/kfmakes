@@ -127,7 +127,7 @@
             				<select  id="origin" class="form-control input-sm" name="origin" required>
 			            		<option value="" selected disabled>Seleccione el origen</option>
 			            		@foreach($locations as $location)
-			            			<option value="{{ $location->id }}">{{ $location->name }}</option>
+			            			<option value="{{ $location->id }}">{{ $location->name }} - {{ $location->country }}</option>
 			            		@endforeach			            		
 			            	</select>                 
 			            </div>
@@ -136,7 +136,7 @@
             				<select  id="destination" class="form-control input-sm" name="destination" required>
 			            		<option value="" selected disabled>Seleccione el destino</option>
 			            		@foreach($locations as $location)
-			            			<option value="{{ $location->id }}">{{ $location->name }}</option>
+			            			<option value="{{ $location->id }}">{{ $location->name }} - {{ $location->country }}</option>
 			            		@endforeach			            		
 			            	</select>                 
 			            </div> 
