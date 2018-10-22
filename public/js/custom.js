@@ -10,6 +10,7 @@ $(document).ready(function() {
     //$(this).find('form')[0].reset();
     $('input').val('');
     $('select').val('');
+    $('input').removeClass('is-invalid');
   });
   
   $('#export').click(function(){
@@ -56,13 +57,6 @@ $(document).ready(function() {
     uiLibrary: 'bootstrap4'
   });
 });
-
-/*$('#myModalAdd').on('shown.bs.modal', function (event) {  
-  localStorage.setItem('modal', '#myModalAdd');
-});
-$('#myModalEdit').on('shown.bs.modal', function (event) {  
-  localStorage.setItem('modal', '#myModalEdit');
-});*/
 
 function upperCase(name) {
 	name = name.slice(0,1).toUpperCase() + name.slice(1).toLowerCase();	    
