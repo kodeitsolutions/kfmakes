@@ -49,7 +49,7 @@
 
 			            <div class="form-group">
 			                <label class="control-label">Cantidad:</label>
-			                <input type="number" value="" min="0" step="0.01" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
+			                <input type="number" value="" min="0" step="1" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
 			            </div>
 
 			            <div class="form-group">
@@ -261,7 +261,7 @@
 		</table>
 	</div>
 	<div class="row justify-content-center">
-    	{{-- $articles->links('vendor.pagination.bootstrap-4') --}}
+    	{{ $articles->appends(Request::except('page'))->render('vendor.pagination.bootstrap-4') }}
   	</div>
 @endsection
 

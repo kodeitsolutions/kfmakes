@@ -49,7 +49,7 @@
 
 			            <div class="form-group">
 			                <label class="control-label">Cantidad:</label>
-			                <input type="number" value="" min="0" step="0.01" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
+			                <input type="number" value="" min="0" step="1" class="form-control" name="quantity" value="" placeholder="Ingrese la cantidad." required autofocus>  
 			            </div>
 
 			            <div class="form-group">
@@ -318,6 +318,7 @@
 					<th scope="col">Artículo</th>
 					<th scope="col">Cantidad</th>
 					<th scope="col">Ubicación</th>
+					<th scope="col">País</th>
 					<th scope="col">Comentario</th>
 					<th scope="col" colspan="2" class="text-center">Operación</th>
 				</tr>
@@ -331,6 +332,7 @@
 						<td>{{ $record->article->name }}</td>
 						<td>{{ $record->quantity }}</td>
 						<td>{{ $record->location->name }}</td>
+						<td>{{ $record->location->country }}</td>
 						<td>{{ $record->comment}}</td>						
            				<td><span data-toggle="tooltip" data-placement="top" title="Eliminar"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalDelete" data-id="{{$record->id}}" @if ($record->moved) disabled @endif><span class="fa fa-trash" ></span></button></span></td>				
 					</tr>
