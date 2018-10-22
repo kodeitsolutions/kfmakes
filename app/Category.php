@@ -14,6 +14,8 @@ class Category extends Model
      */
     protected $fillable = ['name','user_id'];
 
+    protected $perPage = 7;
+
     //Relationships
     public function user()
     {

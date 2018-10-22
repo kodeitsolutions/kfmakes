@@ -25,7 +25,7 @@ class TypesController extends Controller
         $categories = Category::where('name','LIKE', 'Pieza%')
             ->orWhere('name','LIKE','Componente%')
             ->get();
-        $types = Type::orderBy('kind')->orderBy('name')->paginate(7);
+        $types = Type::orderBy('kind')->orderBy('name')->paginate();
         return view('types.index',compact('types','categories'));
     }
 
@@ -141,7 +141,7 @@ class TypesController extends Controller
         $components = Component::where('type_id',$type->id)->get();
         $products = Product::where('type_id',$type->id)->get();
 
-        if ($components->isEmpty() && $products->isEmpty()) {
+        if ($components->isEmpty() and $products->isEmpty()) {
             $deleted = $type->delete();
             if ($deleted) {
                 $request->session()->flash('flash_message', 'Tipo '.$type->kind.' / '.$type->name.' eliminado.');
@@ -164,21 +164,22 @@ class TypesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
-    {        
+    {   
+        //dd($request);   
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $types = Type::orderBy('kind')->orderBy('name')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $types = Type::orderBy('kind')->orderBy('name')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $types = Type::where('kind','LIKE', $query . '%')
                 ->orWhere('name','LIKE', $query . '%')
                 ->orderBy('kind')->orderBy('name')
-                ->paginate(7);
+                ->paginate();
         } 
         else {
-            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->paginate(7);  
+            $types = Type::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('kind')->orderBy('name')->paginate();  
         }
 
         if($types->isEmpty()) {
@@ -234,7 +235,7 @@ class TypesController extends Controller
             $path = $request->file('types_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
 
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $types = Type::all();
                                 
                 foreach ($data as $type) {

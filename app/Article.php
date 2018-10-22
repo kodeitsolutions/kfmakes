@@ -13,6 +13,8 @@ class Article extends Model
      */
     protected $fillable = ['category_id','product_id','user_id','name','stock'];
 
+    protected $perPage = 7;
+
     //Relationships
     public function user()
     {

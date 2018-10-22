@@ -13,6 +13,7 @@ class Component extends Model
      */
     protected $fillable = ['name','cost','user_id','type_id'];
 
+    protected $perPage = 7;
     /**
      * The attributes added to model.
      *

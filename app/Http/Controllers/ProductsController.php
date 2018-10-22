@@ -22,7 +22,7 @@ class ProductsController extends Controller
     {
         //
         $types = Type::where('kind','Pieza')->orderBy('name')->get();
-        $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7); 
+        $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(); 
         return view('products.index',compact('products','types'));
     }
 
@@ -71,7 +71,7 @@ class ProductsController extends Controller
 
         $this->cost($product);
 
-        if ($product->cost_EKF == 0 && $product->cost_KFD == 0) {
+        if ($product->cost_EKF == 0 and $product->cost_KFD == 0) {
             $product->delete();
             $request->session()->flash('flash_message_not', 'No se pudo agregar la Pieza. Debe indicar al menos un componente');
         } else {
@@ -253,15 +253,15 @@ class ProductsController extends Controller
     public function search(Request $request)
     {
         if ($request->has('type')) {
-            $products = Product::whereIn('type_id',$request->type)->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
+            $products = Product::whereIn('type_id',$request->type)->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate();
         } else {
             $parameter = $request->search;
             $query = $request->value;
 
-            if ($parameter == '' && $query == '') {
-                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
+            if ($parameter == '' and $query == '') {
+                $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate();
             } 
-            elseif ($parameter == '' && $query != '') {
+            elseif ($parameter == '' and $query != '') {
                 $products = Product::where('products.name','LIKE', $query . '%')
                     ->orWhere('cost_EKF','LIKE', $query . '%')
                     ->orWhere('cost_KFD','LIKE', $query . '%')
@@ -269,23 +269,23 @@ class ProductsController extends Controller
                             $q->where('name','LIKE', '%' . $query . '%');
                         })
                     ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                    ->paginate(7); 
+                    ->paginate(); 
             }
             elseif ($parameter == 'type') {
                 $products = Product::whereHas('type', function ($q) use ($query){
                         $q->where('name','LIKE', '%' . $query . '%');
                     })
                 ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                ->paginate(7);; 
+                ->paginate();; 
             }
             elseif ($parameter == 'cost') {
                 $products = Product::where('cost_EKF','LIKE', $query . '%')
                     ->orWhere('cost_KFD','LIKE', $query . '%')
                     ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')
-                    ->paginate(7); 
+                    ->paginate(); 
             } else {
                 $products = Product::where('products.'.$parameter, 'LIKE', '%' . $query . '%')
-                    ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate(7);
+                    ->join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->paginate();
             }             
         }
 

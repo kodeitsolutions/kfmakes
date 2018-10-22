@@ -22,7 +22,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::orderBy('name')->paginate(7);
+        $users = User::orderBy('name')->paginate();
         return view('users.index',compact('users'));
     }
 
@@ -147,17 +147,17 @@ class UsersController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $users = User::orderBy('name')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $users = User::orderBy('name')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $users = User::where('name','LIKE', $query . '%')
                 ->orWhere('email','LIKE', $query . '%')
                 ->orderBy('name')
-                ->paginate(7);
+                ->paginate();
         }
         else {
-            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(7);
+            $users = User::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate();
         }
         
         if($users->isEmpty()) {
@@ -243,7 +243,7 @@ class UsersController extends Controller
             $path = $request->file('users_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
 
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $users = User::all();
                                 
                 foreach ($data as $row) {

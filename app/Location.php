@@ -13,6 +13,8 @@ class Location extends Model
      */
     protected $fillable = ['name','telephone','in_charge','country','user_id'];
 
+    protected $perPage = 7;
+
     //Relationships
     public function user()
     {

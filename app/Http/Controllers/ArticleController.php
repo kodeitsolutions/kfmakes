@@ -23,7 +23,7 @@ class ArticleController extends Controller
         //
         $categories = Category::orderBy('name')->get();
         $products = Product::join('types','products.type_id','=','types.id')->orderBy('types.name')->orderBy('products.name')->select('products.*')->get();
-        $articles = Article::orderBy('name')->paginate(7);
+        $articles = Article::orderBy('name')->paginate();
         return view('articles.index',compact('articles','categories','products'));
     }
 
@@ -161,10 +161,10 @@ class ArticleController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $articles = Article::orderBy('name')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $articles = Article::orderBy('name')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $articles = Article::where('articles.name','LIKE', $query . '%')
                 ->orWhereHas('category', function ($q) use ($query){
                         $q->where('name','LIKE', '%' . $query . '%');
@@ -176,7 +176,7 @@ class ArticleController extends Controller
                 ->leftJoin('products','articles.product_id','=','products.id')
                 ->orderBy('articles.name')
                 ->select('articles.*')
-                ->paginate(7);           
+                ->paginate();           
         } 
         elseif ($parameter == 'category') {
             $articles = Article::whereHas('category', function ($q) use ($query){
@@ -184,7 +184,7 @@ class ArticleController extends Controller
                     })
                 ->join('categories','articles.category_id','=','categories.id')
                 ->orderBy('articles.name')->select('articles.*')
-                ->paginate(7); 
+                ->paginate(); 
         }
         elseif ($parameter == 'product') {
             $articles = Article::whereHas('product', function ($q) use ($query){
@@ -192,10 +192,10 @@ class ArticleController extends Controller
                     })
                 ->leftJoin('products','articles.product_id','=','products.id')
                 ->orderBy('articles.name')->select('articles.*')
-                ->paginate(7); 
+                ->paginate(); 
         }
         else {
-            $articles = Article::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(7);   
+            $articles = Article::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate();   
         }
 
         if($articles->isEmpty()) {
@@ -251,7 +251,7 @@ class ArticleController extends Controller
             $path = $request->file('articles_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $articles = Article::all();
                                 
                 foreach ($data as $article) {

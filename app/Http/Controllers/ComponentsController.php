@@ -21,7 +21,7 @@ class ComponentsController extends Controller
     {
         //
         $types = Type::where('kind','Componente')->orderBy('name')->get();
-        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);        
+        $components = Component::with('type')->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate();        
         return view('components.index',compact('components','types'));
     }
 
@@ -121,7 +121,7 @@ class ComponentsController extends Controller
 
         $data = $request->all();        
         
-        $saved = $component->update($data);
+        $saved = $component->update($data);        
 
         if ($saved) {
             $request->session()->flash('flash_message', 'Componente '.$component->type->name.' / '.$component->name.' modificado.');
@@ -131,7 +131,7 @@ class ComponentsController extends Controller
         }
 
         return redirect('/component');
-    }
+    }    
 
     /**
      * Remove the specified resource from storage.
@@ -167,27 +167,27 @@ class ComponentsController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $components = Component::join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $components = Component::where('components.name','LIKE', $query . '%')
                 ->orWhere('cost','LIKE', $query . '%')
                 ->orwhereHas('type', function ($q) use ($query){
                         $q->where('name','LIKE', '%' . $query . '%');
                     })
                 ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')
-                ->paginate(7);
+                ->paginate();
         }
         elseif ($parameter == 'type') {
             $components = Component::whereHas('type', function ($q) use ($query){
                     $q->where('name','LIKE', '%' . $query . '%');
                 })
-            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate();
         }
         else {
             $components = Component::where('components.'.$parameter, 'LIKE', '%' . $query . '%')
-            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate(7);      
+            ->join('types','components.type_id','=','types.id')->orderBy('types.name')->orderBy('components.name')->select('components.*')->paginate();      
         }
 
         if($components->isEmpty()) {
@@ -233,7 +233,7 @@ class ComponentsController extends Controller
             $path = $request->file('components_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
 
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $components = Component::all();
                                 
                 foreach ($data as $row) {

@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::orderBy('name')->paginate(7);
+        $categories = Category::orderBy('name')->paginate();
         return view('categories.index',compact('categories'));
     }
 
@@ -162,16 +162,16 @@ class CategoryController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $categories = Category::orderBy('name')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $categories = Category::orderBy('name')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $categories = Category::Where('name','LIKE', $query . '%')
                 ->orderBy('name')
-                ->paginate(7);
+                ->paginate();
         } 
         else {
-            $categories = Category::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(7);   
+            $categories = Category::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate();   
         }
 
         if($categories->isEmpty()) {
@@ -223,7 +223,7 @@ class CategoryController extends Controller
             $path = $request->file('categories_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $categories = Category::all();
                                 
                 foreach ($data as $category) {

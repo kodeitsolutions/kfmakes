@@ -20,6 +20,8 @@ class Record extends Model
      */
     protected $appends = ['name'];
 
+    protected $perPage = 10;
+
     //Relationships
     public function user()
     {

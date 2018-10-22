@@ -18,6 +18,7 @@ class User extends Authenticatable
         'name', 'email', 'password','superuser'
     ];
 
+    protected $perPage = 7;
     /**
      * The attributes that should be hidden for arrays.
      *

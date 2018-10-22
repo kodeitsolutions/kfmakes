@@ -13,6 +13,8 @@ class Type extends Model
      */
     protected $fillable = ['name','kind','user_id','category_id'];
 
+    protected $perPage = 7;
+
     //Relationships
     public function user()
     {

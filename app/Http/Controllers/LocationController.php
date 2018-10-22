@@ -19,7 +19,7 @@ class LocationController extends Controller
     public function index()
     {
         //
-        $locations = Location::orderBy('name')->paginate(7);
+        $locations = Location::orderBy('name')->paginate();
         return view('locations.index',compact('locations'));
     }
 
@@ -163,19 +163,19 @@ class LocationController extends Controller
         $parameter = $request->search;
         $query = $request->value;
 
-        if ($parameter == '' && $query == '') {
-            $locations = Location::orderBy('name')->paginate(7);
+        if ($parameter == '' and $query == '') {
+            $locations = Location::orderBy('name')->paginate();
         } 
-        elseif ($parameter == '' && $query != '') {
+        elseif ($parameter == '' and $query != '') {
             $locations = Location::where('name','LIKE', $query . '%')
                 ->orWhere('telephone','LIKE', $query . '%')
                 ->orWhere('in_charge','LIKE', $query . '%')
                 ->orWhere('country','LIKE', $query . '%')
                 ->orderBy('name')
-                ->paginate(7);
+                ->paginate();
         } 
         else {
-            $locations = Location::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate(7);   
+            $locations = Location::where($parameter, 'LIKE', '%' . $query . '%')->orderBy('name')->paginate();   
         }
 
         if($locations->isEmpty()) {
@@ -228,7 +228,7 @@ class LocationController extends Controller
             $path = $request->file('locations_file')->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             
-            if(!empty($data) && $data->count()){
+            if(!empty($data) and $data->count()){
                 $locations = Location::all();
                                 
                 foreach ($data as $location) {
