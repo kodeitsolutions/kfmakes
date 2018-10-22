@@ -249,7 +249,7 @@
 			
 	<div class="row"> 
 		<div class="mr-auto ml-3">
-			<a href="/product" class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Salir config."><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
+			<a href="javascript:history.go(-1)" class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Salir config."><span class="fa fa-arrow-left"></span> <span class="fa fa-cog"></span></a>
 			<span data-toggle="modal" data-target="#myModalImport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Importar"><span class="fa fa-upload"></span></button></span>
 			<span data-toggle="modal" data-target="#myModalExport"><button class="btn btn-default btn-sm mr-3" role="button" data-toggle="tooltip" data-placement="top" title="Exportar"><span class="fa fa-download"></span></button></span>
 		</div>
